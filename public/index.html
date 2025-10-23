@@ -40,6 +40,8 @@
     padding: 16px;
     margin-top: 16px;
     background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
   }
   .msg {
     margin-bottom: 10px;
@@ -47,6 +49,7 @@
     border-radius: 10px;
     max-width: 80%;
     line-height: 1.4;
+    word-wrap: break-word;
   }
   .user {
     background: var(--teal);
@@ -80,6 +83,10 @@
     font-weight: bold;
     cursor: pointer;
   }
+  button:hover {
+    background: var(--yellow);
+    color: var(--black);
+  }
 </style>
 </head>
 <body>
@@ -109,37 +116,60 @@ async function sendMessage() {
   addMessage(text, "user");
   input.value = "";
 
-  // create request to your backend
-  const res = await fetch("/session", { method: "POST" });
-  const session = await res.json();
-  if (!session.client_secret) {
-    addMessage("Server error: unable to start session.", "bot");
-    return;
+  try {
+    // Ask our backend to create an ephemeral session
+    const res = await fetch("/session", { method: "POST" });
+    const session = await res.json();
+    if (!session.client_secret) {
+      addMessage("Server error: unable to start session.", "bot");
+      return;
+    }
+
+    // Call the Responses API with that ephemeral token
+    const reply = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${session.client_secret}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: session.model,
+        input: [
+          { role: "user", content: [{ type: "input_text", text }] }
+        ],
+        instructions:
+          "You are the English Mastery Coach: respond in English, be friendly, clear and motivating. Correct mistakes naturally and ask one short follow-up question."
+      })
+    });
+
+    const data = await reply.json();
+
+    // Extract the model's text safely
+    let output = "No reply.";
+    try {
+      if (data.output && data.output.length > 0) {
+        output = data.output
+          .map(o => o.content?.map(c => c.text).join(' '))
+          .join(' ');
+      } else if (data.output_text) {
+        output = data.output_text;
+      }
+    } catch { /* ignore parse errors */ }
+
+    addMessage(output.trim(), "bot");
+  } catch (err) {
+    console.error(err);
+    addMessage("Connection error: please try again.", "bot");
   }
-
-  // send message to model using the Responses API
-  const reply = await fetch("https://api.openai.com/v1/responses", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${session.client_secret}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: session.model,
-      input: text,
-      instructions: "Answer as the English Mastery Coach: friendly, encouraging, and correcting mistakes naturally."
-    })
-  });
-
-  const data = await reply.json();
-  const output = data.output?.[0]?.content?.[0]?.text || "No reply.";
-  addMessage(output, "bot");
 }
 
 sendBtn.onclick = sendMessage;
 input.addEventListener("keydown", e => {
   if (e.key === "Enter") sendMessage();
 });
+
+// Greeting
+addMessage("Hi! I’m your English Mastery Coach. How would you like to practice today?");
 </script>
 </body>
 </html>
