@@ -6,87 +6,21 @@
 <title>English Mastery — Text Coach</title>
 <style>
   :root {
-    --teal:#31c1bb;
-    --yellow:#f5b305;
-    --orange:#e34410;
-    --black:#0C0101;
-    --white:#ffffff;
+    --teal:#31c1bb; --yellow:#f5b305; --orange:#e34410; --black:#0C0101; --white:#ffffff;
   }
-  body {
-    font-family: "Poppins", sans-serif;
-    background: var(--white);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  header {
-    background: var(--teal);
-    color: var(--white);
-    width: 100%;
-    padding: 16px;
-    text-align: center;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-  }
-  #chat {
-    width: 100%;
-    max-width: 600px;
-    height: 70vh;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    overflow-y: auto;
-    padding: 16px;
-    margin-top: 16px;
-    background: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-  }
-  .msg {
-    margin-bottom: 10px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    max-width: 80%;
-    line-height: 1.4;
-    word-wrap: break-word;
-  }
-  .user {
-    background: var(--teal);
-    color: var(--white);
-    align-self: flex-end;
-    margin-left: auto;
-  }
-  .bot {
-    background: #fff;
-    border: 1px solid #ddd;
-  }
-  #controls {
-    margin-top: 12px;
-    display: flex;
-    width: 100%;
-    max-width: 600px;
-    gap: 8px;
-  }
-  input {
-    flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
-  button {
-    background: var(--orange);
-    color: var(--white);
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  button:hover {
-    background: var(--yellow);
-    color: var(--black);
-  }
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+         background:#fff; margin:0; display:flex; flex-direction:column; align-items:center; }
+  header { background: var(--teal); color:#fff; width:100%; padding:16px; text-align:center; font-weight:600; }
+  #chat { width:100%; max-width:700px; height:70vh; border:1px solid #e5e7eb; border-radius:14px;
+          overflow-y:auto; padding:16px; margin-top:16px; background:#f8fafc; display:flex; flex-direction:column; gap:10px; }
+  .msg { padding:10px 14px; border-radius:12px; max-width:80%; line-height:1.45; word-wrap:break-word; }
+  .user { align-self:flex-end; background: #e7fff9; border:1px solid rgba(49,193,187,.35); }
+  .bot  { align-self:flex-start; background:#fff; border:1px solid #e5e7eb; }
+  #controls { margin-top:12px; display:flex; width:100%; max-width:700px; gap:8px; }
+  input { flex:1; padding:12px; border-radius:10px; border:1px solid #cbd5e1; }
+  button { background:var(--orange); color:#fff; border:none; padding:12px 20px; border-radius:10px; font-weight:700; cursor:pointer; }
+  button:hover { background:var(--yellow); color:var(--black); }
+  .status { margin-top:8px; font-size:12px; color:#64748b; }
 </style>
 </head>
 <body>
@@ -96,15 +30,17 @@
     <input type="text" id="input" placeholder="Write your message..." />
     <button id="send">Send</button>
   </div>
+  <div class="status" id="status"></div>
 
 <script>
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 const sendBtn = document.getElementById("send");
+const statusEl = document.getElementById("status");
 
 function addMessage(text, who="bot") {
   const msg = document.createElement("div");
-  msg.classList.add("msg", who);
+  msg.className = "msg " + who;
   msg.textContent = text;
   chat.appendChild(msg);
   chat.scrollTop = chat.scrollHeight;
@@ -115,60 +51,32 @@ async function sendMessage() {
   if (!text) return;
   addMessage(text, "user");
   input.value = "";
+  statusEl.textContent = "Thinking…";
 
   try {
-    // Ask our backend to create an ephemeral session
-    const res = await fetch("/session", { method: "POST" });
-    const session = await res.json();
-    if (!session.client_secret) {
-      addMessage("Server error: unable to start session.", "bot");
-      return;
-    }
-
-    // Call the Responses API with that ephemeral token
-    const reply = await fetch("https://api.openai.com/v1/responses", {
+    const r = await fetch("/respond", {
       method: "POST",
-      headers: {
-        "Authorization": `Bearer ${session.client_secret}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: session.model,
-        input: [
-          { role: "user", content: [{ type: "input_text", text }] }
-        ],
-        instructions:
-          "You are the English Mastery Coach: respond in English, be friendly, clear and motivating. Correct mistakes naturally and ask one short follow-up question."
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
     });
 
-    const data = await reply.json();
-
-    // Extract the model's text safely
-    let output = "No reply.";
-    try {
-      if (data.output && data.output.length > 0) {
-        output = data.output
-          .map(o => o.content?.map(c => c.text).join(' '))
-          .join(' ');
-      } else if (data.output_text) {
-        output = data.output_text;
-      }
-    } catch { /* ignore parse errors */ }
-
-    addMessage(output.trim(), "bot");
-  } catch (err) {
-    console.error(err);
-    addMessage("Connection error: please try again.", "bot");
+    const data = await r.json();
+    if (!r.ok || !data?.ok) {
+      addMessage("Server error. (" + (data?.error || r.status) + ")", "bot");
+    } else {
+      addMessage(data.text || "No reply.", "bot");
+    }
+  } catch (e) {
+    addMessage("Connection error. Try again.", "bot");
+  } finally {
+    statusEl.textContent = "";
   }
 }
 
 sendBtn.onclick = sendMessage;
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter") sendMessage();
-});
+input.addEventListener("keydown", e => { if (e.key === "Enter") sendMessage(); });
 
-// Greeting
+// Mensagem inicial
 addMessage("Hi! I’m your English Mastery Coach. How would you like to practice today?");
 </script>
 </body>
