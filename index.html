@@ -1,437 +1,408 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sr. Mastrius — English Mastery Coach</title>
-<style>
-  :root {
-    --teal:#31c1bb; --yellow:#f5b305; --orange:#e34410; --black:#0C0101; --white:#ffffff;
-    --bg:#f7fafb; --card:#ffffff; --muted:#6b7280; --ring:#e6edf0;
-  }
-  * { box-sizing:border-box }
-  body {
-    margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    background:linear-gradient(180deg,#f9ffff, #eefbfa 60%, #ffffff);
-    color:#0f172a; display:flex; align-items:center; justify-content:center; min-height:100dvh; padding:16px;
-  }
-  .app {
-    width:min(960px,100%); background:var(--card); border-radius:18px; padding:18px;
-    border:1px solid rgba(12,1,1,.07); box-shadow:0 10px 30px rgba(0,0,0,.07);
-  }
-  header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px }
-  .brand { display:flex; align-items:center; gap:12px }
-  .title { font-weight:800; letter-spacing:.2px }
-  .sub { font-size:13px; color:var(--muted) }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sr. Mastrius - Seu Coach de Inglês</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
-  /* Avatar + progress ring */
-  .hero { display:flex; gap:18px; align-items:center }
-  .ring {
-    position:relative; width:92px; height:92px;
-    display:grid; place-items:center;
-  }
-  .ring svg { position:absolute; inset:0; transform:rotate(-90deg) }
-  .ring .bg { stroke:var(--ring); stroke-width:10; fill:none }
-  .ring .fg { stroke:var(--teal); stroke-linecap:round; stroke-width:10; fill:none; transition:stroke-dashoffset .4s ease }
-  .avatar {
-    width:72px; height:72px; border-radius:999px; overflow:hidden; display:grid; place-items:center; background:#fff; border:1px solid rgba(12,1,1,.08)
-  }
-  /* Avatar cartoon (busto) em SVG inline */
-  .avatar svg { width:64px; height:64px }
+    <style>
+        /* Configuração Global */
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
 
-  .badge { display:flex; align-items:center; gap:8px; border:1px dashed rgba(12,1,1,.15);
-    padding:8px 12px; border-radius:999px; background:#fff; color:#374151; font-size:13px }
-  .badge.locked { opacity:.7 }
+        .container {
+            max-width: 480px;
+            width: 100%;
+            padding: 1rem;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
 
-  .screen { display:none }
-  .screen.active { display:block }
+        /* Navegação de Telas */
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .screen.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-  .card {
-    border:1px solid rgba(12,1,1,.08); border-radius:16px; background:var(--bg); padding:16px;
-  }
+        /* ===== TELA 1: WELCOME CARD ===== */
+        .welcome-card {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            text-align: center;
+        }
 
-  /* Chat */
-  .chat { height:420px; overflow:auto; display:flex; flex-direction:column; gap:10px; padding:12px; background:#fff; border-radius:14px; border:1px solid rgba(12,1,1,.08) }
-  .bubble { max-width:85%; padding:10px 14px; border-radius:12px; line-height:1.45; white-space:pre-wrap }
-  .bot { align-self:flex-start; background:#fff; border:1px solid rgba(12,1,1,.1) }
-  .user { align-self:flex-end; background:#e7fff9; border:1px solid rgba(49,193,187,.35) }
-  .controls { display:flex; gap:8px; margin-top:10px }
-  input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
-    flex:1; padding:12px 14px; border-radius:12px; border:1px solid rgba(12,1,1,.15); background:#fff; font-size:14px
-  }
-  button {
-    border:none; cursor:pointer; border-radius:12px; padding:12px 16px; font-weight:700;
-    background:var(--orange); color:#fff; transition: transform .08s ease; box-shadow:0 6px 14px rgba(227,68,16,.25)
-  }
-  button:hover { transform:translateY(-1px) }
-  button.secondary { background:#fff; color:#0C0101; border:1px solid rgba(12,1,1,.18); box-shadow:none }
-  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center }
-  .hint { font-size:13px; color:var(--muted); margin-top:4px }
-  .split { display:grid; grid-template-columns:1.2fr .8fr; gap:16px }
-  @media (max-width:900px){ .split{ grid-template-columns:1fr } }
-  .list { display:flex; flex-wrap:wrap; gap:8px }
-  .pill { padding:8px 12px; border-radius:999px; border:1px solid rgba(12,1,1,.12); background:#fff; font-size:13px; cursor:pointer }
-  .pill.active { background:#e7fff9; border-color:rgba(49,193,187,.4) }
-  .status { font-size:12px; color:#64748b; margin-top:6px }
+        .logo-container {
+            margin-bottom: 1rem;
+        }
 
-  .lead-form { display:grid; gap:10px }
-  .reward { display:flex; align-items:center; gap:10px; font-weight:700 }
-  .reward .lock { font-size:18px }
-  .ok { color:#10b981; font-weight:700 }
-  .warn { color:#ef4444; font-weight:700 }
-</style>
-</head>
+        /* Logo com Aura */
+        .logo-mastrius {
+            font-size: 5rem; /* Tamanho do ícone de cérebro */
+            color: #e77eed; /* Cor rosa do seu logo original */
+            padding: 10px;
+            border-radius: 50%;
+            animation: pulseAura 2.5s infinite ease-in-out;
+        }
+        @keyframes pulseAura {
+            0% {
+                box-shadow: 0 0 0 0 rgba(231, 126, 237, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(231, 126, 237, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(231, 126, 237, 0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* Lista de Vantagens */
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 2.5rem 0;
+            text-align: left;
+        }
+        .features-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: #31c1bb; /* Cor Teal - English Mastery */
+            text-align: center;
+        }
+        .features-list div {
+            display: flex;
+            flex-direction: column;
+        }
+        .features-list strong {
+            font-weight: 600;
+        }
+        .features-list span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Botões */
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            text-decoration: none; /* Para o link do Calendly */
+            display: inline-block; /* Para o link do Calendly */
+        }
+        .btn-primary {
+            background-color: #31c1bb; /* Teal */
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+        .btn-primary:hover {
+            background-color: #2aabb2;
+        }
+        .btn-secondary {
+            background-color: #FFFFFF;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+        .btn-secondary:hover {
+            background-color: #f9f9f9;
+        }
+        .footer-note {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        /* ===== TELA 3: LOGIN CARD ===== */
+        .login-card {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            text-align: center;
+        }
+        .login-card h2 {
+            margin-bottom: 2rem;
+        }
+        .login-card input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        .login-card .btn-secondary {
+            margin-top: 0.75rem;
+        }
+
+        /* ===== TELA 4: CHAT ===== */
+        .chat-container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #chat-box {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+        .input-area {
+            display: flex;
+            border-top: 1px solid #eee;
+            padding: 1rem;
+        }
+        #user-input {
+            flex-grow: 1;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+        #send-button {
+            width: auto;
+            margin-left: 0.5rem;
+            padding: 0 1.2rem;
+            margin-bottom: 0;
+        }
+
+        /* Mensagens do Chat */
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            max-width: 85%;
+            line-height: 1.5;
+        }
+        .user-message {
+            background-color: #f0f0f0;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .ai-message {
+            background-color: #e6f9f8; /* Tom claro do seu Teal */
+            align-self: flex-start;
+        }
+         .ai-message.thinking {
+            color: #888;
+            font-style: italic;
+         }
+
+        /* ===== TELA 2: AVALIAÇÃO ===== */
+        #evaluation-screen, #result-screen {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #f5b305; /* Amarelo */
+            border-radius: 5px;
+            transition: width 0.4s ease;
+        }
+        #question-area button.option-btn {
+            display: block;
+            width: 100%;
+            padding: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-align: left;
+            background-color: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #question-area button.option-btn:hover {
+            background-color: #e6f9f8;
+            border-color: #31c1bb;
+        }
+        #lead-form input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        .reward-unlocked {
+            text-align: center;
+            border: 2px dashed #f5b305;
+            background-color: #fffaf0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+        }
+        .reward-unlocked .fa-gift {
+            font-size: 2rem;
+            color: #f5b305;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+    </head>
 <body>
-  <div class="app">
-    <header>
-      <div class="brand">
-        <div class="hero">
-          <!-- Progress ring -->
-          <div class="ring">
-            <svg viewBox="0 0 100 100" aria-hidden="true">
-              <circle class="bg" cx="50" cy="50" r="42"></circle>
-              <circle id="ring-fg" class="fg" cx="50" cy="50" r="42"
-                stroke-dasharray="264" stroke-dashoffset="264"></circle>
-            </svg>
-            <!-- Avatar -->
-            <div class="avatar" aria-label="Avatar do Sr. Mastrius">
-              <!-- Cartoon coach (busto) -->
-              <svg viewBox="0 0 128 128">
-                <circle cx="64" cy="64" r="62" fill="#fff"/>
-                <circle cx="64" cy="50" r="22" fill="#f2d3c2"/>
-                <rect x="38" y="84" width="52" height="30" rx="14" fill="#31c1bb"/>
-                <path d="M40,94 Q64,80 88,94 L88,112 L40,112 Z" fill="#0C0101" opacity="0.15"/>
-                <path d="M48,54 q16,10 32,0" stroke="#0C0101" stroke-width="3" fill="none" opacity=".15"/>
-                <circle cx="56" cy="48" r="2.5" fill="#0C0101"/><circle cx="72" cy="48" r="2.5" fill="#0C0101"/>
-                <path d="M54,63 q10,6 20,0" stroke="#e34410" stroke-width="3" fill="none"/>
-                <rect x="50" y="24" width="28" height="14" rx="7" fill="#0C0101"/>
-              </svg>
+
+    <div class="container">
+        
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-card">
+                <div class="logo-container">
+                    <i class="fa-solid fa-brain logo-mastrius"></i>
+                </div>
+                <h1>Sr. Mastrius</h1>
+                <p class="subtitle">Seu coach de inglês com metodologia de especialista</p>
+
+                <ul class="features-list">
+                    <li>
+                        <i class="fa-solid fa-chart-line feature-icon"></i>
+                        <div>
+                            <strong>Avaliação Inteligente</strong>
+                            <span>Teste adaptativo que se ajusta ao seu nível</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-bullseye feature-icon"></i>
+                        <div>
+                            <strong>Diagnóstico Preciso</strong>
+                            <span>Descubra seus pontos fortes e áreas de desenvolvimento</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-user-graduate feature-icon"></i>
+                        <div>
+                            <strong>Coaching Personalizado</strong>
+                            <span>Prática real com seu nível exato</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <button id="start-evaluation-btn" class="btn btn-primary">Começar Avaliação (5-8 min)</button>
+                <button id="student-login-btn" class="btn btn-secondary">Já sou Aluno</button>
+                <span class="footer-note">Nenhum cartão de crédito necessário</span>
             </div>
-          </div>
-          <div>
-            <div class="title">Sr. Mastrius — English Mastery Coach</div>
-            <div class="sub">Bem-vindo! Vamos começar em português e, aos poucos, mudar para inglês.</div>
-          </div>
         </div>
-      </div>
-      <div class="badge locked" id="badge">
-        <span>🎁</span> <span id="badge-text">Recompensa: (Nível + Speaking Test) bloqueado</span>
-      </div>
-    </header>
 
-    <!-- SCREEN: Welcome -->
-    <section id="screen-welcome" class="screen active card">
-      <p class="bubble bot">
-        Olá! Eu sou o <strong>Sr. Mastrius</strong>. Vamos descobrir seu nível de inglês e liberar uma sessão gratuita de speaking?
-      </p>
-      <div class="row">
-        <button id="btnStart">Começar avaliação</button>
-        <button id="btnLogin" class="secondary">Sou aluno EM</button>
-      </div>
-      <div class="hint">Dura ~5–8 min. Primeiras instruções em PT-BR; perguntas em inglês.</div>
-    </section>
+        <div id="evaluation-screen" class="screen">
+            <h2>Teste de Nivelamento</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 0%;"></div>
+            </div>
+            <p id="question-counter">Pergunta 1...</p>
+            
+            <div id="question-area">
+                </div>
 
-    <!-- SCREEN: Placement -->
-    <section id="screen-placement" class="screen">
-      <div class="split">
-        <div class="card">
-          <div class="chat" id="placeChat" aria-live="polite"></div>
-          <div class="controls">
-            <input id="placeInput" type="text" placeholder="Type your answer in English…" autocomplete="off"/>
-            <button id="placeSend">Send</button>
-          </div>
-          <div class="status" id="placeStatus"></div>
+            <div id="lead-form" style="display: none;">
+                <h3><i class="fa-solid fa-gift"></i> Diagnóstico Quase Pronto!</h3>
+                <p>Insira seus dados para ver sua análise completa e desbloquear seu prêmio.</p>
+                <input type="text" id="lead-name" placeholder="Seu Nome">
+                <input type="email" id="lead-email" placeholder="Seu E-mail">
+                <input type="tel" id="lead-whatsapp" placeholder="Seu WhatsApp">
+                <button id="submit-lead-btn" class="btn btn-primary">Ver meu Diagnóstico!</button>
+            </div>
+            <button id="back-to-welcome-from-eval" class="btn btn-secondary" style="margin-top: 1rem;">Voltar</button>
         </div>
-        <aside class="card">
-          <div class="reward"><span class="lock" id="lock">🔒</span> <span id="rewardText">Resultado bloqueado</span></div>
-          <div class="hint">Complete o teste para desbloquear seu diagnóstico e a sessão gratuita.</div>
-          <div style="margin-top:10px">
-            <div class="list" id="tags"></div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- SCREEN: Lead Gate -->
-    <section id="screen-gate" class="screen card">
-      <p class="bubble bot">
-        Ótimo trabalho! Para ver seu <strong>diagnóstico</strong> (pontos fortes, focos e nível estimado) e liberar sua <strong>sessão gratuita</strong>, preencha:
-      </p>
-      <form id="leadForm" class="lead-form">
-        <input id="leadName"  type="text"  placeholder="Nome completo" required />
-        <input id="leadEmail" type="email" placeholder="E-mail" required />
-        <input id="leadWhats" type="tel"   placeholder="WhatsApp (com DDD)" required />
-        <button type="submit">Ver diagnóstico & desbloquear recompensa</button>
-      </form>
-      <div class="status" id="leadStatus"></div>
-    </section>
-
-    <!-- SCREEN: Result -->
-    <section id="screen-result" class="screen card">
-      <div id="resultArea" class="bubble bot"></div>
-      <div class="row" style="margin-top:10px">
-        <a class="pill" id="calendly" href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank" rel="noopener">📅 Agendar Speaking Test (30min)</a>
-        <button id="goConversation">Ir para Conversação</button>
-      </div>
-    </section>
-
-    <!-- SCREEN: Login EM -->
-    <section id="screen-login" class="screen card">
-      <p class="bubble bot">
-        Acesso para alunos EM. Digite seu nome e sobrenome e a senha para desbloquear o modo de conversação.
-      </p>
-      <div class="controls">
-        <input id="emName" type="text" placeholder="Nome" />
-        <input id="emLast" type="text" placeholder="Sobrenome" />
-      </div>
-      <div class="controls">
-        <input id="emPass" type="password" placeholder="Senha (dica: destrave)" />
-        <button id="emEnter">Entrar</button>
-      </div>
-      <div class="hint">No primeiro acesso, seu login será <em>nome+sobrenome</em> (sem espaços). Próximas vezes: basta usar o login salvo.</div>
-      <div class="status" id="loginStatus"></div>
-    </section>
-
-    <!-- SCREEN: Conversation -->
-    <section id="screen-convo" class="screen">
-      <div class="split">
-        <div class="card">
-          <div class="chat" id="convoChat" aria-live="polite"></div>
-          <div class="controls">
-            <input id="convoInput" type="text" placeholder="Talk to Sr. Mastrius…" autocomplete="off"/>
-            <button id="convoSend">Send</button>
-          </div>
-          <div class="status" id="convoStatus"></div>
+        
+        <div id="result-screen" class="screen">
+            <h3>Seu Diagnóstico:</h3>
+            <p><strong>Nível Estimado: <span id="level-text"></span></strong></p>
+            <p id="diagnostic-text">Analisando seus resultados...</p>
+            
+            <div class="reward-unlocked">
+                <i class="fa-solid fa-gift"></i>
+                <strong>Recompensa Desbloqueada!</strong>
+                <p>Agende sua aula experimental gratuita para validarmos seu nível.</p>
+                <a href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank" class="btn btn-primary" style="background-color: #f5b305; color: #333;">Agendar Aula Gratuita!</a>
+            </div>
+            <button id="back-to-welcome-from-result" class="btn btn-secondary" style="margin-top: 1rem;">Voltar ao Início</button>
         </div>
-        <aside class="card">
-          <div class="sub"><strong>Temas sugeridos</strong> (por nível CEFR)</div>
-          <div class="list" id="topicList"></div>
-          <div class="hint">Sugestões ficam mais relevantes com o tempo, conforme seus interesses.</div>
-        </aside>
-      </div>
-    </section>
-  </div>
 
-<script>
-/* ------------------ State Helpers ------------------ */
-const $ = (id)=>document.getElementById(id);
-const screens = ["screen-welcome","screen-placement","screen-gate","screen-result","screen-login","screen-convo"];
-function show(id){ screens.forEach(s=>$(s).classList.remove("active")); $(id).classList.add("active"); }
-function setRing(pct){
-  // ring circumference ~ 2πr = 2*3.14*42 ≈ 264
-  const total=264; const off = total - total * Math.max(0,Math.min(1,pct));
-  $("ring-fg").style.strokeDashoffset = String(off);
-}
-function addBubble(el, text, who="bot"){
-  const d=document.createElement("div"); d.className="bubble "+who; d.textContent=text;
-  el.appendChild(d); el.scrollTop = el.scrollHeight;
-}
 
-/* ------------------ Welcome ------------------ */
-$("btnStart").onclick = ()=>{
-  show("screen-placement");
-  startPlacement();
-};
-$("btnLogin").onclick = ()=> show("screen-login");
+        <div id="login-screen" class="screen">
+             <div class="login-card">
+                <i class="fa-solid fa-brain logo-mastrius" style="font-size: 40px; margin-bottom: 1rem;"></i>
+                <h2>Login de Aluno</h2>
+                <input type="text" id="student-name" placeholder="Nome e Sobrenome">
+                <input type="password" id="student-password" placeholder="Senha (destrave)">
+                <button id="login-submit-btn" class="btn btn-primary">Entrar</button>
+                <button id="back-to-welcome-from-login" class="btn btn-secondary">Voltar</button>
+            </div>
+        </div>
 
-/* ------------------ Placement Engine ------------------ */
-/* Mini-banco de perguntas por faixas (A1/A2/B1). Cada item: {q, key, level, ok: [palavras/frases aceitas], tip} */
-const BANK = [
-  // A1
-  { level:"A1", key:"greet", q:"Hi! What's your name?", ok:["my name is","i'm"], tip:"Say: “I’m <name>.”" },
-  { level:"A1", key:"origin", q:"Where are you from?", ok:["from","i'm from"], tip:"Use: “I’m from <city/country>.”" },
-  { level:"A1", key:"likes", q:"What do you like to do in your free time?", ok:["like","love","enjoy"], tip:"Use a verb: “I like… / I enjoy…”" },
+        <div id="chat-screen" class="screen">
+            <h2 style="text-align: center;">Prática com Sr. Mastrius</h2>
+            <div class="chat-container">
+                <div id="chat-box">
+                    </div>
+                <div class="input-area">
+                    <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+                    <button id="send-button" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
 
-  // A2
-  { level:"A2", key:"routine", q:"Tell me about your typical weekday.", ok:["work","study","wake","usually"], tip:"Use present simple: “I usually…”" },
-  { level:"A2", key:"travel", q:"Do you prefer traveling by plane, car, or bus? Why?", ok:["plane","car","bus","because"], tip:"Compare and give a reason." },
-  { level:"A2", key:"past", q:"What did you do last weekend?", ok:["went","watched","visited","stayed","did"], tip:"Use past: “I went… / I watched…”" },
+    </div>
 
-  // B1
-  { level:"B1", key:"work", q:"Describe a challenge at work or school and how you handled it.", ok:["because","so","but","first","then"], tip:"Explain the situation and what you did." },
-  { level:"B1", key:"opinion", q:"Do you think learning English online is as effective as in-person classes?", ok:["i think","in my opinion","depends"], tip:"Give your view and one reason." },
-  { level:"B1", key:"goal", q:"What is a specific English goal you want to achieve in 3 months?", ok:["i want","my goal","improve"], tip:"Be concrete: exam, meeting, travel…" },
-];
+    <script src="prompt.js"></script>
+    <script src="cefr.js"></script>
 
-let placeState = {
-  step:0, correct:0, wrong:0, levelScore:0, // >0 sobe, <0 desce
-  tags:new Set(), // interesses/temas detectados
-  started:false, finished:false, maxSteps:7
-};
-
-function pickQuestion(){
-  // regra simples: começa A1 → sobe p/ A2 se score>=2 → B1 se score>=4
-  let tier="A1";
-  if (placeState.levelScore>=4) tier="B1";
-  else if (placeState.levelScore>=2) tier="A2";
-  const pool = BANK.filter(x=>x.level===tier);
-  const used = placeState.step % pool.length;
-  return pool[used];
-}
-
-function judge(answer, item){
-  const a = answer.toLowerCase();
-  const hit = item.ok.some(k=>a.includes(k));
-  if (hit){ placeState.correct++; placeState.levelScore++; }
-  else { placeState.wrong++; placeState.levelScore=Math.max(-2, placeState.levelScore-1); }
-  // coletar interesses (tags simples)
-  ["travel","music","movie","job","study","family","sport","goal","meeting"].forEach(t=>{
-    if (a.includes(t)) placeState.tags.add(t);
-  });
-  return hit;
-}
-
-function placementBotSay(text){ addBubble($("placeChat"), text, "bot"); }
-function placementUserSay(text){ addBubble($("placeChat"), text, "user"); }
-
-async function startPlacement(){
-  placeState={step:0, correct:0, wrong:0, levelScore:0, tags:new Set(), started:true, finished:false, maxSteps:7};
-  $("placeChat").innerHTML="";
-  setRing(0); $("badge").classList.add("locked"); $("badge-text").textContent="Recompensa: (Nível + Speaking Test) bloqueado";
-  placementBotSay("Perfeito. A partir de agora, responda em inglês. Ready?");
-  nextPlacement();
-}
-
-function nextPlacement(){
-  if (placeState.step>=placeState.maxSteps){
-    finishPlacement(); return;
-  }
-  const item = pickQuestion();
-  placementBotSay(item.q);
-  $("placeStatus").textContent = `Question ${placeState.step+1} of ${placeState.maxSteps}`;
-}
-
-$("placeSend").onclick = ()=>{
-  const val = $("placeInput").value.trim();
-  if(!val) return;
-  $("placeInput").value="";
-  placementUserSay(val);
-
-  const item = pickQuestion();
-  const ok = judge(val, item);
-  placementBotSay(ok ? "Good!" : `Nice try. ${item.tip}`);
-
-  placeState.step++;
-  setRing(placeState.step/placeState.maxSteps);
-  if (placeState.step>=placeState.maxSteps){ finishPlacement(); }
-  else { setTimeout(nextPlacement, 500); }
-};
-
-function levelFromScore(score){
-  if (score>=5) return "B1";
-  if (score>=2) return "A2";
-  return "A1";
-}
-function strengthsWeaknesses(score){
-  const s = []; const w=[];
-  if (score<=1) { s.push("basic greetings and simple preferences"); w.push("present simple and short answers with clarity"); }
-  else if (score<=3) { s.push("everyday topics and basic past actions"); w.push("richer reasons/examples and verb tenses"); }
-  else { s.push("work/school topics and opinions"); w.push("cohesion (because/so/but) and more natural phrasing"); }
-  return {s,w};
-}
-function finishPlacement(){
-  placeState.finished = true;
-  $("badge").classList.remove("locked");
-  $("badge-text").textContent = "🎁 Recompensa desbloqueada (ao final)";
-  $("rewardText").textContent = "Complete! Veja seu diagnóstico após a identificação.";
-  $("lock").textContent = "🔓";
-  show("screen-gate");
-}
-
-/* ------------------ Gate (Lead) ------------------ */
-$("leadForm").addEventListener("submit", async (e)=>{
-  e.preventDefault();
-  const name=$("leadName").value.trim();
-  const email=$("leadEmail").value.trim();
-  const whats=$("leadWhats").value.trim();
-  if(!name || !email || !whats){ $("leadStatus").textContent="Preencha todos os campos."; return; }
-  $("leadStatus").textContent="Salvando…";
-
-  // resumo diagnóstico
-  const level = levelFromScore(placeState.levelScore);
-  const {s,w} = strengthsWeaknesses(placeState.levelScore);
-  const tags = Array.from(placeState.tags);
-
-  // persist local p/ futuras sessões
-  localStorage.setItem("em_lead", JSON.stringify({name,email,whats, level, tags, ts:Date.now()}));
-
-  // tenta enviar ao backend (upsert)
-  try{
-    const r = await fetch("/lead", {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({
-        name,email,whats,
-        placement:{ score:placeState.levelScore, level, correct:placeState.correct, wrong:placeState.wrong, tags },
-        meta:{ ua:navigator.userAgent, t:Date.now() }
-      })
-    });
-    // ignora erro; segue fluxo
-    await r.text().catch(()=>{});
-  }catch(_){}
-
-  // mostra resultado
-  const diag = [
-    `Estimated level: ${level}`,
-    `You do well with: ${s.join(", ")}`,
-    `Focus next: ${w.join(", ")}`,
-    tags.length? `Topics you mentioned: ${tags.join(", ")}` : ""
-  ].filter(Boolean).join("\n");
-
-  $("resultArea").textContent = `Your diagnostic\n\n${diag}\n\nGreat job! Click below to book your free speaking test.`;
-  show("screen-result");
-});
-
-/* ------------------ Login EM ------------------ */
-$("emEnter").onclick = ()=>{
-  const n=$("emName").value.trim(); const l=$("emLast").value.trim(); const p=$("emPass").value.trim();
-  if(!n || !l || !p){ $("loginStatus").textContent="Preencha nome, sobrenome e senha."; return; }
-  if(p!=="destrave"){ $("loginStatus").innerHTML="<span class='warn'>Senha incorreta.</span>"; return; }
-  const login = (n+l).replace(/\s+/g,"").toLowerCase();
-  localStorage.setItem("em_login", login);
-  $("loginStatus").innerHTML = `<span class='ok'>Modo Conversação liberado.</span> Seu login: <strong>${login}</strong> (guardado).`;
-  setTimeout(()=> show("screen-convo"), 800);
-};
-
-/* ------------------ Conversation Mode ------------------ */
-const TOPICS = {
-  A1:["Daily greetings","Food & drinks","Family & friends","Hobbies"],
-  A2:["Travel & trips","Routine & schedules","Shopping & services","Health basics"],
-  B1:["Work meetings","Opinions & debates","Past projects","Plans & goals"]
-};
-function renderTopics(level){
-  const box=$("topicList"); box.innerHTML="";
-  (TOPICS[level]||TOPICS.A2).forEach(t=>{
-    const b=document.createElement("button"); b.className="pill"; b.textContent=t;
-    b.onclick=()=> convoSend(`Let’s practice: ${t}. Ask me questions and help me improve.`);
-    box.appendChild(b);
-  });
-}
-
-function convoAdd(text, who="bot"){ addBubble($("convoChat"), text, who); }
-async function convoSend(text){
-  if(!text){ text = $("convoInput").value.trim(); $("convoInput").value=""; }
-  if(!text) return;
-  convoAdd(text,"user");
-  $("convoStatus").textContent="Thinking…";
-  try{
-    const r = await fetch("/respond",{ method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ text })});
-    const j = await r.json();
-    if(!r.ok || !j?.ok){ convoAdd("Server error, please try again.","bot"); }
-    else { convoAdd(j.text,"bot"); }
-  }catch(_){ convoAdd("Connection error.","bot"); }
-  $("convoStatus").textContent="";
-}
-
-$("convoSend").onclick = ()=>convoSend();
-$("convoInput").addEventListener("keydown",(e)=>{ if(e.key==="Enter") convoSend(); });
-
-/* On load: personalize topics by last placement */
-(function init(){
-  const lead = JSON.parse(localStorage.getItem("em_lead")||"null");
-  const level = lead?.level || "A2";
-  renderTopics(level);
-})();
-</script>
+    <script src="script.js" defer></script>
 </body>
 </html>
