@@ -1,152 +1,380 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Sr. Mastrius — English Mastery</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --teal:#31c1bb;--yellow:#f5b305;--orange:#e34410;
-  --ink:#0C0101;--bg:#f7fafb;--white:#fff;
-  --shadow:0 10px 30px rgba(0,0,0,.06);--radius:18px
-}
-*{box-sizing:border-box;font-family:"Inter",system-ui,sans-serif}
-html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
-button{cursor:pointer;border:0;border-radius:12px;padding:12px 18px;font-weight:700;transition:.2s}
-button.primary{background:var(--orange);color:#fff;box-shadow:0 6px 16px rgba(227,68,16,.28)}
-button.primary:hover{transform:translateY(-1px);background:#ff4e11}
-button.secondary{background:#fff;border:1px solid rgba(0,0,0,.12)}
-.hidden{display:none}
-.container{max-width:980px;margin:auto;padding:20px}
-.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
-.center{text-align:center}
-.input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #cbd5e1;font:inherit}
-.row{display:flex;gap:8px;flex-wrap:wrap}
-.progress{height:8px;border-radius:8px;background:#e2e8f0;overflow:hidden;margin:10px 0 14px}
-.progress>div{height:100%;width:0;background:var(--teal);transition:width .35s}
-.bubbles{height:420px;overflow:auto;border:1px solid #e5e7eb;border-radius:14px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:80%;padding:10px 14px;border-radius:14px;white-space:pre-wrap;line-height:1.45;font-size:15px}
-.bot{align-self:flex-start;background:#f1f5f9;border:1px solid rgba(0,0,0,.06)}
-.me{align-self:flex-end;background:#e7fff9;border:1px solid rgba(49,193,187,.35)}
-footer{text-align:center;padding:14px;font-size:12px;color:#64748b}
-.avatar{width:80px;height:80px;border-radius:999px;border:2px solid var(--teal);display:grid;place-items:center;background:#fff;margin:0 auto 10px;animation:pulse 2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(49,193,187,.4)}70%{box-shadow:0 0 0 18px rgba(49,193,187,0)}100%{box-shadow:0 0 0 0 rgba(49,193,187,0)}}
-.features{list-style:none;padding:0;margin:14px 0;color:#334155}
-.features li{margin:6px 0}
-.badge{display:inline-flex;align-items:center;gap:8px;border:1px dashed #caeaea;background:#fff;padding:8px 12px;border-radius:999px}
-.pill{padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:13px}
-.reward-card{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;border:1px solid #e5e7eb;border-radius:14px;background:#fff;padding:12px}
-.reward-icon{font-size:28px}
-.reward-copy p{margin:.2em 0 0;color:#64748b}
-.lock{font-size:18px;opacity:.8}
-.howitworks{list-style:none;padding:0;margin:12px 0;display:grid;gap:10px}
-.howitworks li{display:flex;align-items:center;gap:10px}
-.howitworks li span{width:26px;height:26px;border-radius:999px;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:700}
-.modal{position:fixed;inset:0;background:rgba(2,6,23,.35);display:grid;place-items:center;padding:20px;z-index:50}
-.modal__card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:22px;max-width:460px;width:100%}
-.modal__title{margin:0 0 6px;font-weight:800}
-.modal__subtitle{margin:0 0 12px}
-</style>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sr. Mastrius - Seu Coach de Inglês</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Configuração Global */
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            padding: 1rem;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Navegação de Telas */
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .screen.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TELA 1: WELCOME CARD ===== */
+        .welcome-card {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+
+        /* Logo com Aura */
+        .logo-mastrius {
+            font-size: 5rem; /* Tamanho do ícone de cérebro */
+            color: #e77eed; /* Cor rosa do seu logo original */
+            padding: 10px;
+            border-radius: 50%;
+            animation: pulseAura 2.5s infinite ease-in-out;
+        }
+        @keyframes pulseAura {
+            0% {
+                box-shadow: 0 0 0 0 rgba(231, 126, 237, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(231, 126, 237, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(231, 126, 237, 0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* Lista de Vantagens */
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 2.5rem 0;
+            text-align: left;
+        }
+        .features-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: #31c1bb; /* Cor Teal - English Mastery */
+            text-align: center;
+        }
+        .features-list div {
+            display: flex;
+            flex-direction: column;
+        }
+        .features-list strong {
+            font-weight: 600;
+        }
+        .features-list span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Botões */
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            text-decoration: none; /* Para o link do Calendly */
+            display: inline-block; /* Para o link do Calendly */
+        }
+        .btn-primary {
+            background-color: #31c1bb; /* Teal */
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+        .btn-primary:hover {
+            background-color: #2aabb2;
+        }
+        .btn-secondary {
+            background-color: #FFFFFF;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+        .btn-secondary:hover {
+            background-color: #f9f9f9;
+        }
+        .footer-note {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        /* ===== TELA 3: LOGIN CARD ===== */
+        .login-card {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            text-align: center;
+        }
+        .login-card h2 {
+            margin-bottom: 2rem;
+        }
+        .login-card input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        .login-card .btn-secondary {
+            margin-top: 0.75rem;
+        }
+
+        /* ===== TELA 4: CHAT ===== */
+        .chat-container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #chat-box {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+        .input-area {
+            display: flex;
+            border-top: 1px solid #eee;
+            padding: 1rem;
+        }
+        #user-input {
+            flex-grow: 1;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+        #send-button {
+            width: auto;
+            margin-left: 0.5rem;
+            padding: 0 1.2rem;
+            margin-bottom: 0;
+        }
+
+        /* Mensagens do Chat */
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            max-width: 85%;
+            line-height: 1.5;
+        }
+        .user-message {
+            background-color: #f0f0f0;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .ai-message {
+            background-color: #e6f9f8; /* Tom claro do seu Teal */
+            align-self: flex-start;
+        }
+         .ai-message.thinking {
+            color: #888;
+            font-style: italic;
+         }
+
+        /* ===== TELA 2: AVALIAÇÃO ===== */
+        #evaluation-screen, #result-screen {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #f5b305; /* Amarelo */
+            border-radius: 5px;
+            transition: width 0.4s ease;
+        }
+        #question-area button.option-btn {
+            display: block;
+            width: 100%;
+            padding: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-align: left;
+            background-color: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #question-area button.option-btn:hover {
+            background-color: #e6f9f8;
+            border-color: #31c1bb;
+        }
+        #lead-form input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        .reward-unlocked {
+            text-align: center;
+            border: 2px dashed #f5b305;
+            background-color: #fffaf0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+        }
+        .reward-unlocked .fa-gift {
+            font-size: 2rem;
+            color: #f5b305;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+    </head>
 <body>
-<div class="container">
 
-<!-- ========== WELCOME HERO ========== -->
-<section id="welcome" class="card">
-  <div class="center">
-    <div class="avatar"><img src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/color/svg/1F9E0.svg" width="56" height="56" alt="🧠"></div>
-    <h1>Sr. Mastrius</h1>
-    <p>Seu mentor de inglês — gamificado, humano e baseado no CEFR.</p>
-    <ul class="features">
-      <li>🎯 Teste adaptativo rápido e inteligente</li>
-      <li>🧩 Questões variadas e dinâmicas</li>
-      <li>📊 Diagnóstico + plano de ação no final</li>
-    </ul>
-    <div class="row" style="justify-content:center">
-      <button id="startIntake" class="primary">Descobrir meu nível</button>
-      <button id="openStudentLogin" class="secondary">Sou aluno EM</button>
+    <div class="container">
+        
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-card">
+                <div class="logo-container">
+                    <i class="fa-solid fa-brain logo-mastrius"></i>
+                </div>
+                <h1>Sr. Mastrius</h1>
+                <p class="subtitle">Seu coach de inglês com metodologia de especialista</p>
+                <ul class="features-list">
+                    <li><i class="fa-solid fa-chart-line feature-icon"></i><div><strong>Avaliação Inteligente</strong><span>Teste adaptativo que se ajusta ao seu nível</span></div></li>
+                    <li><i class="fa-solid fa-bullseye feature-icon"></i><div><strong>Diagnóstico Preciso</strong><span>Descubra seus pontos fortes e áreas de desenvolvimento</span></div></li>
+                    <li><i class="fa-solid fa-user-graduate feature-icon"></i><div><strong>Coaching Personalizado</strong><span>Prática real com seu nível exato</span></div></li>
+                </ul>
+                <button id="start-evaluation-btn" class="btn btn-primary">Começar Avaliação (5-8 min)</button>
+                <button id="student-login-btn" class="btn btn-secondary">Já sou Aluno</button>
+                <span class="footer-note">Nenhum cartão de crédito necessário</span>
+            </div>
+        </div>
+
+        <div id="evaluation-screen" class="screen">
+            <h2>Teste de Nivelamento</h2>
+            <div class="progress-bar-container"><div class="progress-bar" style="width: 0%;"></div></div>
+            <p id="question-counter">Pergunta 1...</p>
+            <div id="question-area"></div>
+            <div id="lead-form" style="display: none;">
+                <h3><i class="fa-solid fa-gift"></i> Diagnóstico Quase Pronto!</h3>
+                <p>Insira seus dados para ver sua análise completa e desbloquear seu prêmio.</p>
+                <input type="text" id="lead-name" placeholder="Seu Nome" required>
+                <input type="email" id="lead-email" placeholder="Seu E-mail" required>
+                <input type="tel" id="lead-whatsapp" placeholder="Seu WhatsApp" required>
+                <button id="submit-lead-btn" class="btn btn-primary">Ver meu Diagnóstico!</button>
+            </div>
+            <button id="back-to-welcome-from-eval" class="btn btn-secondary" style="margin-top: 1rem;">Voltar</button>
+        </div>
+        
+        <div id="result-screen" class="screen">
+            <h3>Seu Diagnóstico:</h3>
+            <p><strong>Nível Estimado: <span id="level-text"></span></strong></p>
+            <p id="diagnostic-text">Analisando seus resultados...</p>
+            <div class="reward-unlocked">
+                <i class="fa-solid fa-gift"></i>
+                <strong>Recompensa Desbloqueada!</strong>
+                <p>Agende sua aula experimental gratuita para validarmos seu nível.</p>
+                <a href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank" class="btn btn-primary" style="background-color: #f5b305; color: #333;">Agendar Aula Gratuita!</a>
+            </div>
+            <button id="back-to-welcome-from-result" class="btn btn-secondary" style="margin-top: 1rem;">Voltar ao Início</button>
+        </div>
+
+        <div id="login-screen" class="screen">
+             <div class="login-card">
+                <i class="fa-solid fa-brain logo-mastrius" style="font-size: 40px; margin-bottom: 1rem;"></i>
+                <h2>Login de Aluno</h2>
+                <input type="text" id="student-name" placeholder="Nome e Sobrenome" required>
+                <input type="password" id="student-password" placeholder="Senha (destrave)" required>
+                <button id="login-submit-btn" class="btn btn-primary">Entrar</button>
+                <button id="back-to-welcome-from-login" class="btn btn-secondary">Voltar</button>
+            </div>
+        </div>
+
+        <div id="chat-screen" class="screen">
+            <h2 style="text-align: center;">Prática com Sr. Mastrius</h2>
+            <div class="chat-container">
+                <div id="chat-box"></div>
+                <div class="input-area">
+                    <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+                    <button id="send-button" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div class="row" style="justify-content:center;margin-top:10px">
-      <span class="badge">🔒 Recompensa: Diagnóstico + Speaking Test</span>
-      <span class="pill">⏱️ 5–8 min</span>
-      <span class="pill">💸 Sem custo</span>
-    </div>
-    <div class="reward-card" style="margin-top:18px;max-width:500px;margin-inline:auto">
-      <div class="reward-icon">🏆</div>
-      <div class="reward-copy">
-        <strong>Nível + Sessão Grátis</strong>
-        <p>Complete o teste para desbloquear seu resultado e agendar.</p>
-      </div>
-      <div class="lock">🔒</div>
-    </div>
-    <ol class="howitworks">
-      <li><span>1</span> Responda o intake (rápido)</li>
-      <li><span>2</span> Faça o teste adaptativo</li>
-      <li><span>3</span> Desbloqueie seu diagnóstico e agende</li>
-    </ol>
-  </div>
-</section>
 
-<!-- ========== MODAL LOGIN ALUNO ========== -->
-<div id="studentModal" class="modal hidden">
-  <div class="modal__card">
-    <h3 class="modal__title">Acesso de Aluno EM</h3>
-    <p class="modal__subtitle">Digite nome e sobrenome e a senha de acesso.</p>
-    <input id="alunoFirst" class="input" placeholder="Nome"/>
-    <input id="alunoLast"  class="input" placeholder="Sobrenome"/>
-    <input id="alunoPass"  class="input" placeholder="Senha" type="password"/>
-    <div id="alunoError" style="color:#e34410;margin-top:6px"></div>
-    <div class="row" style="margin-top:12px">
-      <button id="alunoConfirm" class="primary">Entrar</button>
-      <button id="alunoClose" class="secondary">Cancelar</button>
-    </div>
-    <p class="muted" style="margin-top:8px;font-size:12px">
-      Dica: a senha padrão é <em>destrave</em>. No primeiro acesso, seu login será <em>nome+sobrenome</em> juntos.
-    </p>
-  </div>
-</div>
+    <script src="prompt.js"></script>
+    <script src="cefr.js"></script>
 
-<!-- ========== OUTRAS SEÇÕES (intake, teste, gate, coach) ========== -->
-<section id="intake" class="card hidden">
-  <h2>Antes de começar</h2>
-  <p class="muted">Responda rapidinho para personalizar sua experiência.</p>
-  <input id="q1" class="input" placeholder="Já estudou inglês? Por quanto tempo?"/>
-  <select id="q2" class="input"><option value="">Como você se sente com seu inglês?</option><option>Confiante</option><option>Ok, mas inseguro(a)</option><option>Travado(a)</option></select>
-  <input id="q3" class="input" placeholder="Seu maior desafio hoje"/>
-  <input id="q4" class="input" placeholder="Seu objetivo em 6 meses"/>
-  <div class="row" style="margin-top:12px">
-    <button id="startTest" class="primary">Começar teste</button>
-    <button id="backWelcome" class="secondary">Voltar</button>
-  </div>
-</section>
-
-<!-- o restante do teste, gate e coach vem do arquivo anterior -->
-<!-- ...  (coloque aqui as seções de teste, gate, result e coach que já funcionam) -->
-
-</div>
-<footer>© 2025 English Mastery • Sr. Mastrius Coach</footer>
-
-<script>
-const $=id=>document.getElementById(id)
-const modal=$('studentModal'),openBtn=$('openStudentLogin'),
-alunoConfirm=$('alunoConfirm'),alunoClose=$('alunoClose'),
-alunoFirst=$('alunoFirst'),alunoLast=$('alunoLast'),
-alunoPass=$('alunoPass'),alunoError=$('alunoError');
-openBtn?.addEventListener('click',()=>{modal.classList.remove('hidden');alunoFirst.focus()})
-alunoClose?.addEventListener('click',()=>{modal.classList.add('hidden');alunoError.textContent=''})
-
-alunoConfirm?.addEventListener('click',async()=>{
- const first=(alunoFirst.value||'').trim(),last=(alunoLast.value||'').trim(),pass=(alunoPass.value||'').trim()
- if(!first||!last||!pass){alunoError.textContent='Preencha nome, sobrenome e senha.';return}
- if(pass!=='destrave'){alunoError.textContent='Senha inválida.';return}
- const fullName=`${first} ${last}`
- const studentData={name:fullName,email:'',phone:'',level:'A2',strengths:['Conversação'],improvements:['Gramática'],assessmentScore:10,userType:'student',sessionStartTime:Date.now(),interactions:0}
- localStorage.setItem('studentData',JSON.stringify(studentData))
- fetch('https://formspree.io/f/xjkpqvjp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:`Aluno EM logou: ${fullName}`})}).catch(()=>{})
- modal.classList.add('hidden');alunoError.textContent=''
- if(typeof startCoach==='function'){startCoach()} show('coach')
-})
-</script>
+    <script src="script.js" defer></script>
 </body>
 </html>
