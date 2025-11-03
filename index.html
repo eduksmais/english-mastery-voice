@@ -308,31 +308,11 @@
                 </div>
                 <h1>Sr. Mastrius</h1>
                 <p class="subtitle">Seu coach de inglês com metodologia de especialista</p>
-
                 <ul class="features-list">
-                    <li>
-                        <i class="fa-solid fa-chart-line feature-icon"></i>
-                        <div>
-                            <strong>Avaliação Inteligente</strong>
-                            <span>Teste adaptativo que se ajusta ao seu nível</span>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-bullseye feature-icon"></i>
-                        <div>
-                            <strong>Diagnóstico Preciso</strong>
-                            <span>Descubra seus pontos fortes e áreas de desenvolvimento</span>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-user-graduate feature-icon"></i>
-                        <div>
-                            <strong>Coaching Personalizado</strong>
-                            <span>Prática real com seu nível exato</span>
-                        </div>
-                    </li>
+                    <li><i class="fa-solid fa-chart-line feature-icon"></i><div><strong>Avaliação Inteligente</strong><span>Teste adaptativo que se ajusta ao seu nível</span></div></li>
+                    <li><i class="fa-solid fa-bullseye feature-icon"></i><div><strong>Diagnóstico Preciso</strong><span>Descubra seus pontos fortes e áreas de desenvolvimento</span></div></li>
+                    <li><i class="fa-solid fa-user-graduate feature-icon"></i><div><strong>Coaching Personalizado</strong><span>Prática real com seu nível exato</span></div></li>
                 </ul>
-
                 <button id="start-evaluation-btn" class="btn btn-primary">Começar Avaliação (5-8 min)</button>
                 <button id="student-login-btn" class="btn btn-secondary">Já sou Aluno</button>
                 <span class="footer-note">Nenhum cartão de crédito necessário</span>
@@ -341,20 +321,15 @@
 
         <div id="evaluation-screen" class="screen">
             <h2>Teste de Nivelamento</h2>
-            <div class="progress-bar-container">
-                <div class="progress-bar" style="width: 0%;"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar" style="width: 0%;"></div></div>
             <p id="question-counter">Pergunta 1...</p>
-            
-            <div id="question-area">
-                </div>
-
+            <div id="question-area"></div>
             <div id="lead-form" style="display: none;">
                 <h3><i class="fa-solid fa-gift"></i> Diagnóstico Quase Pronto!</h3>
                 <p>Insira seus dados para ver sua análise completa e desbloquear seu prêmio.</p>
-                <input type="text" id="lead-name" placeholder="Seu Nome">
-                <input type="email" id="lead-email" placeholder="Seu E-mail">
-                <input type="tel" id="lead-whatsapp" placeholder="Seu WhatsApp">
+                <input type="text" id="lead-name" placeholder="Seu Nome" required>
+                <input type="email" id="lead-email" placeholder="Seu E-mail" required>
+                <input type="tel" id="lead-whatsapp" placeholder="Seu WhatsApp" required>
                 <button id="submit-lead-btn" class="btn btn-primary">Ver meu Diagnóstico!</button>
             </div>
             <button id="back-to-welcome-from-eval" class="btn btn-secondary" style="margin-top: 1rem;">Voltar</button>
@@ -364,7 +339,6 @@
             <h3>Seu Diagnóstico:</h3>
             <p><strong>Nível Estimado: <span id="level-text"></span></strong></p>
             <p id="diagnostic-text">Analisando seus resultados...</p>
-            
             <div class="reward-unlocked">
                 <i class="fa-solid fa-gift"></i>
                 <strong>Recompensa Desbloqueada!</strong>
@@ -374,13 +348,12 @@
             <button id="back-to-welcome-from-result" class="btn btn-secondary" style="margin-top: 1rem;">Voltar ao Início</button>
         </div>
 
-
         <div id="login-screen" class="screen">
              <div class="login-card">
                 <i class="fa-solid fa-brain logo-mastrius" style="font-size: 40px; margin-bottom: 1rem;"></i>
                 <h2>Login de Aluno</h2>
-                <input type="text" id="student-name" placeholder="Nome e Sobrenome">
-                <input type="password" id="student-password" placeholder="Senha (destrave)">
+                <input type="text" id="student-name" placeholder="Nome e Sobrenome" required>
+                <input type="password" id="student-password" placeholder="Senha (destrave)" required>
                 <button id="login-submit-btn" class="btn btn-primary">Entrar</button>
                 <button id="back-to-welcome-from-login" class="btn btn-secondary">Voltar</button>
             </div>
@@ -389,8 +362,7 @@
         <div id="chat-screen" class="screen">
             <h2 style="text-align: center;">Prática com Sr. Mastrius</h2>
             <div class="chat-container">
-                <div id="chat-box">
-                    </div>
+                <div id="chat-box"></div>
                 <div class="input-area">
                     <input type="text" id="user-input" placeholder="Digite sua mensagem...">
                     <button id="send-button" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
