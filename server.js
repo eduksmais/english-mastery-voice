@@ -15,11 +15,11 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// 🔹 Health Check
+// 🔹 Health check
 app.get("/health", (_, res) => res.json({ ok: true }));
 
 /* ==========================================================
-   🧠 ROUTE 1 — CHAT / CONVERSATION MODE (uses Groq)
+   🧠 ROUTE 1 — CHAT / CONVERSATION MODE (Groq)
    ========================================================== */
 app.post("/respond", async (req, res) => {
   try {
@@ -49,11 +49,12 @@ app.post("/respond", async (req, res) => {
             {
               role: "system",
               content: [
-                "You are Sr. Mastrius, the English Mastery Coach — a friendly, curious and supportive English teacher for Brazilian adults.",
-                "Speak in clear, natural English. Gently correct mistakes and briefly explain why.",
-                "End each message with ONE short follow-up question.",
-                "Keep answers between 3–6 sentences.",
-                "Avoid generic AI tone; sound human, fun and insightful."
+                "You are Sr. Mastrius, the English Mastery Coach — a friendly, curious, and supportive English teacher for Brazilian adults.",
+                "Speak naturally in English with warmth and light humor.",
+                "Correct mistakes briefly and encourage improvement.",
+                "Ask one short follow-up question at the end.",
+                "Keep replies short (3–6 sentences).",
+                "Avoid robotic or generic AI tone; sound human, inspiring, and insightful."
               ].join(" "),
             },
             { role: "user", content: userText },
@@ -75,8 +76,8 @@ app.post("/respond", async (req, res) => {
 
     const data = await response.json();
 
-    // Debug
-    console.log("DEBUG raw response:", JSON.stringify(data, null, 2));
+    // Debug log
+    console.log("DEBUG raw Groq response:", JSON.stringify(data, null, 2));
 
     let output =
       data?.choices?.[0]?.message?.content?.trim() ||
@@ -105,20 +106,83 @@ app.post("/respond", async (req, res) => {
 });
 
 /* ==========================================================
-   🧾 ROUTE 2 — LEAD CAPTURE / UPSERT
+   🧾 ROUTE 2 — LEAD CAPTURE (placement test → Formspree)
    ========================================================== */
 app.post("/lead", async (req, res) => {
   try {
     const payload = req.body || {};
     console.log("LEAD UPSERT:", JSON.stringify(payload, null, 2));
 
-    // 📊 FUTURE: send to Google Sheets, Airtable, or Notion here
-    // Example placeholder:
-    // await fetch("https://hooks.zapier.com/your-webhook", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(payload) });
+    const formspreeUrl = "https://formspree.io/f/mdkproyy"; // ✅ Leads Form
 
+    const r = await fetch(formspreeUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: payload.name,
+        email: payload.email,
+        whatsapp: payload.whats,
+        level: payload.placement?.level,
+        score: payload.placement?.score,
+        correct: payload.placement?.correct,
+        wrong: payload.placement?.wrong,
+        tags: (payload.placement?.tags || []).join(", "),
+        timestamp: new Date().toISOString(),
+        userAgent: payload.meta?.ua,
+      }),
+    });
+
+    if (!r.ok) {
+      const text = await r.text();
+      console.error("Formspree LEAD error:", text);
+      return res.status(500).json({ error: "Formspree error", detail: text });
+    }
+
+    console.log("✅ Lead enviado para o Formspree (mdkproyy)");
     return res.json({ ok: true });
   } catch (err) {
     console.error("lead error:", err);
+    return res.status(500).json({
+      error: "Server error",
+      detail: String(err),
+    });
+  }
+});
+
+/* ==========================================================
+   🎓 ROUTE 3 — STUDENT METRICS / FEEDBACK (Formspree)
+   ========================================================== */
+app.post("/student", async (req, res) => {
+  try {
+    const payload = req.body || {};
+    console.log("STUDENT DATA:", JSON.stringify(payload, null, 2));
+
+    const formspreeUrl = "https://formspree.io/f/xjkpqvjp"; // ✅ Students Form
+
+    const r = await fetch(formspreeUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: payload.name,
+        email: payload.email,
+        topic: payload.topic,
+        feedback: payload.feedback,
+        duration: payload.duration,
+        timestamp: new Date().toISOString(),
+        userAgent: payload.meta?.ua,
+      }),
+    });
+
+    if (!r.ok) {
+      const text = await r.text();
+      console.error("Formspree STUDENT error:", text);
+      return res.status(500).json({ error: "Formspree error", detail: text });
+    }
+
+    console.log("✅ Dados de aluno enviados para o Formspree (xjkpqvjp)");
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error("student error:", err);
     return res.status(500).json({
       error: "Server error",
       detail: String(err),
