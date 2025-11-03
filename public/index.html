@@ -1,437 +1,364 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sr. Mastrius — English Mastery Coach</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sr. Mastrius — English Mastery</title>
+<!-- ====== STYLE (Premium, clean) ====== -->
 <style>
-  :root {
-    --teal:#31c1bb; --yellow:#f5b305; --orange:#e34410; --black:#0C0101; --white:#ffffff;
-    --bg:#f7fafb; --card:#ffffff; --muted:#6b7280; --ring:#e6edf0;
+  :root{
+    --brand:#31c1bb; --brand-2:#f5b305; --accent:#e34410; --ink:#0C0101;
+    --bg:#f6f9fb; --card:#ffffff; --muted:#64748b; --line:#e6edf0;
   }
-  * { box-sizing:border-box }
-  body {
-    margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    background:linear-gradient(180deg,#f9ffff, #eefbfa 60%, #ffffff);
-    color:#0f172a; display:flex; align-items:center; justify-content:center; min-height:100dvh; padding:16px;
-  }
-  .app {
-    width:min(960px,100%); background:var(--card); border-radius:18px; padding:18px;
-    border:1px solid rgba(12,1,1,.07); box-shadow:0 10px 30px rgba(0,0,0,.07);
-  }
-  header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px }
-  .brand { display:flex; align-items:center; gap:12px }
-  .title { font-weight:800; letter-spacing:.2px }
-  .sub { font-size:13px; color:var(--muted) }
-
-  /* Avatar + progress ring */
-  .hero { display:flex; gap:18px; align-items:center }
-  .ring {
-    position:relative; width:92px; height:92px;
-    display:grid; place-items:center;
-  }
-  .ring svg { position:absolute; inset:0; transform:rotate(-90deg) }
-  .ring .bg { stroke:var(--ring); stroke-width:10; fill:none }
-  .ring .fg { stroke:var(--teal); stroke-linecap:round; stroke-width:10; fill:none; transition:stroke-dashoffset .4s ease }
-  .avatar {
-    width:72px; height:72px; border-radius:999px; overflow:hidden; display:grid; place-items:center; background:#fff; border:1px solid rgba(12,1,1,.08)
-  }
-  /* Avatar cartoon (busto) em SVG inline */
-  .avatar svg { width:64px; height:64px }
-
-  .badge { display:flex; align-items:center; gap:8px; border:1px dashed rgba(12,1,1,.15);
-    padding:8px 12px; border-radius:999px; background:#fff; color:#374151; font-size:13px }
-  .badge.locked { opacity:.7 }
-
-  .screen { display:none }
-  .screen.active { display:block }
-
-  .card {
-    border:1px solid rgba(12,1,1,.08); border-radius:16px; background:var(--bg); padding:16px;
-  }
-
-  /* Chat */
-  .chat { height:420px; overflow:auto; display:flex; flex-direction:column; gap:10px; padding:12px; background:#fff; border-radius:14px; border:1px solid rgba(12,1,1,.08) }
-  .bubble { max-width:85%; padding:10px 14px; border-radius:12px; line-height:1.45; white-space:pre-wrap }
-  .bot { align-self:flex-start; background:#fff; border:1px solid rgba(12,1,1,.1) }
-  .user { align-self:flex-end; background:#e7fff9; border:1px solid rgba(49,193,187,.35) }
-  .controls { display:flex; gap:8px; margin-top:10px }
-  input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
-    flex:1; padding:12px 14px; border-radius:12px; border:1px solid rgba(12,1,1,.15); background:#fff; font-size:14px
-  }
-  button {
-    border:none; cursor:pointer; border-radius:12px; padding:12px 16px; font-weight:700;
-    background:var(--orange); color:#fff; transition: transform .08s ease; box-shadow:0 6px 14px rgba(227,68,16,.25)
-  }
-  button:hover { transform:translateY(-1px) }
-  button.secondary { background:#fff; color:#0C0101; border:1px solid rgba(12,1,1,.18); box-shadow:none }
-  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center }
-  .hint { font-size:13px; color:var(--muted); margin-top:4px }
-  .split { display:grid; grid-template-columns:1.2fr .8fr; gap:16px }
-  @media (max-width:900px){ .split{ grid-template-columns:1fr } }
-  .list { display:flex; flex-wrap:wrap; gap:8px }
-  .pill { padding:8px 12px; border-radius:999px; border:1px solid rgba(12,1,1,.12); background:#fff; font-size:13px; cursor:pointer }
-  .pill.active { background:#e7fff9; border-color:rgba(49,193,187,.4) }
-  .status { font-size:12px; color:#64748b; margin-top:6px }
-
-  .lead-form { display:grid; gap:10px }
-  .reward { display:flex; align-items:center; gap:10px; font-weight:700 }
-  .reward .lock { font-size:18px }
-  .ok { color:#10b981; font-weight:700 }
-  .warn { color:#ef4444; font-weight:700 }
+  *{box-sizing:border-box}  html,body{height:100%}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#f9ffff,#eefbfa 60%,#fff);color:#0f172a}
+  .wrap{max-width:960px;margin:0 auto;padding:20px}
+  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .brand{display:flex;gap:14px;align-items:center}
+  .title{font-weight:800;letter-spacing:.2px}
+  .sub{font-size:13px;color:var(--muted)}
+  .badge{display:flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px dashed #d1e6e6;background:#fff;color:#334155;font-size:13px}
+  .app{background:var(--card);border:1px solid rgba(12,1,1,.06);border-radius:20px;padding:18px;box-shadow:0 10px 28px rgba(0,0,0,.06)}
+  .screen{display:none} .screen.active{display:block}
+  .card{background:#fff;border:1px solid rgba(12,1,1,.08);border-radius:16px;padding:18px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;transition:transform .08s ease,background .2s ease}
+  .btn.primary{background:var(--accent);color:#fff;box-shadow:0 6px 16px rgba(227,68,16,.25)}
+  .btn.primary:hover{transform:translateY(-1px)}
+  .btn.secondary{background:#fff;border:1px solid rgba(12,1,1,.18)}
+  .muted{font-size:13px;color:var(--muted)}
+  .grid{display:grid;gap:14px}
+  @media (min-width:900px){ .grid-2{grid-template-columns:1.2fr .8fr} }
+  input,textarea,select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #dbe5ea;background:#fff;font-size:14px}
+  .chat{height:420px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:12px;background:#fff;border-radius:14px;border:1px solid rgba(12,1,1,.08)}
+  .msg{max-width:85%;padding:10px 14px;border-radius:12px;white-space:pre-wrap;line-height:1.45}
+  .bot{align-self:flex-start;background:#fff;border:1px solid rgba(12,1,1,.12);animation:fade .25s ease}
+  .me{align-self:flex-end;background:#e7fff9;border:1px solid rgba(49,193,187,.35);animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none}}
+  .controls{display:flex;gap:8px;margin-top:10px}
+  .status{font-size:12px;color:#64748b;margin-top:6px}
+  .pill{padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:13px;cursor:pointer}
+  .ring{position:relative;width:92px;height:92px;display:grid;place-items:center}
+  .ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+  .ring .bg{stroke:#e6edf0;stroke-width:10;fill:none}
+  .ring .fg{stroke:var(--brand);stroke-linecap:round;stroke-width:10;fill:none;transition:stroke-dashoffset .4s ease}
+  .avatar{width:72px;height:72px;border-radius:999px;border:1px solid rgba(12,1,1,.08);display:grid;place-items:center;background:#fff}
+  .avatar svg{width:64px;height:64px}
 </style>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <div class="brand">
-        <div class="hero">
-          <!-- Progress ring -->
-          <div class="ring">
-            <svg viewBox="0 0 100 100" aria-hidden="true">
-              <circle class="bg" cx="50" cy="50" r="42"></circle>
-              <circle id="ring-fg" class="fg" cx="50" cy="50" r="42"
-                stroke-dasharray="264" stroke-dashoffset="264"></circle>
-            </svg>
-            <!-- Avatar -->
-            <div class="avatar" aria-label="Avatar do Sr. Mastrius">
-              <!-- Cartoon coach (busto) -->
-              <svg viewBox="0 0 128 128">
-                <circle cx="64" cy="64" r="62" fill="#fff"/>
-                <circle cx="64" cy="50" r="22" fill="#f2d3c2"/>
-                <rect x="38" y="84" width="52" height="30" rx="14" fill="#31c1bb"/>
-                <path d="M40,94 Q64,80 88,94 L88,112 L40,112 Z" fill="#0C0101" opacity="0.15"/>
-                <path d="M48,54 q16,10 32,0" stroke="#0C0101" stroke-width="3" fill="none" opacity=".15"/>
-                <circle cx="56" cy="48" r="2.5" fill="#0C0101"/><circle cx="72" cy="48" r="2.5" fill="#0C0101"/>
-                <path d="M54,63 q10,6 20,0" stroke="#e34410" stroke-width="3" fill="none"/>
-                <rect x="50" y="24" width="28" height="14" rx="7" fill="#0C0101"/>
-              </svg>
-            </div>
-          </div>
-          <div>
-            <div class="title">Sr. Mastrius — English Mastery Coach</div>
-            <div class="sub">Bem-vindo! Vamos começar em português e, aos poucos, mudar para inglês.</div>
-          </div>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="ring">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="bg" cx="50" cy="50" r="42"></circle>
+          <circle id="ring" class="fg" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="264"></circle>
+        </svg>
+        <div class="avatar" aria-label="Sr. Mastrius">
+          <!-- avatar cartoon 30–40, casual, busto -->
+          <svg viewBox="0 0 128 128">
+            <circle cx="64" cy="64" r="62" fill="#fff"/>
+            <circle cx="64" cy="52" r="22" fill="#f2d3c2"/>
+            <rect x="38" y="86" width="52" height="28" rx="14" fill="#31c1bb"/>
+            <path d="M40,96 Q64,82 88,96 L88,112 L40,112 Z" fill="#0C0101" opacity=".12"/>
+            <circle cx="56" cy="50" r="3" fill="#0C0101"/><circle cx="72" cy="50" r="3" fill="#0C0101"/>
+            <path d="M54,65 q10,6 20,0" stroke="#e34410" stroke-width="3" fill="none"/>
+            <rect x="50" y="26" width="28" height="12" rx="6" fill="#0C0101"/>
+          </svg>
         </div>
       </div>
-      <div class="badge locked" id="badge">
-        <span>🎁</span> <span id="badge-text">Recompensa: (Nível + Speaking Test) bloqueado</span>
+      <div>
+        <div class="title">Sr. Mastrius — English Mastery</div>
+        <div class="sub">Experiência premium. Teste inteligente. Coaching personalizado.</div>
       </div>
-    </header>
+    </div>
+    <div class="badge" id="badge"><span>🎁</span><span id="badgeText">Resultado + Speaking Test bloqueado</span></div>
+  </header>
 
-    <!-- SCREEN: Welcome -->
-    <section id="screen-welcome" class="screen active card">
-      <p class="bubble bot">
-        Olá! Eu sou o <strong>Sr. Mastrius</strong>. Vamos descobrir seu nível de inglês e liberar uma sessão gratuita de speaking?
+  <main class="app">
+    <!-- ===== WELCOME ===== -->
+    <section id="scr-welcome" class="screen active card">
+      <p style="margin-top:0">
+        <strong>Bem-vindo(a) ao English Mastery.</strong><br/>
+        Eu sou o <strong>Sr. Mastrius</strong>, seu mentor de inglês. Vamos descobrir seu nível e traçar um plano claro para desbloquear seu inglês?
       </p>
       <div class="row">
-        <button id="btnStart">Começar avaliação</button>
-        <button id="btnLogin" class="secondary">Sou aluno EM</button>
+        <button class="btn primary" id="startIntake">Fazer teste de nível</button>
+        <button class="btn secondary" id="goLogin">Sou aluno EM</button>
       </div>
-      <div class="hint">Dura ~5–8 min. Primeiras instruções em PT-BR; perguntas em inglês.</div>
+      <div class="muted" style="margin-top:6px">Rápido, preciso e humano. Em ~7 minutos você tem um diagnóstico claro.</div>
     </section>
 
-    <!-- SCREEN: Placement -->
-    <section id="screen-placement" class="screen">
-      <div class="split">
+    <!-- ===== INTAKE (4 perguntas curtas) ===== -->
+    <section id="scr-intake" class="screen card">
+      <div class="grid">
+        <div>
+          <label>1) Já estudou inglês antes? Por quanto tempo?</label>
+          <input id="q1" placeholder="Ex.: 1 ano em curso livre, 6 meses sozinho..." />
+        </div>
+        <div>
+          <label>2) Como você se sente em relação ao seu inglês?</label>
+          <select id="q2">
+            <option value="">Selecione…</option>
+            <option>Confiante</option><option>Ok, mas inseguro(a)</option><option>Travado(a)</option>
+          </select>
+        </div>
+        <div>
+          <label>3) Seu maior desafio hoje?</label>
+          <input id="q3" placeholder="Ex.: falar sem travar, listening, reuniões..." />
+        </div>
+        <div>
+          <label>4) O que você quer alcançar em 6 meses?</label>
+          <input id="q4" placeholder="Ex.: entrevista, viagem, trabalho, B2..." />
+        </div>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn primary" id="startPlacement">Começar avaliação</button>
+        <button class="btn secondary" id="backWelcome">Voltar</button>
+      </div>
+      <div class="muted">Usaremos isso para personalizar o teste e o coaching.</div>
+    </section>
+
+    <!-- ===== PLACEMENT ===== -->
+    <section id="scr-placement" class="screen">
+      <div class="grid grid-2">
         <div class="card">
-          <div class="chat" id="placeChat" aria-live="polite"></div>
+          <div id="pChat" class="chat" aria-live="polite"></div>
           <div class="controls">
-            <input id="placeInput" type="text" placeholder="Type your answer in English…" autocomplete="off"/>
-            <button id="placeSend">Send</button>
+            <input id="pInput" placeholder="Type your answer in English…" autocomplete="off"/>
+            <button id="pSend" class="btn primary">Send</button>
           </div>
-          <div class="status" id="placeStatus"></div>
+          <div id="pStatus" class="status"></div>
         </div>
         <aside class="card">
-          <div class="reward"><span class="lock" id="lock">🔒</span> <span id="rewardText">Resultado bloqueado</span></div>
-          <div class="hint">Complete o teste para desbloquear seu diagnóstico e a sessão gratuita.</div>
-          <div style="margin-top:10px">
-            <div class="list" id="tags"></div>
-          </div>
+          <div class="muted"><strong>Progresso</strong></div>
+          <div style="font-size:13px"><span id="pProg">0%</span> — <span id="pTier">A1</span> • Confiança <span id="pConf">0.00</span></div>
+          <div style="margin-top:10px"><span id="reward" class="pill">🔒 Resultado bloqueado</span></div>
+          <div style="margin-top:14px" class="muted">Responda naturalmente. Curto e direto funciona melhor.</div>
         </aside>
       </div>
     </section>
 
-    <!-- SCREEN: Lead Gate -->
-    <section id="screen-gate" class="screen card">
-      <p class="bubble bot">
-        Ótimo trabalho! Para ver seu <strong>diagnóstico</strong> (pontos fortes, focos e nível estimado) e liberar sua <strong>sessão gratuita</strong>, preencha:
-      </p>
-      <form id="leadForm" class="lead-form">
-        <input id="leadName"  type="text"  placeholder="Nome completo" required />
-        <input id="leadEmail" type="email" placeholder="E-mail" required />
-        <input id="leadWhats" type="tel"   placeholder="WhatsApp (com DDD)" required />
-        <button type="submit">Ver diagnóstico & desbloquear recompensa</button>
-      </form>
-      <div class="status" id="leadStatus"></div>
+    <!-- ===== GATE LEAD ===== -->
+    <section id="scr-gate" class="screen card">
+      <p class="msg bot"><strong>Excelente!</strong> Para ver seu <strong>diagnóstico</strong> (pontos fortes, foco e nível estimado) e liberar sua <strong>sessão gratuita</strong>, preencha abaixo:</p>
+      <div class="grid">
+        <input id="leadName" placeholder="Nome completo" />
+        <input id="leadEmail" type="email" placeholder="E-mail" />
+        <input id="leadWhats" placeholder="WhatsApp (com DDD)" />
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button id="sendLead" class="btn primary">Ver diagnóstico & desbloquear</button>
+        <button id="gateBack" class="btn secondary">Voltar</button>
+      </div>
+      <div id="leadStatus" class="status"></div>
     </section>
 
-    <!-- SCREEN: Result -->
-    <section id="screen-result" class="screen card">
-      <div id="resultArea" class="bubble bot"></div>
+    <!-- ===== RESULT ===== -->
+    <section id="scr-result" class="screen card">
+      <div id="result" class="msg bot">Gerando seu diagnóstico…</div>
       <div class="row" style="margin-top:10px">
-        <a class="pill" id="calendly" href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank" rel="noopener">📅 Agendar Speaking Test (30min)</a>
-        <button id="goConversation">Ir para Conversação</button>
+        <a class="pill" href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank" rel="noopener">📅 Agendar Speaking Test (30min)</a>
+        <button id="goCoach" class="btn primary">Ir para Conversação</button>
       </div>
     </section>
 
-    <!-- SCREEN: Login EM -->
-    <section id="screen-login" class="screen card">
-      <p class="bubble bot">
-        Acesso para alunos EM. Digite seu nome e sobrenome e a senha para desbloquear o modo de conversação.
-      </p>
-      <div class="controls">
-        <input id="emName" type="text" placeholder="Nome" />
-        <input id="emLast" type="text" placeholder="Sobrenome" />
+    <!-- ===== LOGIN EM ===== -->
+    <section id="scr-login" class="screen card">
+      <p class="msg bot">Acesso de alunos EM. Digite nome e sobrenome e a senha para desbloquear o modo de conversação.</p>
+      <div class="row">
+        <input id="lgName" placeholder="Nome" />
+        <input id="lgLast" placeholder="Sobrenome" />
+        <input id="lgPass" type="password" placeholder="Senha" />
       </div>
-      <div class="controls">
-        <input id="emPass" type="password" placeholder="Senha (dica: destrave)" />
-        <button id="emEnter">Entrar</button>
-      </div>
-      <div class="hint">No primeiro acesso, seu login será <em>nome+sobrenome</em> (sem espaços). Próximas vezes: basta usar o login salvo.</div>
-      <div class="status" id="loginStatus"></div>
+      <div class="row" style="margin-top:12px"><button id="lgEnter" class="btn primary">Entrar</button></div>
+      <div id="lgStatus" class="status"></div>
     </section>
 
-    <!-- SCREEN: Conversation -->
-    <section id="screen-convo" class="screen">
-      <div class="split">
+    <!-- ===== COACHING ===== -->
+    <section id="scr-coach" class="screen">
+      <div class="grid grid-2">
         <div class="card">
-          <div class="chat" id="convoChat" aria-live="polite"></div>
+          <div id="cChat" class="chat"></div>
           <div class="controls">
-            <input id="convoInput" type="text" placeholder="Talk to Sr. Mastrius…" autocomplete="off"/>
-            <button id="convoSend">Send</button>
+            <input id="cInput" placeholder="Talk to Sr. Mastrius…" autocomplete="off"/>
+            <button id="cSend" class="btn primary">Send</button>
           </div>
-          <div class="status" id="convoStatus"></div>
+          <div id="cStatus" class="status"></div>
         </div>
         <aside class="card">
-          <div class="sub"><strong>Temas sugeridos</strong> (por nível CEFR)</div>
-          <div class="list" id="topicList"></div>
-          <div class="hint">Sugestões ficam mais relevantes com o tempo, conforme seus interesses.</div>
+          <div class="sub"><strong>Temas sugeridos</strong></div>
+          <div id="topics" class="row" style="margin-top:6px"></div>
+          <div class="muted" style="margin-top:8px">As sugestões ficam mais relevantes conforme você usa.</div>
         </aside>
       </div>
     </section>
-  </div>
+  </main>
+</div>
 
+<!-- ====== LOGIC ====== -->
 <script>
-/* ------------------ State Helpers ------------------ */
-const $ = (id)=>document.getElementById(id);
-const screens = ["screen-welcome","screen-placement","screen-gate","screen-result","screen-login","screen-convo"];
-function show(id){ screens.forEach(s=>$(s).classList.remove("active")); $(id).classList.add("active"); }
-function setRing(pct){
-  // ring circumference ~ 2πr = 2*3.14*42 ≈ 264
-  const total=264; const off = total - total * Math.max(0,Math.min(1,pct));
-  $("ring-fg").style.strokeDashoffset = String(off);
-}
-function addBubble(el, text, who="bot"){
-  const d=document.createElement("div"); d.className="bubble "+who; d.textContent=text;
-  el.appendChild(d); el.scrollTop = el.scrollHeight;
-}
+const $ = id => document.getElementById(id);
+const screens = ['scr-welcome','scr-intake','scr-placement','scr-gate','scr-result','scr-login','scr-coach'];
+let SESSION_ID = null;
+let placementSummary = {score:0, correct:0, wrong:0, level:'A1', confidence:0, tags:[]};
+let intake = null;
 
-/* ------------------ Welcome ------------------ */
-$("btnStart").onclick = ()=>{
-  show("screen-placement");
+function show(id){ screens.forEach(s=>$(s).classList.remove('active')); $(id).classList.add('active'); }
+function ring(p){ const total=264, off=total-total*Math.max(0,Math.min(1,p)); $('ring').style.strokeDashoffset = String(off); }
+function addMsg(el, text, who='bot'){ const d=document.createElement('div'); d.className='msg '+who; d.textContent=text; el.appendChild(d); el.scrollTop=el.scrollHeight; }
+
+async function startSession(){
+  const r = await fetch('/session/start',{method:'POST'}); const j = await r.json();
+  SESSION_ID = j.sessionId;
+}
+startSession();
+
+/* ---- welcome → intake ---- */
+$('startIntake').onclick = ()=> show('scr-intake');
+$('goLogin').onclick   = ()=> show('scr-login');
+$('backWelcome').onclick = ()=> show('scr-welcome');
+
+/* ---- intake → placement ---- */
+$('startPlacement').onclick = ()=>{
+  intake = {
+    exp: $('q1').value.trim(),
+    feel: $('q2').value,
+    pain: $('q3').value.trim(),
+    dream: $('q4').value.trim()
+  };
+  show('scr-placement');
   startPlacement();
 };
-$("btnLogin").onclick = ()=> show("screen-login");
 
-/* ------------------ Placement Engine ------------------ */
-/* Mini-banco de perguntas por faixas (A1/A2/B1). Cada item: {q, key, level, ok: [palavras/frases aceitas], tip} */
-const BANK = [
-  // A1
-  { level:"A1", key:"greet", q:"Hi! What's your name?", ok:["my name is","i'm"], tip:"Say: “I’m <name>.”" },
-  { level:"A1", key:"origin", q:"Where are you from?", ok:["from","i'm from"], tip:"Use: “I’m from <city/country>.”" },
-  { level:"A1", key:"likes", q:"What do you like to do in your free time?", ok:["like","love","enjoy"], tip:"Use a verb: “I like… / I enjoy…”" },
-
-  // A2
-  { level:"A2", key:"routine", q:"Tell me about your typical weekday.", ok:["work","study","wake","usually"], tip:"Use present simple: “I usually…”" },
-  { level:"A2", key:"travel", q:"Do you prefer traveling by plane, car, or bus? Why?", ok:["plane","car","bus","because"], tip:"Compare and give a reason." },
-  { level:"A2", key:"past", q:"What did you do last weekend?", ok:["went","watched","visited","stayed","did"], tip:"Use past: “I went… / I watched…”" },
-
-  // B1
-  { level:"B1", key:"work", q:"Describe a challenge at work or school and how you handled it.", ok:["because","so","but","first","then"], tip:"Explain the situation and what you did." },
-  { level:"B1", key:"opinion", q:"Do you think learning English online is as effective as in-person classes?", ok:["i think","in my opinion","depends"], tip:"Give your view and one reason." },
-  { level:"B1", key:"goal", q:"What is a specific English goal you want to achieve in 3 months?", ok:["i want","my goal","improve"], tip:"Be concrete: exam, meeting, travel…" },
-];
-
-let placeState = {
-  step:0, correct:0, wrong:0, levelScore:0, // >0 sobe, <0 desce
-  tags:new Set(), // interesses/temas detectados
-  started:false, finished:false, maxSteps:7
-};
-
-function pickQuestion(){
-  // regra simples: começa A1 → sobe p/ A2 se score>=2 → B1 se score>=4
-  let tier="A1";
-  if (placeState.levelScore>=4) tier="B1";
-  else if (placeState.levelScore>=2) tier="A2";
-  const pool = BANK.filter(x=>x.level===tier);
-  const used = placeState.step % pool.length;
-  return pool[used];
-}
-
-function judge(answer, item){
-  const a = answer.toLowerCase();
-  const hit = item.ok.some(k=>a.includes(k));
-  if (hit){ placeState.correct++; placeState.levelScore++; }
-  else { placeState.wrong++; placeState.levelScore=Math.max(-2, placeState.levelScore-1); }
-  // coletar interesses (tags simples)
-  ["travel","music","movie","job","study","family","sport","goal","meeting"].forEach(t=>{
-    if (a.includes(t)) placeState.tags.add(t);
+/* ===================== PLACEMENT ===================== */
+const pChat=$('pChat');
+function pSay(t){ addMsg(pChat,t,'bot'); }
+function uSay(t){ addMsg(pChat,t,'me'); }
+async function placementNext(lastAnswer){
+  const r = await fetch('/placement/next',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ sessionId: SESSION_ID, lastAnswer })
   });
-  return hit;
+  return await r.json();
 }
-
-function placementBotSay(text){ addBubble($("placeChat"), text, "bot"); }
-function placementUserSay(text){ addBubble($("placeChat"), text, "user"); }
-
 async function startPlacement(){
-  placeState={step:0, correct:0, wrong:0, levelScore:0, tags:new Set(), started:true, finished:false, maxSteps:7};
-  $("placeChat").innerHTML="";
-  setRing(0); $("badge").classList.add("locked"); $("badge-text").textContent="Recompensa: (Nível + Speaking Test) bloqueado";
-  placementBotSay("Perfeito. A partir de agora, responda em inglês. Ready?");
-  nextPlacement();
+  pChat.innerHTML=''; ring(0); $('badge').classList.add('locked'); $('badgeText').textContent='Resultado + Speaking Test bloqueado';
+  pSay('Perfeito. Responda em inglês de forma breve e natural. Ready?');
+  const first = await placementNext();
+  if(first?.question){ pSay(first.question); $('pStatus').textContent='Question 1 of ~7'; $('pTier').textContent=first.tier||'A1'; }
 }
-
-function nextPlacement(){
-  if (placeState.step>=placeState.maxSteps){
-    finishPlacement(); return;
+$('pSend').onclick = async ()=>{
+  const val=$('pInput').value.trim(); if(!val) return; $('pInput').value=''; uSay(val);
+  const nxt = await placementNext(val);
+  if(nxt.done){
+    // estimativa final
+    placementSummary.level = nxt.estimate || 'A2';
+    placementSummary.confidence = nxt.confidence || 0;
+    $('reward').textContent='🔓 Recompensa desbloqueada';
+    $('badge').classList.remove('locked'); $('badgeText').textContent='🎁 Recompensa desbloqueada';
+    show('scr-gate');
+    return;
   }
-  const item = pickQuestion();
-  placementBotSay(item.q);
-  $("placeStatus").textContent = `Question ${placeState.step+1} of ${placeState.maxSteps}`;
-}
-
-$("placeSend").onclick = ()=>{
-  const val = $("placeInput").value.trim();
-  if(!val) return;
-  $("placeInput").value="";
-  placementUserSay(val);
-
-  const item = pickQuestion();
-  const ok = judge(val, item);
-  placementBotSay(ok ? "Good!" : `Nice try. ${item.tip}`);
-
-  placeState.step++;
-  setRing(placeState.step/placeState.maxSteps);
-  if (placeState.step>=placeState.maxSteps){ finishPlacement(); }
-  else { setTimeout(nextPlacement, 500); }
+  const stepText = Math.round((nxt.progress||0)*100);
+  ring(nxt.progress||0);
+  $('pProg').textContent = `${stepText}%`;
+  $('pTier').textContent = nxt.tier || 'A1';
+  $('pConf').textContent = (nxt.confidence||0).toFixed(2);
+  $('pStatus').textContent = `Progress ${stepText}%`;
+  if(nxt.question) pSay(nxt.question);
 };
 
-function levelFromScore(score){
-  if (score>=5) return "B1";
-  if (score>=2) return "A2";
-  return "A1";
-}
-function strengthsWeaknesses(score){
-  const s = []; const w=[];
-  if (score<=1) { s.push("basic greetings and simple preferences"); w.push("present simple and short answers with clarity"); }
-  else if (score<=3) { s.push("everyday topics and basic past actions"); w.push("richer reasons/examples and verb tenses"); }
-  else { s.push("work/school topics and opinions"); w.push("cohesion (because/so/but) and more natural phrasing"); }
-  return {s,w};
-}
-function finishPlacement(){
-  placeState.finished = true;
-  $("badge").classList.remove("locked");
-  $("badge-text").textContent = "🎁 Recompensa desbloqueada (ao final)";
-  $("rewardText").textContent = "Complete! Veja seu diagnóstico após a identificação.";
-  $("lock").textContent = "🔓";
-  show("screen-gate");
-}
+/* ===================== GATE / LEAD ===================== */
+$('gateBack').onclick = ()=> show('scr-placement');
+$('sendLead').onclick = async ()=>{
+  const name=$('leadName').value.trim(), email=$('leadEmail').value.trim(), whats=$('leadWhats').value.trim();
+  if(!name||!email||!whats){ $('leadStatus').textContent='Preencha nome, e-mail e WhatsApp.'; return; }
+  $('leadStatus').textContent='Enviando…';
 
-/* ------------------ Gate (Lead) ------------------ */
-$("leadForm").addEventListener("submit", async (e)=>{
-  e.preventDefault();
-  const name=$("leadName").value.trim();
-  const email=$("leadEmail").value.trim();
-  const whats=$("leadWhats").value.trim();
-  if(!name || !email || !whats){ $("leadStatus").textContent="Preencha todos os campos."; return; }
-  $("leadStatus").textContent="Salvando…";
+  // salva local (MVP)
+  localStorage.setItem('em_lead', JSON.stringify({name,email,whats, level:placementSummary.level, ts:Date.now(), intake}));
 
-  // resumo diagnóstico
-  const level = levelFromScore(placeState.levelScore);
-  const {s,w} = strengthsWeaknesses(placeState.levelScore);
-  const tags = Array.from(placeState.tags);
-
-  // persist local p/ futuras sessões
-  localStorage.setItem("em_lead", JSON.stringify({name,email,whats, level, tags, ts:Date.now()}));
-
-  // tenta enviar ao backend (upsert)
+  // envia p/ backend → Formspree
   try{
-    const r = await fetch("/lead", {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
+    await fetch('/lead',{method:'POST',headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
-        name,email,whats,
-        placement:{ score:placeState.levelScore, level, correct:placeState.correct, wrong:placeState.wrong, tags },
-        meta:{ ua:navigator.userAgent, t:Date.now() }
+        name, email, whats,
+        placement:{ level:placementSummary.level, score:0, correct:0, wrong:0, tags:[] },
+        meta:{ ua:navigator.userAgent }
       })
     });
-    // ignora erro; segue fluxo
-    await r.text().catch(()=>{});
-  }catch(_){}
+    $('leadStatus').textContent='Ok! Gerando diagnóstico…';
+  }catch(_){ $('leadStatus').textContent='Enviado (offline).'; }
 
-  // mostra resultado
+  // diagnóstico simples
   const diag = [
-    `Estimated level: ${level}`,
-    `You do well with: ${s.join(", ")}`,
-    `Focus next: ${w.join(", ")}`,
-    tags.length? `Topics you mentioned: ${tags.join(", ")}` : ""
-  ].filter(Boolean).join("\n");
+    `Estimated level: ${placementSummary.level}`,
+    `Strengths: clear communication on everyday topics`,
+    `Focus next: build range (connectors, reasons) and natural phrasing`,
+    intake?.pain ? `We’ll address your main challenge: ${intake.pain}` : '',
+    intake?.dream ? `Plan aligned with your 6-month goal: ${intake.dream}` : ''
+  ].filter(Boolean).join('\n');
 
-  $("resultArea").textContent = `Your diagnostic\n\n${diag}\n\nGreat job! Click below to book your free speaking test.`;
-  show("screen-result");
-});
-
-/* ------------------ Login EM ------------------ */
-$("emEnter").onclick = ()=>{
-  const n=$("emName").value.trim(); const l=$("emLast").value.trim(); const p=$("emPass").value.trim();
-  if(!n || !l || !p){ $("loginStatus").textContent="Preencha nome, sobrenome e senha."; return; }
-  if(p!=="destrave"){ $("loginStatus").innerHTML="<span class='warn'>Senha incorreta.</span>"; return; }
-  const login = (n+l).replace(/\s+/g,"").toLowerCase();
-  localStorage.setItem("em_login", login);
-  $("loginStatus").innerHTML = `<span class='ok'>Modo Conversação liberado.</span> Seu login: <strong>${login}</strong> (guardado).`;
-  setTimeout(()=> show("screen-convo"), 800);
+  $('result').textContent = `Your diagnostic\n\n${diag}\n\nGreat job! Click below to book your free speaking test.`;
+  show('scr-result');
 };
 
-/* ------------------ Conversation Mode ------------------ */
+/* ===================== LOGIN EM ===================== */
+$('lgEnter').onclick = async ()=>{
+  const name=$('lgName').value.trim(), last=$('lgLast').value.trim(), pass=$('lgPass').value.trim();
+  if(!name||!last||!pass){ $('lgStatus').textContent='Preencha todos os campos.'; return; }
+  $('lgStatus').textContent='Verificando…';
+  const r = await fetch('/auth/student',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,last,pass})});
+  const j = await r.json();
+  if(!j.ok){ $('lgStatus').textContent='Senha inválida.'; return; }
+  localStorage.setItem('em_login',(name+last).replace(/\s+/g,'').toLowerCase());
+  $('lgStatus').textContent='Acesso liberado.';
+  setTimeout(()=> show('scr-coach'), 400);
+};
+
+/* ===================== COACHING ===================== */
+const cChat=$('cChat');
+function cSay(t){ addMsg(cChat,t,'bot'); }
+function meSay(t){ addMsg(cChat,t,'me'); }
 const TOPICS = {
   A1:["Daily greetings","Food & drinks","Family & friends","Hobbies"],
   A2:["Travel & trips","Routine & schedules","Shopping & services","Health basics"],
   B1:["Work meetings","Opinions & debates","Past projects","Plans & goals"]
 };
 function renderTopics(level){
-  const box=$("topicList"); box.innerHTML="";
+  const box=$('topics'); box.innerHTML='';
   (TOPICS[level]||TOPICS.A2).forEach(t=>{
-    const b=document.createElement("button"); b.className="pill"; b.textContent=t;
-    b.onclick=()=> convoSend(`Let’s practice: ${t}. Ask me questions and help me improve.`);
+    const b=document.createElement('button'); b.className='pill'; b.textContent=t;
+    b.onclick=()=> sendCoach(`Let's practice: ${t}. Ask me questions and help me improve.`);
     box.appendChild(b);
   });
 }
-
-function convoAdd(text, who="bot"){ addBubble($("convoChat"), text, who); }
-async function convoSend(text){
-  if(!text){ text = $("convoInput").value.trim(); $("convoInput").value=""; }
+async function sendCoach(text){
+  if(!text){ text=$('cInput').value.trim(); $('cInput').value=''; }
   if(!text) return;
-  convoAdd(text,"user");
-  $("convoStatus").textContent="Thinking…";
+  meSay(text); $('cStatus').textContent='Thinking…';
   try{
-    const r = await fetch("/respond",{ method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ text })});
-    const j = await r.json();
-    if(!r.ok || !j?.ok){ convoAdd("Server error, please try again.","bot"); }
-    else { convoAdd(j.text,"bot"); }
-  }catch(_){ convoAdd("Connection error.","bot"); }
-  $("convoStatus").textContent="";
+    const r=await fetch('/respond',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:SESSION_ID,text})});
+    const j=await r.json();
+    if(!r.ok||!j?.ok){ cSay('Server error, please try again.'); }
+    else { cSay(j.text); }
+  }catch(_){ cSay('Connection error.'); }
+  $('cStatus').textContent='';
 }
+$('cSend').onclick = ()=> sendCoach();
+$('cInput').addEventListener('keydown',e=>{ if(e.key==='Enter') sendCoach(); });
+$('goCoach').onclick = ()=>{
+  renderTopics(placementSummary.level||'A2');
+  cChat.innerHTML='';
+  cSay(`Welcome to conversation mode. I’ll keep it light, helpful and motivating. Ready to talk about something you enjoy?`);
+  show('scr-coach');
+};
 
-$("convoSend").onclick = ()=>convoSend();
-$("convoInput").addEventListener("keydown",(e)=>{ if(e.key==="Enter") convoSend(); });
-
-/* On load: personalize topics by last placement */
-(function init(){
-  const lead = JSON.parse(localStorage.getItem("em_lead")||"null");
-  const level = lead?.level || "A2";
-  renderTopics(level);
-})();
+/* ============ INIT ============ */
+ring(0);
 </script>
 </body>
 </html>
