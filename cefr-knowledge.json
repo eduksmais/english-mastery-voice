@@ -1,0 +1,2074 @@
+{
+  "Pre-A1": {
+    "speaking": [
+      {
+        "en": "Can produce isolated words and very short phrases about self and immediate needs.",
+        "pt": "Consegue produzir palavras isoladas e frases bem curtas sobre si e necessidades imediatas."
+      },
+      {
+        "en": "Can repeat simple words and modelled phrases with support (pictures, gestures).",
+        "pt": "Consegue repetir palavras e frases modeladas com apoio (imagens, gestos)."
+      },
+      {
+        "en": "Can answer very basic questions if spoken slowly and clearly.",
+        "pt": "Consegue responder perguntas muito básicas quando ouve devagar e claramente."
+      },
+      {
+        "en": "Can use basic greetings and introduce self with single words or learned chunks.",
+        "pt": "Consegue cumprimentar e se apresentar com palavras soltas ou expressões memorizadas."
+      },
+      {
+        "en": "Can use numbers, prices, and times in very limited situations.",
+        "pt": "Consegue usar números, preços e horários em situações bem limitadas."
+      },
+      {
+        "en": "Can ask for common classroom objects using single words or fixed phrases.",
+        "pt": "Consegue pedir objetos comuns da sala usando palavras soltas ou frases fixas."
+      },
+      {
+        "en": "Can express likes/dislikes with single words and simple patterns.",
+        "pt": "Consegue dizer que gosta/não gosta com palavras soltas e padrões simples."
+      },
+      {
+        "en": "Can rely on gestures and pointing to support spoken communication.",
+        "pt": "Consegue usar gestos e apontar para apoiar a comunicação oral."
+      },
+      {
+        "en": "Can spell simple words like name or country with support.",
+        "pt": "Consegue soletrar palavras simples como nome ou país com apoio."
+      },
+      {
+        "en": "Can copy modelled pronunciation for basic words.",
+        "pt": "Consegue imitar a pronúncia de palavras básicas a partir de modelo."
+      }
+    ],
+    "listening": [
+      {
+        "en": "Can recognize familiar words when spoken slowly and with pauses.",
+        "pt": "Consegue reconhecer palavras familiares quando alguém fala devagar e com pausas."
+      },
+      {
+        "en": "Can understand simple classroom instructions with visual support.",
+        "pt": "Consegue entender instruções simples de sala de aula com apoio visual."
+      },
+      {
+        "en": "Can identify basic personal information (name, country) when clearly articulated.",
+        "pt": "Consegue identificar informações pessoais básicas (nome, país) quando articuladas claramente."
+      },
+      {
+        "en": "Can follow numbers, prices, and times when repeated.",
+        "pt": "Consegue acompanhar números, preços e horários quando repetidos."
+      },
+      {
+        "en": "Can pick out familiar words from songs or chants.",
+        "pt": "Consegue identificar palavras familiares em músicas ou cantigas."
+      },
+      {
+        "en": "Can understand very short questions about immediate needs.",
+        "pt": "Consegue entender perguntas bem curtas sobre necessidades imediatas."
+      },
+      {
+        "en": "Can recognize common greetings and leave-takings.",
+        "pt": "Consegue reconhecer cumprimentos e despedidas comuns."
+      },
+      {
+        "en": "Can follow a basic routine in class with teacher support.",
+        "pt": "Consegue seguir uma rotina básica na aula com apoio do professor."
+      },
+      {
+        "en": "Can identify objects when named and pointed at.",
+        "pt": "Consegue identificar objetos quando são nomeados e apontados."
+      },
+      {
+        "en": "Can understand yes/no questions on familiar topics.",
+        "pt": "Consegue entender perguntas de sim/não sobre temas familiares."
+      }
+    ],
+    "reading": [
+      {
+        "en": "Can recognize letters and simple, high-frequency words.",
+        "pt": "Consegue reconhecer letras e palavras simples de alta frequência."
+      },
+      {
+        "en": "Can understand very short labels and signs with pictures.",
+        "pt": "Consegue entender rótulos e placas bem curtos com imagens."
+      },
+      {
+        "en": "Can match words to pictures in simple tasks.",
+        "pt": "Consegue relacionar palavras a imagens em tarefas simples."
+      },
+      {
+        "en": "Can read own name, country, and basic personal data.",
+        "pt": "Consegue ler seu próprio nome, país e dados pessoais básicos."
+      },
+      {
+        "en": "Can follow very short captions under images.",
+        "pt": "Consegue acompanhar legendas bem curtas sob imagens."
+      },
+      {
+        "en": "Can understand numbers and times in simple formats.",
+        "pt": "Consegue entender números e horários em formatos simples."
+      },
+      {
+        "en": "Can pick out days of the week or months in lists.",
+        "pt": "Consegue identificar dias da semana ou meses em listas."
+      },
+      {
+        "en": "Can read simple classroom posters with support.",
+        "pt": "Consegue ler cartazes simples da sala com apoio."
+      },
+      {
+        "en": "Can understand basic menus with pictures.",
+        "pt": "Consegue entender cardápios básicos com imagens."
+      },
+      {
+        "en": "Can recognize common international words and symbols.",
+        "pt": "Consegue reconhecer palavras e símbolos internacionais comuns."
+      }
+    ],
+    "writing": [
+      {
+        "en": "Can copy letters, numbers, and familiar words.",
+        "pt": "Consegue copiar letras, números e palavras familiares."
+      },
+      {
+        "en": "Can write own name, nationality, and very basic details.",
+        "pt": "Consegue escrever seu nome, nacionalidade e detalhes bem básicos."
+      },
+      {
+        "en": "Can fill in simple forms with personal data (name, age).",
+        "pt": "Consegue preencher formulários simples com dados pessoais (nome, idade)."
+      },
+      {
+        "en": "Can label objects with single words.",
+        "pt": "Consegue rotular objetos com palavras isoladas."
+      },
+      {
+        "en": "Can write very short phrases learned by heart.",
+        "pt": "Consegue escrever frases bem curtas memorizadas."
+      },
+      {
+        "en": "Can use basic punctuation in modelled sentences.",
+        "pt": "Consegue usar pontuação básica em frases-modelo."
+      },
+      {
+        "en": "Can write numbers, dates, and times correctly.",
+        "pt": "Consegue escrever números, datas e horários corretamente."
+      },
+      {
+        "en": "Can produce simple greetings and farewells in writing.",
+        "pt": "Consegue produzir cumprimentos e despedidas simples por escrito."
+      },
+      {
+        "en": "Can copy short sentences from the board.",
+        "pt": "Consegue copiar frases curtas do quadro."
+      },
+      {
+        "en": "Can spell basic words with support.",
+        "pt": "Consegue soletrar palavras básicas com apoio."
+      }
+    ],
+    "interaction": [
+      {
+        "en": "Can respond to simple questions with single words or learned chunks.",
+        "pt": "Consegue responder perguntas simples com palavras ou expressões memorizadas."
+      },
+      {
+        "en": "Can use gestures to ask for repetition or help.",
+        "pt": "Consegue usar gestos para pedir repetição ou ajuda."
+      },
+      {
+        "en": "Can initiate a greeting and say goodbye in very short exchanges.",
+        "pt": "Consegue iniciar um cumprimento e se despedir em trocas muito curtas."
+      },
+      {
+        "en": "Can indicate lack of understanding using formulaic phrases.",
+        "pt": "Consegue indicar que não entendeu usando frases formulares."
+      },
+      {
+        "en": "Can participate in role-play with strong support.",
+        "pt": "Consegue participar de encenações com bastante apoio."
+      },
+      {
+        "en": "Can answer yes/no or either/or questions on familiar topics.",
+        "pt": "Consegue responder perguntas de sim/não ou alternativas sobre temas familiares."
+      },
+      {
+        "en": "Can ask for repetition very simply ('Again, please?').",
+        "pt": "Consegue pedir repetição de forma muito simples ('De novo, por favor?')."
+      },
+      {
+        "en": "Can follow and respond to classroom routines in pairs.",
+        "pt": "Consegue seguir e responder a rotinas de sala em duplas."
+      },
+      {
+        "en": "Can point to objects to negotiate meaning.",
+        "pt": "Consegue apontar objetos para negociar significado."
+      },
+      {
+        "en": "Can show agreement or disagreement with single words.",
+        "pt": "Consegue mostrar concordância ou discordância com palavras isoladas."
+      }
+    ],
+    "mediation": [
+      {
+        "en": "Can point to or name objects to help someone understand.",
+        "pt": "Consegue apontar ou nomear objetos para ajudar alguém a entender."
+      },
+      {
+        "en": "Can use gestures and very simple words to relay basic information.",
+        "pt": "Consegue usar gestos e palavras muito simples para repassar informações básicas."
+      },
+      {
+        "en": "Can indicate main idea of a picture or symbol.",
+        "pt": "Consegue indicar a ideia principal de uma imagem ou símbolo."
+      },
+      {
+        "en": "Can help classmates with single-word explanations.",
+        "pt": "Consegue ajudar colegas com explicações em uma palavra."
+      },
+      {
+        "en": "Can show where to find basic information on a page.",
+        "pt": "Consegue mostrar onde encontrar informação básica numa página."
+      },
+      {
+        "en": "Can translate very simple words into L1 if asked.",
+        "pt": "Consegue traduzir palavras muito simples para a L1 se for solicitado."
+      },
+      {
+        "en": "Can act as a bridge with simple phrases ('This is ...', 'It means ...').",
+        "pt": "Consegue atuar como ponte com frases simples ('Esse/Essa é ...', 'Significa ...')."
+      },
+      {
+        "en": "Can select a picture that best represents a word or idea.",
+        "pt": "Consegue escolher uma imagem que melhor representa uma palavra ou ideia."
+      },
+      {
+        "en": "Can relay numbers, names, or times heard.",
+        "pt": "Consegue repassar números, nomes ou horários ouvidos."
+      },
+      {
+        "en": "Can show understanding by pointing and repeating key words.",
+        "pt": "Consegue demonstrar compreensão apontando e repetindo palavras-chave."
+      }
+    ],
+    "plurilingual": [
+      {
+        "en": "Can mix very simple words from both languages to be understood.",
+        "pt": "Consegue mesclar palavras muito simples de ambas as línguas para ser entendido."
+      },
+      {
+        "en": "Can use their first language to support understanding of new words.",
+        "pt": "Consegue usar a língua materna para apoiar a compreensão de palavras novas."
+      },
+      {
+        "en": "Can rely on cognates and international words.",
+        "pt": "Consegue contar com cognatos e palavras internacionais."
+      },
+      {
+        "en": "Can switch to gestures when lacking words.",
+        "pt": "Consegue alternar para gestos quando faltam palavras."
+      },
+      {
+        "en": "Can ask a peer to say it in L1 for comprehension.",
+        "pt": "Consegue pedir a um colega que diga em L1 para compreender."
+      },
+      {
+        "en": "Can compare very simple words across languages.",
+        "pt": "Consegue comparar palavras muito simples entre línguas."
+      },
+      {
+        "en": "Can understand classroom routines regardless of language.",
+        "pt": "Consegue entender rotinas de sala independentemente da língua."
+      },
+      {
+        "en": "Can use names, numbers and brand words to bridge meaning.",
+        "pt": "Consegue usar nomes, números e marcas para mediar significado."
+      },
+      {
+        "en": "Can indicate they understand even with mixed-language replies.",
+        "pt": "Consegue indicar que entende mesmo com respostas em língua mista."
+      },
+      {
+        "en": "Can request help using any language they know.",
+        "pt": "Consegue pedir ajuda usando qualquer língua que conheça."
+      }
+    ]
+  },
+  "A1": {
+    "speaking": [
+      {
+        "en": "Can speak about familiar topics with some detail.",
+        "pt": "Consegue falar sobre temas familiares com algum detalhe."
+      },
+      {
+        "en": "Can describe experiences and plans using appropriate tenses.",
+        "pt": "Consegue descrever experiências e planos usando tempos apropriados."
+      },
+      {
+        "en": "Can express opinions and simple reasons.",
+        "pt": "Consegue expressar opiniões e razões simples."
+      },
+      {
+        "en": "Can narrate events in sequence with basic connectors.",
+        "pt": "Consegue narrar eventos em sequência usando conectores básicos."
+      },
+      {
+        "en": "Can adjust register slightly according to context.",
+        "pt": "Consegue ajustar levemente o registro conforme o contexto."
+      },
+      {
+        "en": "Can use circumlocution when a word is missing.",
+        "pt": "Consegue contornar lacunas de vocabulário com paráfrases."
+      },
+      {
+        "en": "Can maintain a conversation on routine matters.",
+        "pt": "Consegue manter uma conversa sobre assuntos rotineiros."
+      },
+      {
+        "en": "Can give short descriptions of people, places, or routines.",
+        "pt": "Consegue dar descrições curtas de pessoas, lugares ou rotinas."
+      },
+      {
+        "en": "Can ask follow-up questions to keep a conversation going.",
+        "pt": "Consegue fazer perguntas de seguimento para manter a conversa."
+      },
+      {
+        "en": "Can summarize the main points of a short discussion.",
+        "pt": "Consegue resumir os pontos principais de uma discussão breve."
+      }
+    ],
+    "listening": [
+      {
+        "en": "Can understand the main points of clear speech on familiar topics.",
+        "pt": "Consegue entender os pontos principais de fala clara sobre temas familiares."
+      },
+      {
+        "en": "Can follow short stories and everyday conversations.",
+        "pt": "Consegue acompanhar histórias curtas e conversas do dia a dia."
+      },
+      {
+        "en": "Can identify key information in announcements.",
+        "pt": "Consegue identificar informações-chave em anúncios."
+      },
+      {
+        "en": "Can understand instructions delivered clearly at a normal pace.",
+        "pt": "Consegue entender instruções claras em ritmo normal."
+      },
+      {
+        "en": "Can recognize attitude and basic intent from tone of voice.",
+        "pt": "Consegue reconhecer atitude e intenção básica pelo tom de voz."
+      },
+      {
+        "en": "Can follow the gist of radio or podcasts on familiar matters.",
+        "pt": "Consegue captar a ideia geral de rádio ou podcasts sobre temas familiares."
+      },
+      {
+        "en": "Can understand numbers, dates and times in everyday contexts.",
+        "pt": "Consegue entender números, datas e horários em contextos cotidianos."
+      },
+      {
+        "en": "Can pick out specific details when needed.",
+        "pt": "Consegue localizar detalhes específicos quando necessário."
+      },
+      {
+        "en": "Can catch the main ideas of class explanations.",
+        "pt": "Consegue captar as ideias principais de explicações em aula."
+      },
+      {
+        "en": "Can follow turn-taking cues in group talk.",
+        "pt": "Consegue seguir sinais de tomada de turno em conversas em grupo."
+      }
+    ],
+    "reading": [
+      {
+        "en": "Can understand texts with high-frequency vocabulary.",
+        "pt": "Consegue entender textos com vocabulário de alta frequência."
+      },
+      {
+        "en": "Can identify the main idea and some supporting details.",
+        "pt": "Consegue identificar a ideia principal e alguns detalhes de apoio."
+      },
+      {
+        "en": "Can follow short narratives and simple articles.",
+        "pt": "Consegue acompanhar narrativas curtas e artigos simples."
+      },
+      {
+        "en": "Can locate specific information in everyday texts.",
+        "pt": "Consegue localizar informações específicas em textos cotidianos."
+      },
+      {
+        "en": "Can understand basic signs, notices, emails and messages.",
+        "pt": "Consegue entender placas, avisos, e-mails e mensagens básicos."
+      },
+      {
+        "en": "Can infer meaning of unknown words from context.",
+        "pt": "Consegue inferir o significado de palavras desconhecidas pelo contexto."
+      },
+      {
+        "en": "Can recognize text structure and paragraphing.",
+        "pt": "Consegue reconhecer a estrutura do texto e parágrafos."
+      },
+      {
+        "en": "Can compare information from two short texts.",
+        "pt": "Consegue comparar informações de dois textos curtos."
+      },
+      {
+        "en": "Can understand simple instructions and guidelines.",
+        "pt": "Consegue entender instruções e orientações simples."
+      },
+      {
+        "en": "Can interpret basic charts or timetables.",
+        "pt": "Consegue interpretar tabelas ou horários básicos."
+      }
+    ],
+    "writing": [
+      {
+        "en": "Can write connected sentences on familiar topics.",
+        "pt": "Consegue escrever sentenças conectadas sobre temas familiares."
+      },
+      {
+        "en": "Can describe experiences, plans and preferences.",
+        "pt": "Consegue descrever experiências, planos e preferências."
+      },
+      {
+        "en": "Can write short emails and messages with clear purpose.",
+        "pt": "Consegue escrever e-mails e mensagens curtas com propósito claro."
+      },
+      {
+        "en": "Can link ideas with basic connectors (and, but, because).",
+        "pt": "Consegue ligar ideias com conectores básicos (e, mas, porque)."
+      },
+      {
+        "en": "Can use past and future forms with reasonable control.",
+        "pt": "Consegue usar tempos passado e futuro com controle razoável."
+      },
+      {
+        "en": "Can ask and answer simple questions in writing.",
+        "pt": "Consegue fazer e responder perguntas simples por escrito."
+      },
+      {
+        "en": "Can draft short narratives with a beginning and end.",
+        "pt": "Consegue redigir narrativas curtas com início e fim."
+      },
+      {
+        "en": "Can edit for basic punctuation and spelling.",
+        "pt": "Consegue revisar pontuação e ortografia básicas."
+      },
+      {
+        "en": "Can write short notes or summaries of main points.",
+        "pt": "Consegue escrever bilhetes ou resumos dos pontos principais."
+      },
+      {
+        "en": "Can adapt tone for informal messages.",
+        "pt": "Consegue adaptar o tom para mensagens informais."
+      }
+    ],
+    "interaction": [
+      {
+        "en": "Can initiate, maintain and close simple conversations.",
+        "pt": "Consegue iniciar, manter e encerrar conversas simples."
+      },
+      {
+        "en": "Can handle routine social exchanges politely.",
+        "pt": "Consegue lidar com trocas sociais rotineiras de forma educada."
+      },
+      {
+        "en": "Can request clarification and confirm understanding.",
+        "pt": "Consegue solicitar esclarecimentos e confirmar compreensão."
+      },
+      {
+        "en": "Can negotiate simple solutions in everyday contexts.",
+        "pt": "Consegue negociar soluções simples em contextos cotidianos."
+      },
+      {
+        "en": "Can cooperate in group tasks with basic turn-taking.",
+        "pt": "Consegue cooperar em tarefas de grupo com alternância básica de turnos."
+      },
+      {
+        "en": "Can mediate simple misunderstandings.",
+        "pt": "Consegue mediar mal-entendidos simples."
+      },
+      {
+        "en": "Can give and respond to invitations and suggestions.",
+        "pt": "Consegue fazer e responder a convites e sugestões."
+      },
+      {
+        "en": "Can manage short phone or online calls on known topics.",
+        "pt": "Consegue conduzir ligações curtas sobre tópicos conhecidos."
+      },
+      {
+        "en": "Can switch topics politely when needed.",
+        "pt": "Consegue mudar de assunto educadamente quando necessário."
+      },
+      {
+        "en": "Can summarize a partner's point before replying.",
+        "pt": "Consegue resumir o ponto do interlocutor antes de responder."
+      }
+    ],
+    "mediation": [
+      {
+        "en": "Can relay the main points of short texts orally.",
+        "pt": "Consegue transmitir oralmente os pontos principais de textos curtos."
+      },
+      {
+        "en": "Can summarize key information for an audience.",
+        "pt": "Consegue resumir informações-chave para um público."
+      },
+      {
+        "en": "Can simplify wording to help others understand.",
+        "pt": "Consegue simplificar a linguagem para ajudar outros a entender."
+      },
+      {
+        "en": "Can select relevant details and omit extraneous ones.",
+        "pt": "Consegue selecionar detalhes relevantes e omitir os supérfluos."
+      },
+      {
+        "en": "Can compare viewpoints in a balanced way.",
+        "pt": "Consegue comparar pontos de vista de forma equilibrada."
+      },
+      {
+        "en": "Can link contributions in a group discussion.",
+        "pt": "Consegue articular contribuições em uma discussão de grupo."
+      },
+      {
+        "en": "Can propose next steps and action points.",
+        "pt": "Consegue propor próximos passos e ações."
+      },
+      {
+        "en": "Can rephrase complex ideas more simply.",
+        "pt": "Consegue reformular ideias complexas de maneira mais simples."
+      },
+      {
+        "en": "Can support a peer's participation by clarifying.",
+        "pt": "Consegue apoiar a participação de um colega, esclarecendo pontos."
+      },
+      {
+        "en": "Can translate short passages informally when appropriate.",
+        "pt": "Consegue traduzir trechos curtos informalmente quando adequado."
+      }
+    ],
+    "plurilingual": [
+      {
+        "en": "Can draw on all languages to co-construct meaning.",
+        "pt": "Consegue recorrer a todas as línguas para coconstruir sentido."
+      },
+      {
+        "en": "Can use cognates and shared roots to infer meanings.",
+        "pt": "Consegue usar cognatos e raízes comuns para inferir significados."
+      },
+      {
+        "en": "Can explain concepts by switching languages strategically.",
+        "pt": "Consegue explicar conceitos alternando de língua estrategicamente."
+      },
+      {
+        "en": "Can negotiate meaning using combined resources.",
+        "pt": "Consegue negociar significado usando recursos combinados."
+      },
+      {
+        "en": "Can mediate intercultural differences respectfully.",
+        "pt": "Consegue mediar diferenças interculturais com respeito."
+      },
+      {
+        "en": "Can recognize when literal translation misleads.",
+        "pt": "Consegue reconhecer quando a tradução literal induz ao erro."
+      },
+      {
+        "en": "Can select the language best suited to the task.",
+        "pt": "Consegue selecionar a língua mais adequada à tarefa."
+      },
+      {
+        "en": "Can compare expressions across languages for nuance.",
+        "pt": "Consegue comparar expressões entre línguas para nuances."
+      },
+      {
+        "en": "Can keep communication flowing by strategic code-switching.",
+        "pt": "Consegue manter a comunicação fluindo com code-switching estratégico."
+      },
+      {
+        "en": "Can reflect on language choices and impact.",
+        "pt": "Consegue refletir sobre escolhas linguísticas e seus impactos."
+      }
+    ]
+  },
+  "A2": {
+    "speaking": [
+      {
+        "en": "Can speak about familiar topics with some detail.",
+        "pt": "Consegue falar sobre temas familiares com algum detalhe."
+      },
+      {
+        "en": "Can describe experiences and plans using appropriate tenses.",
+        "pt": "Consegue descrever experiências e planos usando tempos apropriados."
+      },
+      {
+        "en": "Can express opinions and simple reasons.",
+        "pt": "Consegue expressar opiniões e razões simples."
+      },
+      {
+        "en": "Can narrate events in sequence with basic connectors.",
+        "pt": "Consegue narrar eventos em sequência usando conectores básicos."
+      },
+      {
+        "en": "Can adjust register slightly according to context.",
+        "pt": "Consegue ajustar levemente o registro conforme o contexto."
+      },
+      {
+        "en": "Can use circumlocution when a word is missing.",
+        "pt": "Consegue contornar lacunas de vocabulário com paráfrases."
+      },
+      {
+        "en": "Can maintain a conversation on routine matters.",
+        "pt": "Consegue manter uma conversa sobre assuntos rotineiros."
+      },
+      {
+        "en": "Can give short descriptions of people, places, or routines.",
+        "pt": "Consegue dar descrições curtas de pessoas, lugares ou rotinas."
+      },
+      {
+        "en": "Can ask follow-up questions to keep a conversation going.",
+        "pt": "Consegue fazer perguntas de seguimento para manter a conversa."
+      },
+      {
+        "en": "Can summarize the main points of a short discussion.",
+        "pt": "Consegue resumir os pontos principais de uma discussão breve."
+      }
+    ],
+    "listening": [
+      {
+        "en": "Can understand the main points of clear speech on familiar topics.",
+        "pt": "Consegue entender os pontos principais de fala clara sobre temas familiares."
+      },
+      {
+        "en": "Can follow short stories and everyday conversations.",
+        "pt": "Consegue acompanhar histórias curtas e conversas do dia a dia."
+      },
+      {
+        "en": "Can identify key information in announcements.",
+        "pt": "Consegue identificar informações-chave em anúncios."
+      },
+      {
+        "en": "Can understand instructions delivered clearly at a normal pace.",
+        "pt": "Consegue entender instruções claras em ritmo normal."
+      },
+      {
+        "en": "Can recognize attitude and basic intent from tone of voice.",
+        "pt": "Consegue reconhecer atitude e intenção básica pelo tom de voz."
+      },
+      {
+        "en": "Can follow the gist of radio or podcasts on familiar matters.",
+        "pt": "Consegue captar a ideia geral de rádio ou podcasts sobre temas familiares."
+      },
+      {
+        "en": "Can understand numbers, dates and times in everyday contexts.",
+        "pt": "Consegue entender números, datas e horários em contextos cotidianos."
+      },
+      {
+        "en": "Can pick out specific details when needed.",
+        "pt": "Consegue localizar detalhes específicos quando necessário."
+      },
+      {
+        "en": "Can catch the main ideas of class explanations.",
+        "pt": "Consegue captar as ideias principais de explicações em aula."
+      },
+      {
+        "en": "Can follow turn-taking cues in group talk.",
+        "pt": "Consegue seguir sinais de tomada de turno em conversas em grupo."
+      }
+    ],
+    "reading": [
+      {
+        "en": "Can understand texts with high-frequency vocabulary.",
+        "pt": "Consegue entender textos com vocabulário de alta frequência."
+      },
+      {
+        "en": "Can identify the main idea and some supporting details.",
+        "pt": "Consegue identificar a ideia principal e alguns detalhes de apoio."
+      },
+      {
+        "en": "Can follow short narratives and simple articles.",
+        "pt": "Consegue acompanhar narrativas curtas e artigos simples."
+      },
+      {
+        "en": "Can locate specific information in everyday texts.",
+        "pt": "Consegue localizar informações específicas em textos cotidianos."
+      },
+      {
+        "en": "Can understand basic signs, notices, emails and messages.",
+        "pt": "Consegue entender placas, avisos, e-mails e mensagens básicos."
+      },
+      {
+        "en": "Can infer meaning of unknown words from context.",
+        "pt": "Consegue inferir o significado de palavras desconhecidas pelo contexto."
+      },
+      {
+        "en": "Can recognize text structure and paragraphing.",
+        "pt": "Consegue reconhecer a estrutura do texto e parágrafos."
+      },
+      {
+        "en": "Can compare information from two short texts.",
+        "pt": "Consegue comparar informações de dois textos curtos."
+      },
+      {
+        "en": "Can understand simple instructions and guidelines.",
+        "pt": "Consegue entender instruções e orientações simples."
+      },
+      {
+        "en": "Can interpret basic charts or timetables.",
+        "pt": "Consegue interpretar tabelas ou horários básicos."
+      }
+    ],
+    "writing": [
+      {
+        "en": "Can write connected sentences on familiar topics.",
+        "pt": "Consegue escrever sentenças conectadas sobre temas familiares."
+      },
+      {
+        "en": "Can describe experiences, plans and preferences.",
+        "pt": "Consegue descrever experiências, planos e preferências."
+      },
+      {
+        "en": "Can write short emails and messages with clear purpose.",
+        "pt": "Consegue escrever e-mails e mensagens curtas com propósito claro."
+      },
+      {
+        "en": "Can link ideas with basic connectors (and, but, because).",
+        "pt": "Consegue ligar ideias com conectores básicos (e, mas, porque)."
+      },
+      {
+        "en": "Can use past and future forms with reasonable control.",
+        "pt": "Consegue usar tempos passado e futuro com controle razoável."
+      },
+      {
+        "en": "Can ask and answer simple questions in writing.",
+        "pt": "Consegue fazer e responder perguntas simples por escrito."
+      },
+      {
+        "en": "Can draft short narratives with a beginning and end.",
+        "pt": "Consegue redigir narrativas curtas com início e fim."
+      },
+      {
+        "en": "Can edit for basic punctuation and spelling.",
+        "pt": "Consegue revisar pontuação e ortografia básicas."
+      },
+      {
+        "en": "Can write short notes or summaries of main points.",
+        "pt": "Consegue escrever bilhetes ou resumos dos pontos principais."
+      },
+      {
+        "en": "Can adapt tone for informal messages.",
+        "pt": "Consegue adaptar o tom para mensagens informais."
+      }
+    ],
+    "interaction": [
+      {
+        "en": "Can initiate, maintain and close simple conversations.",
+        "pt": "Consegue iniciar, manter e encerrar conversas simples."
+      },
+      {
+        "en": "Can handle routine social exchanges politely.",
+        "pt": "Consegue lidar com trocas sociais rotineiras de forma educada."
+      },
+      {
+        "en": "Can request clarification and confirm understanding.",
+        "pt": "Consegue solicitar esclarecimentos e confirmar compreensão."
+      },
+      {
+        "en": "Can negotiate simple solutions in everyday contexts.",
+        "pt": "Consegue negociar soluções simples em contextos cotidianos."
+      },
+      {
+        "en": "Can cooperate in group tasks with basic turn-taking.",
+        "pt": "Consegue cooperar em tarefas de grupo com alternância básica de turnos."
+      },
+      {
+        "en": "Can mediate simple misunderstandings.",
+        "pt": "Consegue mediar mal-entendidos simples."
+      },
+      {
+        "en": "Can give and respond to invitations and suggestions.",
+        "pt": "Consegue fazer e responder a convites e sugestões."
+      },
+      {
+        "en": "Can manage short phone or online calls on known topics.",
+        "pt": "Consegue conduzir ligações curtas sobre tópicos conhecidos."
+      },
+      {
+        "en": "Can switch topics politely when needed.",
+        "pt": "Consegue mudar de assunto educadamente quando necessário."
+      },
+      {
+        "en": "Can summarize a partner's point before replying.",
+        "pt": "Consegue resumir o ponto do interlocutor antes de responder."
+      }
+    ],
+    "mediation": [
+      {
+        "en": "Can relay the main points of short texts orally.",
+        "pt": "Consegue transmitir oralmente os pontos principais de textos curtos."
+      },
+      {
+        "en": "Can summarize key information for an audience.",
+        "pt": "Consegue resumir informações-chave para um público."
+      },
+      {
+        "en": "Can simplify wording to help others understand.",
+        "pt": "Consegue simplificar a linguagem para ajudar outros a entender."
+      },
+      {
+        "en": "Can select relevant details and omit extraneous ones.",
+        "pt": "Consegue selecionar detalhes relevantes e omitir os supérfluos."
+      },
+      {
+        "en": "Can compare viewpoints in a balanced way.",
+        "pt": "Consegue comparar pontos de vista de forma equilibrada."
+      },
+      {
+        "en": "Can link contributions in a group discussion.",
+        "pt": "Consegue articular contribuições em uma discussão de grupo."
+      },
+      {
+        "en": "Can propose next steps and action points.",
+        "pt": "Consegue propor próximos passos e ações."
+      },
+      {
+        "en": "Can rephrase complex ideas more simply.",
+        "pt": "Consegue reformular ideias complexas de maneira mais simples."
+      },
+      {
+        "en": "Can support a peer's participation by clarifying.",
+        "pt": "Consegue apoiar a participação de um colega, esclarecendo pontos."
+      },
+      {
+        "en": "Can translate short passages informally when appropriate.",
+        "pt": "Consegue traduzir trechos curtos informalmente quando adequado."
+      }
+    ],
+    "plurilingual": [
+      {
+        "en": "Can draw on all languages to co-construct meaning.",
+        "pt": "Consegue recorrer a todas as línguas para coconstruir sentido."
+      },
+      {
+        "en": "Can use cognates and shared roots to infer meanings.",
+        "pt": "Consegue usar cognatos e raízes comuns para inferir significados."
+      },
+      {
+        "en": "Can explain concepts by switching languages strategically.",
+        "pt": "Consegue explicar conceitos alternando de língua estrategicamente."
+      },
+      {
+        "en": "Can negotiate meaning using combined resources.",
+        "pt": "Consegue negociar significado usando recursos combinados."
+      },
+      {
+        "en": "Can mediate intercultural differences respectfully.",
+        "pt": "Consegue mediar diferenças interculturais com respeito."
+      },
+      {
+        "en": "Can recognize when literal translation misleads.",
+        "pt": "Consegue reconhecer quando a tradução literal induz ao erro."
+      },
+      {
+        "en": "Can select the language best suited to the task.",
+        "pt": "Consegue selecionar a língua mais adequada à tarefa."
+      },
+      {
+        "en": "Can compare expressions across languages for nuance.",
+        "pt": "Consegue comparar expressões entre línguas para nuances."
+      },
+      {
+        "en": "Can keep communication flowing by strategic code-switching.",
+        "pt": "Consegue manter a comunicação fluindo com code-switching estratégico."
+      },
+      {
+        "en": "Can reflect on language choices and impact.",
+        "pt": "Consegue refletir sobre escolhas linguísticas e seus impactos."
+      }
+    ]
+  },
+  "B1": {
+    "speaking": [
+      {
+        "en": "Can speak about familiar topics with some detail.",
+        "pt": "Consegue falar sobre temas familiares com algum detalhe."
+      },
+      {
+        "en": "Can describe experiences and plans using appropriate tenses.",
+        "pt": "Consegue descrever experiências e planos usando tempos apropriados."
+      },
+      {
+        "en": "Can express opinions and simple reasons.",
+        "pt": "Consegue expressar opiniões e razões simples."
+      },
+      {
+        "en": "Can narrate events in sequence with basic connectors.",
+        "pt": "Consegue narrar eventos em sequência usando conectores básicos."
+      },
+      {
+        "en": "Can adjust register slightly according to context.",
+        "pt": "Consegue ajustar levemente o registro conforme o contexto."
+      },
+      {
+        "en": "Can use circumlocution when a word is missing.",
+        "pt": "Consegue contornar lacunas de vocabulário com paráfrases."
+      },
+      {
+        "en": "Can maintain a conversation on routine matters.",
+        "pt": "Consegue manter uma conversa sobre assuntos rotineiros."
+      },
+      {
+        "en": "Can give short descriptions of people, places, or routines.",
+        "pt": "Consegue dar descrições curtas de pessoas, lugares ou rotinas."
+      },
+      {
+        "en": "Can ask follow-up questions to keep a conversation going.",
+        "pt": "Consegue fazer perguntas de seguimento para manter a conversa."
+      },
+      {
+        "en": "Can summarize the main points of a short discussion.",
+        "pt": "Consegue resumir os pontos principais de uma discussão breve."
+      }
+    ],
+    "listening": [
+      {
+        "en": "Can understand the main points of clear speech on familiar topics.",
+        "pt": "Consegue entender os pontos principais de fala clara sobre temas familiares."
+      },
+      {
+        "en": "Can follow short stories and everyday conversations.",
+        "pt": "Consegue acompanhar histórias curtas e conversas do dia a dia."
+      },
+      {
+        "en": "Can identify key information in announcements.",
+        "pt": "Consegue identificar informações-chave em anúncios."
+      },
+      {
+        "en": "Can understand instructions delivered clearly at a normal pace.",
+        "pt": "Consegue entender instruções claras em ritmo normal."
+      },
+      {
+        "en": "Can recognize attitude and basic intent from tone of voice.",
+        "pt": "Consegue reconhecer atitude e intenção básica pelo tom de voz."
+      },
+      {
+        "en": "Can follow the gist of radio or podcasts on familiar matters.",
+        "pt": "Consegue captar a ideia geral de rádio ou podcasts sobre temas familiares."
+      },
+      {
+        "en": "Can understand numbers, dates and times in everyday contexts.",
+        "pt": "Consegue entender números, datas e horários em contextos cotidianos."
+      },
+      {
+        "en": "Can pick out specific details when needed.",
+        "pt": "Consegue localizar detalhes específicos quando necessário."
+      },
+      {
+        "en": "Can catch the main ideas of class explanations.",
+        "pt": "Consegue captar as ideias principais de explicações em aula."
+      },
+      {
+        "en": "Can follow turn-taking cues in group talk.",
+        "pt": "Consegue seguir sinais de tomada de turno em conversas em grupo."
+      }
+    ],
+    "reading": [
+      {
+        "en": "Can understand texts with high-frequency vocabulary.",
+        "pt": "Consegue entender textos com vocabulário de alta frequência."
+      },
+      {
+        "en": "Can identify the main idea and some supporting details.",
+        "pt": "Consegue identificar a ideia principal e alguns detalhes de apoio."
+      },
+      {
+        "en": "Can follow short narratives and simple articles.",
+        "pt": "Consegue acompanhar narrativas curtas e artigos simples."
+      },
+      {
+        "en": "Can locate specific information in everyday texts.",
+        "pt": "Consegue localizar informações específicas em textos cotidianos."
+      },
+      {
+        "en": "Can understand basic signs, notices, emails and messages.",
+        "pt": "Consegue entender placas, avisos, e-mails e mensagens básicos."
+      },
+      {
+        "en": "Can infer meaning of unknown words from context.",
+        "pt": "Consegue inferir o significado de palavras desconhecidas pelo contexto."
+      },
+      {
+        "en": "Can recognize text structure and paragraphing.",
+        "pt": "Consegue reconhecer a estrutura do texto e parágrafos."
+      },
+      {
+        "en": "Can compare information from two short texts.",
+        "pt": "Consegue comparar informações de dois textos curtos."
+      },
+      {
+        "en": "Can understand simple instructions and guidelines.",
+        "pt": "Consegue entender instruções e orientações simples."
+      },
+      {
+        "en": "Can interpret basic charts or timetables.",
+        "pt": "Consegue interpretar tabelas ou horários básicos."
+      }
+    ],
+    "writing": [
+      {
+        "en": "Can write connected sentences on familiar topics.",
+        "pt": "Consegue escrever sentenças conectadas sobre temas familiares."
+      },
+      {
+        "en": "Can describe experiences, plans and preferences.",
+        "pt": "Consegue descrever experiências, planos e preferências."
+      },
+      {
+        "en": "Can write short emails and messages with clear purpose.",
+        "pt": "Consegue escrever e-mails e mensagens curtas com propósito claro."
+      },
+      {
+        "en": "Can link ideas with basic connectors (and, but, because).",
+        "pt": "Consegue ligar ideias com conectores básicos (e, mas, porque)."
+      },
+      {
+        "en": "Can use past and future forms with reasonable control.",
+        "pt": "Consegue usar tempos passado e futuro com controle razoável."
+      },
+      {
+        "en": "Can ask and answer simple questions in writing.",
+        "pt": "Consegue fazer e responder perguntas simples por escrito."
+      },
+      {
+        "en": "Can draft short narratives with a beginning and end.",
+        "pt": "Consegue redigir narrativas curtas com início e fim."
+      },
+      {
+        "en": "Can edit for basic punctuation and spelling.",
+        "pt": "Consegue revisar pontuação e ortografia básicas."
+      },
+      {
+        "en": "Can write short notes or summaries of main points.",
+        "pt": "Consegue escrever bilhetes ou resumos dos pontos principais."
+      },
+      {
+        "en": "Can adapt tone for informal messages.",
+        "pt": "Consegue adaptar o tom para mensagens informais."
+      }
+    ],
+    "interaction": [
+      {
+        "en": "Can initiate, maintain and close simple conversations.",
+        "pt": "Consegue iniciar, manter e encerrar conversas simples."
+      },
+      {
+        "en": "Can handle routine social exchanges politely.",
+        "pt": "Consegue lidar com trocas sociais rotineiras de forma educada."
+      },
+      {
+        "en": "Can request clarification and confirm understanding.",
+        "pt": "Consegue solicitar esclarecimentos e confirmar compreensão."
+      },
+      {
+        "en": "Can negotiate simple solutions in everyday contexts.",
+        "pt": "Consegue negociar soluções simples em contextos cotidianos."
+      },
+      {
+        "en": "Can cooperate in group tasks with basic turn-taking.",
+        "pt": "Consegue cooperar em tarefas de grupo com alternância básica de turnos."
+      },
+      {
+        "en": "Can mediate simple misunderstandings.",
+        "pt": "Consegue mediar mal-entendidos simples."
+      },
+      {
+        "en": "Can give and respond to invitations and suggestions.",
+        "pt": "Consegue fazer e responder a convites e sugestões."
+      },
+      {
+        "en": "Can manage short phone or online calls on known topics.",
+        "pt": "Consegue conduzir ligações curtas sobre tópicos conhecidos."
+      },
+      {
+        "en": "Can switch topics politely when needed.",
+        "pt": "Consegue mudar de assunto educadamente quando necessário."
+      },
+      {
+        "en": "Can summarize a partner's point before replying.",
+        "pt": "Consegue resumir o ponto do interlocutor antes de responder."
+      }
+    ],
+    "mediation": [
+      {
+        "en": "Can relay the main points of short texts orally.",
+        "pt": "Consegue transmitir oralmente os pontos principais de textos curtos."
+      },
+      {
+        "en": "Can summarize key information for an audience.",
+        "pt": "Consegue resumir informações-chave para um público."
+      },
+      {
+        "en": "Can simplify wording to help others understand.",
+        "pt": "Consegue simplificar a linguagem para ajudar outros a entender."
+      },
+      {
+        "en": "Can select relevant details and omit extraneous ones.",
+        "pt": "Consegue selecionar detalhes relevantes e omitir os supérfluos."
+      },
+      {
+        "en": "Can compare viewpoints in a balanced way.",
+        "pt": "Consegue comparar pontos de vista de forma equilibrada."
+      },
+      {
+        "en": "Can link contributions in a group discussion.",
+        "pt": "Consegue articular contribuições em uma discussão de grupo."
+      },
+      {
+        "en": "Can propose next steps and action points.",
+        "pt": "Consegue propor próximos passos e ações."
+      },
+      {
+        "en": "Can rephrase complex ideas more simply.",
+        "pt": "Consegue reformular ideias complexas de maneira mais simples."
+      },
+      {
+        "en": "Can support a peer's participation by clarifying.",
+        "pt": "Consegue apoiar a participação de um colega, esclarecendo pontos."
+      },
+      {
+        "en": "Can translate short passages informally when appropriate.",
+        "pt": "Consegue traduzir trechos curtos informalmente quando adequado."
+      }
+    ],
+    "plurilingual": [
+      {
+        "en": "Can draw on all languages to co-construct meaning.",
+        "pt": "Consegue recorrer a todas as línguas para coconstruir sentido."
+      },
+      {
+        "en": "Can use cognates and shared roots to infer meanings.",
+        "pt": "Consegue usar cognatos e raízes comuns para inferir significados."
+      },
+      {
+        "en": "Can explain concepts by switching languages strategically.",
+        "pt": "Consegue explicar conceitos alternando de língua estrategicamente."
+      },
+      {
+        "en": "Can negotiate meaning using combined resources.",
+        "pt": "Consegue negociar significado usando recursos combinados."
+      },
+      {
+        "en": "Can mediate intercultural differences respectfully.",
+        "pt": "Consegue mediar diferenças interculturais com respeito."
+      },
+      {
+        "en": "Can recognize when literal translation misleads.",
+        "pt": "Consegue reconhecer quando a tradução literal induz ao erro."
+      },
+      {
+        "en": "Can select the language best suited to the task.",
+        "pt": "Consegue selecionar a língua mais adequada à tarefa."
+      },
+      {
+        "en": "Can compare expressions across languages for nuance.",
+        "pt": "Consegue comparar expressões entre línguas para nuances."
+      },
+      {
+        "en": "Can keep communication flowing by strategic code-switching.",
+        "pt": "Consegue manter a comunicação fluindo com code-switching estratégico."
+      },
+      {
+        "en": "Can reflect on language choices and impact.",
+        "pt": "Consegue refletir sobre escolhas linguísticas e seus impactos."
+      }
+    ]
+  },
+  "B2": {
+    "speaking": [
+      {
+        "en": "Can speak about familiar topics with some detail with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can describe experiences and plans using appropriate tenses with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can express opinions and simple reasons with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can narrate events in sequence with basic connectors with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can adjust register slightly according to context with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can use circumlocution when a word is missing with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can maintain a conversation on routine matters with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can give short descriptions of people, places, or routines with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can ask follow-up questions to keep a conversation going with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can summarize the main points of a short discussion with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "listening": [
+      {
+        "en": "Can understand the main points of clear speech on familiar topics with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow short stories and everyday conversations with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can identify key information in announcements with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand instructions delivered clearly at a normal pace with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can recognize attitude and basic intent from tone of voice with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow the gist of radio or podcasts on familiar matters with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand numbers, dates and times in everyday contexts with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can pick out specific details when needed with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can catch the main ideas of class explanations with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow turn-taking cues in group talk with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "reading": [
+      {
+        "en": "Can understand texts with high-frequency vocabulary with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can identify the main idea and some supporting details with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow short narratives and simple articles with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can locate specific information in everyday texts with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand basic signs, notices, emails and messages with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can infer meaning of unknown words from context with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can recognize text structure and paragraphing with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can compare information from two short texts with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand simple instructions and guidelines with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can interpret basic charts or timetables with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "writing": [
+      {
+        "en": "Can write connected sentences on familiar topics with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can describe experiences, plans and preferences with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can write short emails and messages with clear purpose with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can link ideas with basic connectors (and, but, because) with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can use past and future forms with reasonable control with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can ask and answer simple questions in writing with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can draft short narratives with a beginning and end with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can edit for basic punctuation and spelling with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can write short notes or summaries of main points with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can adapt tone for informal messages with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "interaction": [
+      {
+        "en": "Can initiate, maintain and close simple conversations with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can handle routine social exchanges politely with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can request clarification and confirm understanding with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can negotiate simple solutions in everyday contexts with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can cooperate in group tasks with basic turn-taking with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can mediate simple misunderstandings with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can give and respond to invitations and suggestions with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can manage short phone or online calls on known topics with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can switch topics politely when needed with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can summarize a partner's point before replying with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "mediation": [
+      {
+        "en": "Can relay the main points of short texts orally with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can summarize key information for an audience with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can simplify wording to help others understand with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can select relevant details and omit extraneous ones with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can compare viewpoints in a balanced way with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can link contributions in a group discussion with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can propose next steps and action points with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can rephrase complex ideas more simply with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can support a peer's participation by clarifying with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can translate short passages informally when appropriate with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "plurilingual": [
+      {
+        "en": "Can draw on all languages to co-construct meaning with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can use cognates and shared roots to infer meanings with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can explain concepts by switching languages strategically with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can negotiate meaning using combined resources with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can mediate intercultural differences respectfully with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can recognize when literal translation misleads with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can select the language best suited to the task with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can compare expressions across languages for nuance with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can keep communication flowing by strategic code-switching with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can reflect on language choices and impact with growing flexibility and control.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ]
+  },
+  "C1": {
+    "speaking": [
+      {
+        "en": "Can speak about familiar topics with some detail with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can describe experiences and plans using appropriate tenses with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can express opinions and simple reasons with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can narrate events in sequence with basic connectors with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can adjust register slightly according to context with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can use circumlocution when a word is missing with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can maintain a conversation on routine matters with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can give short descriptions of people, places, or routines with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can ask follow-up questions to keep a conversation going with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can summarize the main points of a short discussion with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "listening": [
+      {
+        "en": "Can understand the main points of clear speech on familiar topics with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow short stories and everyday conversations with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can identify key information in announcements with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand instructions delivered clearly at a normal pace with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can recognize attitude and basic intent from tone of voice with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow the gist of radio or podcasts on familiar matters with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand numbers, dates and times in everyday contexts with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can pick out specific details when needed with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can catch the main ideas of class explanations with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow turn-taking cues in group talk with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "reading": [
+      {
+        "en": "Can understand texts with high-frequency vocabulary with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can identify the main idea and some supporting details with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow short narratives and simple articles with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can locate specific information in everyday texts with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand basic signs, notices, emails and messages with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can infer meaning of unknown words from context with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can recognize text structure and paragraphing with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can compare information from two short texts with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand simple instructions and guidelines with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can interpret basic charts or timetables with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "writing": [
+      {
+        "en": "Can write connected sentences on familiar topics with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can describe experiences, plans and preferences with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can write short emails and messages with clear purpose with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can link ideas with basic connectors (and, but, because) with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can use past and future forms with reasonable control with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can ask and answer simple questions in writing with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can draft short narratives with a beginning and end with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can edit for basic punctuation and spelling with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can write short notes or summaries of main points with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can adapt tone for informal messages with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "interaction": [
+      {
+        "en": "Can initiate, maintain and close simple conversations with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can handle routine social exchanges politely with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can request clarification and confirm understanding with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can negotiate simple solutions in everyday contexts with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can cooperate in group tasks with basic turn-taking with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can mediate simple misunderstandings with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can give and respond to invitations and suggestions with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can manage short phone or online calls on known topics with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can switch topics politely when needed with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can summarize a partner's point before replying with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "mediation": [
+      {
+        "en": "Can relay the main points of short texts orally with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can summarize key information for an audience with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can simplify wording to help others understand with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can select relevant details and omit extraneous ones with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can compare viewpoints in a balanced way with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can link contributions in a group discussion with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can propose next steps and action points with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can rephrase complex ideas more simply with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can support a peer's participation by clarifying with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can translate short passages informally when appropriate with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "plurilingual": [
+      {
+        "en": "Can draw on all languages to co-construct meaning with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can use cognates and shared roots to infer meanings with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can explain concepts by switching languages strategically with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can negotiate meaning using combined resources with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can mediate intercultural differences respectfully with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can recognize when literal translation misleads with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can select the language best suited to the task with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can compare expressions across languages for nuance with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can keep communication flowing by strategic code-switching with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can reflect on language choices and impact with consistent control and coherence across extended turns.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ]
+  },
+  "C2": {
+    "speaking": [
+      {
+        "en": "Can speak about familiar topics with some detail with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can describe experiences and plans using appropriate tenses with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can express opinions and simple reasons with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can narrate events in sequence with basic connectors with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can adjust register slightly according to context with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can use circumlocution when a word is missing with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can maintain a conversation on routine matters with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can give short descriptions of people, places, or routines with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can ask follow-up questions to keep a conversation going with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can summarize the main points of a short discussion with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "listening": [
+      {
+        "en": "Can understand the main points of clear speech on familiar topics with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow short stories and everyday conversations with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can identify key information in announcements with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand instructions delivered clearly at a normal pace with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can recognize attitude and basic intent from tone of voice with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow the gist of radio or podcasts on familiar matters with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand numbers, dates and times in everyday contexts with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can pick out specific details when needed with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can catch the main ideas of class explanations with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow turn-taking cues in group talk with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "reading": [
+      {
+        "en": "Can understand texts with high-frequency vocabulary with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can identify the main idea and some supporting details with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can follow short narratives and simple articles with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can locate specific information in everyday texts with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand basic signs, notices, emails and messages with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can infer meaning of unknown words from context with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can recognize text structure and paragraphing with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can compare information from two short texts with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can understand simple instructions and guidelines with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can interpret basic charts or timetables with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "writing": [
+      {
+        "en": "Can write connected sentences on familiar topics with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can describe experiences, plans and preferences with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can write short emails and messages with clear purpose with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can link ideas with basic connectors (and, but, because) with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can use past and future forms with reasonable control with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can ask and answer simple questions in writing with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can draft short narratives with a beginning and end with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can edit for basic punctuation and spelling with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can write short notes or summaries of main points with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can adapt tone for informal messages with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "interaction": [
+      {
+        "en": "Can initiate, maintain and close simple conversations with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can handle routine social exchanges politely with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can request clarification and confirm understanding with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can negotiate simple solutions in everyday contexts with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can cooperate in group tasks with basic turn-taking with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can mediate simple misunderstandings with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can give and respond to invitations and suggestions with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can manage short phone or online calls on known topics with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can switch topics politely when needed with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can summarize a partner's point before replying with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "mediation": [
+      {
+        "en": "Can relay the main points of short texts orally with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can summarize key information for an audience with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can simplify wording to help others understand with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can select relevant details and omit extraneous ones with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can compare viewpoints in a balanced way with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can link contributions in a group discussion with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can propose next steps and action points with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can rephrase complex ideas more simply with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can support a peer's participation by clarifying with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can translate short passages informally when appropriate with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ],
+    "plurilingual": [
+      {
+        "en": "Can draw on all languages to co-construct meaning with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can use cognates and shared roots to infer meanings with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can explain concepts by switching languages strategically with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can negotiate meaning using combined resources with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can mediate intercultural differences respectfully with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can recognize when literal translation misleads with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can select the language best suited to the task with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can compare expressions across languages for nuance with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can keep communication flowing by strategic code-switching with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      },
+      {
+        "en": "Can reflect on language choices and impact with sophistication, precision and nuanced control of style.",
+        "pt": "Consegue realizar a habilidade descrita de forma compatível ao nível."
+      }
+    ]
+  }
+}
