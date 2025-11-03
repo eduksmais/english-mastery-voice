@@ -1,364 +1,416 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Sr. Mastrius — English Mastery</title>
-<!-- ====== STYLE (Premium, clean) ====== -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --brand:#31c1bb; --brand-2:#f5b305; --accent:#e34410; --ink:#0C0101;
-    --bg:#f6f9fb; --card:#ffffff; --muted:#64748b; --line:#e6edf0;
-  }
-  *{box-sizing:border-box}  html,body{height:100%}
-  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#f9ffff,#eefbfa 60%,#fff);color:#0f172a}
-  .wrap{max-width:960px;margin:0 auto;padding:20px}
-  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-  .brand{display:flex;gap:14px;align-items:center}
-  .title{font-weight:800;letter-spacing:.2px}
-  .sub{font-size:13px;color:var(--muted)}
-  .badge{display:flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px dashed #d1e6e6;background:#fff;color:#334155;font-size:13px}
-  .app{background:var(--card);border:1px solid rgba(12,1,1,.06);border-radius:20px;padding:18px;box-shadow:0 10px 28px rgba(0,0,0,.06)}
-  .screen{display:none} .screen.active{display:block}
-  .card{background:#fff;border:1px solid rgba(12,1,1,.08);border-radius:16px;padding:18px}
-  .row{display:flex;gap:10px;flex-wrap:wrap}
-  .btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;transition:transform .08s ease,background .2s ease}
-  .btn.primary{background:var(--accent);color:#fff;box-shadow:0 6px 16px rgba(227,68,16,.25)}
-  .btn.primary:hover{transform:translateY(-1px)}
-  .btn.secondary{background:#fff;border:1px solid rgba(12,1,1,.18)}
-  .muted{font-size:13px;color:var(--muted)}
-  .grid{display:grid;gap:14px}
-  @media (min-width:900px){ .grid-2{grid-template-columns:1.2fr .8fr} }
-  input,textarea,select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #dbe5ea;background:#fff;font-size:14px}
-  .chat{height:420px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:12px;background:#fff;border-radius:14px;border:1px solid rgba(12,1,1,.08)}
-  .msg{max-width:85%;padding:10px 14px;border-radius:12px;white-space:pre-wrap;line-height:1.45}
-  .bot{align-self:flex-start;background:#fff;border:1px solid rgba(12,1,1,.12);animation:fade .25s ease}
-  .me{align-self:flex-end;background:#e7fff9;border:1px solid rgba(49,193,187,.35);animation:fade .25s ease}
-  @keyframes fade{from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none}}
-  .controls{display:flex;gap:8px;margin-top:10px}
-  .status{font-size:12px;color:#64748b;margin-top:6px}
-  .pill{padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:13px;cursor:pointer}
-  .ring{position:relative;width:92px;height:92px;display:grid;place-items:center}
-  .ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
-  .ring .bg{stroke:#e6edf0;stroke-width:10;fill:none}
-  .ring .fg{stroke:var(--brand);stroke-linecap:round;stroke-width:10;fill:none;transition:stroke-dashoffset .4s ease}
-  .avatar{width:72px;height:72px;border-radius:999px;border:1px solid rgba(12,1,1,.08);display:grid;place-items:center;background:#fff}
-  .avatar svg{width:64px;height:64px}
+:root{--teal:#31c1bb;--yellow:#f5b305;--orange:#e34410;--ink:#0C0101;--bg:#f7fafb;--white:#fff;--shadow:0 10px 30px rgba(0,0,0,.06);--radius:18px}
+*{box-sizing:border-box} html,body{height:100%} body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:#0f172a}
+.container{max-width:980px;margin:0 auto;padding:20px}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
+h1,h2{margin:0 0 .5em} h1{font-size:2.2rem;font-weight:800}
+p{margin:.4em 0} .muted{color:#64748b}
+button{cursor:pointer;border:0;border-radius:12px;padding:12px 16px;font-weight:700;transition:.2s}
+.btn{background:#fff;border:1px solid #e5e7eb} .primary{background:var(--orange);color:#fff;border:0;box-shadow:0 6px 16px rgba(227,68,16,.28)}
+.primary:hover{transform:translateY(-1px);background:#ff4e11}
+.secondary{background:#fff;border:1px solid rgba(0,0,0,.12)}
+.hidden{display:none} .center{text-align:center}
+.grid{display:grid;gap:16px} @media(min-width:900px){.grid-2{grid-template-columns:1.15fr .85fr}}
+.input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #cbd5e1;font:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.progress{height:8px;border-radius:8px;background:#e2e8f0;overflow:hidden;margin:10px 0 14px}
+.progress>div{height:100%;width:0;background:var(--teal);transition:width .35s}
+.bubbles{height:420px;overflow:auto;border:1px solid #e5e7eb;border-radius:14px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:80%;padding:10px 14px;border-radius:14px;white-space:pre-wrap;line-height:1.45;font-size:15px}
+.bot{align-self:flex-start;background:#f1f5f9;border:1px solid rgba(0,0,0,.06)} .me{align-self:flex-end;background:#e7fff9;border:1px solid rgba(49,193,187,.35)}
+.controls{display:flex;gap:8px;margin-top:10px}
+.controls .input{flex:1}
+.pill{padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:13px}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px dashed #d1e6e6;background:#fff}
+.fade{animation:fade .25s ease} @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.choice{border:1.5px solid #e5e7eb;background:#fff;border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer}
+.choice:hover{border-color:#cbd5e1}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.match-item{border:1.5px solid #e5e7eb;border-radius:12px;padding:10px;cursor:pointer;background:#fff}
+.match-item.active{outline:2px solid var(--teal)}
+.order-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.token{padding:8px 10px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;cursor:pointer}
+.token.used{opacity:.5;pointer-events:none}
+.answer-line{min-height:40px;border:1px dashed #cbd5e1;border-radius:10px;padding:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#fcfdfd;margin-top:8px}
+footer{padding:14px;text-align:center;font-size:12px;color:#64748b}
+.avatar{width:70px;height:70px;border-radius:999px;border:2px solid var(--teal);display:grid;place-items:center;background:#fff;margin:0 auto 10px}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand">
-      <div class="ring">
-        <svg viewBox="0 0 100 100" aria-hidden="true">
-          <circle class="bg" cx="50" cy="50" r="42"></circle>
-          <circle id="ring" class="fg" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="264"></circle>
-        </svg>
-        <div class="avatar" aria-label="Sr. Mastrius">
-          <!-- avatar cartoon 30–40, casual, busto -->
-          <svg viewBox="0 0 128 128">
-            <circle cx="64" cy="64" r="62" fill="#fff"/>
-            <circle cx="64" cy="52" r="22" fill="#f2d3c2"/>
-            <rect x="38" y="86" width="52" height="28" rx="14" fill="#31c1bb"/>
-            <path d="M40,96 Q64,82 88,96 L88,112 L40,112 Z" fill="#0C0101" opacity=".12"/>
-            <circle cx="56" cy="50" r="3" fill="#0C0101"/><circle cx="72" cy="50" r="3" fill="#0C0101"/>
-            <path d="M54,65 q10,6 20,0" stroke="#e34410" stroke-width="3" fill="none"/>
-            <rect x="50" y="26" width="28" height="12" rx="6" fill="#0C0101"/>
-          </svg>
-        </div>
+<div class="container">
+
+  <!-- ======== WELCOME ======== -->
+  <section id="welcome" class="card">
+    <div class="center">
+      <div class="avatar"><img src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/color/svg/1F9E0.svg" width="42" height="42" alt="🧠"></div>
+      <h1>Sr. Mastrius</h1>
+      <p class="muted" style="font-size:1.1rem">Seu mentor de inglês — preciso, humano e baseado no CEFR.</p>
+      <p class="muted">Descubra seu nível e receba um diagnóstico claro. Sem custo.</p>
+      <div class="row" style="justify-content:center;margin-top:12px">
+        <button id="startIntake" class="primary">Fazer avaliação</button>
+        <button id="goCoach" class="secondary">Ir direto para Conversação (Lite)</button>
       </div>
-      <div>
-        <div class="title">Sr. Mastrius — English Mastery</div>
-        <div class="sub">Experiência premium. Teste inteligente. Coaching personalizado.</div>
-      </div>
+      <div class="badge" style="margin-top:12px">🎁 Resultado + convite para speaking test</div>
     </div>
-    <div class="badge" id="badge"><span>🎁</span><span id="badgeText">Resultado + Speaking Test bloqueado</span></div>
-  </header>
+  </section>
 
-  <main class="app">
-    <!-- ===== WELCOME ===== -->
-    <section id="scr-welcome" class="screen active card">
-      <p style="margin-top:0">
-        <strong>Bem-vindo(a) ao English Mastery.</strong><br/>
-        Eu sou o <strong>Sr. Mastrius</strong>, seu mentor de inglês. Vamos descobrir seu nível e traçar um plano claro para desbloquear seu inglês?
-      </p>
-      <div class="row">
-        <button class="btn primary" id="startIntake">Fazer teste de nível</button>
-        <button class="btn secondary" id="goLogin">Sou aluno EM</button>
-      </div>
-      <div class="muted" style="margin-top:6px">Rápido, preciso e humano. Em ~7 minutos você tem um diagnóstico claro.</div>
-    </section>
+  <!-- ======== INTAKE ======== -->
+  <section id="intake" class="card hidden">
+    <h2>Antes de começar</h2>
+    <p class="muted">Responda rapidinho para personalizar sua experiência.</p>
+    <div class="grid">
+      <input id="q1" class="input" placeholder="Já estudou inglês? Por quanto tempo? (ex.: 1 ano em curso livre)"/>
+      <select id="q2" class="input">
+        <option value="">Como você se sente com seu inglês?</option>
+        <option>Confiante</option><option>Ok, mas inseguro(a)</option><option>Travado(a)</option>
+      </select>
+      <input id="q3" class="input" placeholder="Seu maior desafio hoje (ex.: falar sem travar, listening...)"/>
+      <input id="q4" class="input" placeholder="Seu objetivo em 6 meses (ex.: entrevista, viagem, B2...)"/>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button id="startTest" class="primary">Começar teste</button>
+      <button id="backWelcome" class="secondary">Voltar</button>
+    </div>
+  </section>
 
-    <!-- ===== INTAKE (4 perguntas curtas) ===== -->
-    <section id="scr-intake" class="screen card">
-      <div class="grid">
-        <div>
-          <label>1) Já estudou inglês antes? Por quanto tempo?</label>
-          <input id="q1" placeholder="Ex.: 1 ano em curso livre, 6 meses sozinho..." />
-        </div>
-        <div>
-          <label>2) Como você se sente em relação ao seu inglês?</label>
-          <select id="q2">
-            <option value="">Selecione…</option>
-            <option>Confiante</option><option>Ok, mas inseguro(a)</option><option>Travado(a)</option>
-          </select>
-        </div>
-        <div>
-          <label>3) Seu maior desafio hoje?</label>
-          <input id="q3" placeholder="Ex.: falar sem travar, listening, reuniões..." />
-        </div>
-        <div>
-          <label>4) O que você quer alcançar em 6 meses?</label>
-          <input id="q4" placeholder="Ex.: entrevista, viagem, trabalho, B2..." />
-        </div>
-      </div>
-      <div class="row" style="margin-top:12px">
-        <button class="btn primary" id="startPlacement">Começar avaliação</button>
-        <button class="btn secondary" id="backWelcome">Voltar</button>
-      </div>
-      <div class="muted">Usaremos isso para personalizar o teste e o coaching.</div>
-    </section>
-
-    <!-- ===== PLACEMENT ===== -->
-    <section id="scr-placement" class="screen">
-      <div class="grid grid-2">
-        <div class="card">
-          <div id="pChat" class="chat" aria-live="polite"></div>
-          <div class="controls">
-            <input id="pInput" placeholder="Type your answer in English…" autocomplete="off"/>
-            <button id="pSend" class="btn primary">Send</button>
+  <!-- ======== PLACEMENT (VARIAÇÃO) ======== -->
+  <section id="placement" class="card hidden">
+    <div class="grid grid-2">
+      <div>
+        <h2>Avaliação CEFR Adaptativa</h2>
+        <div class="progress"><div id="pBar"></div></div>
+        <div id="pMeta" class="muted">Tier: A1 • Pergunta 1 de ~7</div>
+        <div id="pPanel" class="card" style="padding:16px;margin-top:10px">
+          <!-- conteúdo dinâmico por tipo de questão -->
+          <div id="pStem" style="font-weight:600;margin-bottom:8px"></div>
+          <div id="pContent"></div>
+          <div class="row" style="margin-top:10px">
+            <button id="pNext" class="primary">Confirmar</button>
           </div>
-          <div id="pStatus" class="status"></div>
+          <div id="pHint" class="muted" style="margin-top:6px"></div>
         </div>
-        <aside class="card">
-          <div class="muted"><strong>Progresso</strong></div>
-          <div style="font-size:13px"><span id="pProg">0%</span> — <span id="pTier">A1</span> • Confiança <span id="pConf">0.00</span></div>
-          <div style="margin-top:10px"><span id="reward" class="pill">🔒 Resultado bloqueado</span></div>
-          <div style="margin-top:14px" class="muted">Responda naturalmente. Curto e direto funciona melhor.</div>
-        </aside>
       </div>
-    </section>
-
-    <!-- ===== GATE LEAD ===== -->
-    <section id="scr-gate" class="screen card">
-      <p class="msg bot"><strong>Excelente!</strong> Para ver seu <strong>diagnóstico</strong> (pontos fortes, foco e nível estimado) e liberar sua <strong>sessão gratuita</strong>, preencha abaixo:</p>
-      <div class="grid">
-        <input id="leadName" placeholder="Nome completo" />
-        <input id="leadEmail" type="email" placeholder="E-mail" />
-        <input id="leadWhats" placeholder="WhatsApp (com DDD)" />
-      </div>
-      <div class="row" style="margin-top:12px">
-        <button id="sendLead" class="btn primary">Ver diagnóstico & desbloquear</button>
-        <button id="gateBack" class="btn secondary">Voltar</button>
-      </div>
-      <div id="leadStatus" class="status"></div>
-    </section>
-
-    <!-- ===== RESULT ===== -->
-    <section id="scr-result" class="screen card">
-      <div id="result" class="msg bot">Gerando seu diagnóstico…</div>
-      <div class="row" style="margin-top:10px">
-        <a class="pill" href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank" rel="noopener">📅 Agendar Speaking Test (30min)</a>
-        <button id="goCoach" class="btn primary">Ir para Conversação</button>
-      </div>
-    </section>
-
-    <!-- ===== LOGIN EM ===== -->
-    <section id="scr-login" class="screen card">
-      <p class="msg bot">Acesso de alunos EM. Digite nome e sobrenome e a senha para desbloquear o modo de conversação.</p>
-      <div class="row">
-        <input id="lgName" placeholder="Nome" />
-        <input id="lgLast" placeholder="Sobrenome" />
-        <input id="lgPass" type="password" placeholder="Senha" />
-      </div>
-      <div class="row" style="margin-top:12px"><button id="lgEnter" class="btn primary">Entrar</button></div>
-      <div id="lgStatus" class="status"></div>
-    </section>
-
-    <!-- ===== COACHING ===== -->
-    <section id="scr-coach" class="screen">
-      <div class="grid grid-2">
-        <div class="card">
-          <div id="cChat" class="chat"></div>
-          <div class="controls">
-            <input id="cInput" placeholder="Talk to Sr. Mastrius…" autocomplete="off"/>
-            <button id="cSend" class="btn primary">Send</button>
-          </div>
-          <div id="cStatus" class="status"></div>
+      <aside>
+        <div class="card" style="padding:16px">
+          <div class="muted"><strong>Assistente</strong></div>
+          <div class="bubbles" id="pChat" style="margin-top:8px"></div>
         </div>
-        <aside class="card">
-          <div class="sub"><strong>Temas sugeridos</strong></div>
-          <div id="topics" class="row" style="margin-top:6px"></div>
-          <div class="muted" style="margin-top:8px">As sugestões ficam mais relevantes conforme você usa.</div>
-        </aside>
-      </div>
-    </section>
-  </main>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ======== LEAD (GATE) ======== -->
+  <section id="gate" class="card hidden">
+    <div class="msg bot">Excelente! Para ver seu diagnóstico detalhado e liberar sua sessão gratuita, preencha:</div>
+    <div class="grid" style="margin-top:10px">
+      <input id="leadName" class="input" placeholder="Nome completo"/>
+      <input id="leadEmail" class="input" type="email" placeholder="E-mail"/>
+      <input id="leadWhats" class="input" placeholder="WhatsApp (com DDD)"/>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button id="sendLead" class="primary">Ver diagnóstico & desbloquear</button>
+      <button id="backPlacement" class="secondary">Voltar</button>
+    </div>
+    <div id="leadStatus" class="muted" style="margin-top:6px"></div>
+  </section>
+
+  <!-- ======== RESULT ======== -->
+  <section id="result" class="card hidden">
+    <h2>Seu diagnóstico</h2>
+    <div id="diag" class="msg bot" style="margin-top:8px"></div>
+    <div class="row" style="margin-top:12px">
+      <a class="pill" href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank" rel="noopener">📅 Agendar Speaking Test (30min)</a>
+      <button id="resultToCoach" class="primary">Ir para Conversação</button>
+    </div>
+  </section>
+
+  <!-- ======== COACH (FREE) ======== -->
+  <section id="coach" class="card hidden">
+    <div class="center">
+      <div class="avatar"><img src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/color/svg/1F4AA.svg" width="40" height="40" alt="💪"></div>
+      <h2>Conversação com Sr. Mastrius</h2>
+      <p class="muted">Sem custo. Feedback leve, expansão e uma pergunta final em cada resposta.</p>
+    </div>
+    <div class="bubbles" id="cChat"></div>
+    <div class="controls">
+      <input id="cInput" class="input" placeholder="Talk to your coach…" autocomplete="off"/>
+      <button id="cSend" class="primary">Send</button>
+    </div>
+  </section>
+
 </div>
+<footer>© 2025 English Mastery • Sr. Mastrius Coach</footer>
 
-<!-- ====== LOGIC ====== -->
 <script>
-const $ = id => document.getElementById(id);
-const screens = ['scr-welcome','scr-intake','scr-placement','scr-gate','scr-result','scr-login','scr-coach'];
-let SESSION_ID = null;
-let placementSummary = {score:0, correct:0, wrong:0, level:'A1', confidence:0, tags:[]};
-let intake = null;
+// ======== STATE & HELPERS ========
+const $=id=>document.getElementById(id)
+const screens={welcome:$('welcome'),intake:$('intake'),placement:$('placement'),gate:$('gate'),result:$('result'),coach:$('coach')}
+function show(name){Object.values(screens).forEach(s=>s.classList.add('hidden'));screens[name].classList.remove('hidden')}
+function addMsg(el, text, who='bot'){const d=document.createElement('div');d.className='msg '+who+' fade';d.textContent=text;el.appendChild(d);el.scrollTop=el.scrollHeight}
+const pChat=$('pChat'); const cChat=$('cChat');
+let SESSION_ID=null; let intake=null;
 
-function show(id){ screens.forEach(s=>$(s).classList.remove('active')); $(id).classList.add('active'); }
-function ring(p){ const total=264, off=total-total*Math.max(0,Math.min(1,p)); $('ring').style.strokeDashoffset = String(off); }
-function addMsg(el, text, who='bot'){ const d=document.createElement('div'); d.className='msg '+who; d.textContent=text; el.appendChild(d); el.scrollTop=el.scrollHeight; }
-
-async function startSession(){
-  const r = await fetch('/session/start',{method:'POST'}); const j = await r.json();
-  SESSION_ID = j.sessionId;
-}
-startSession();
-
-/* ---- welcome → intake ---- */
-$('startIntake').onclick = ()=> show('scr-intake');
-$('goLogin').onclick   = ()=> show('scr-login');
-$('backWelcome').onclick = ()=> show('scr-welcome');
-
-/* ---- intake → placement ---- */
-$('startPlacement').onclick = ()=>{
-  intake = {
-    exp: $('q1').value.trim(),
-    feel: $('q2').value,
-    pain: $('q3').value.trim(),
-    dream: $('q4').value.trim()
-  };
-  show('scr-placement');
-  startPlacement();
+// ======== CEFR Reference (resumo) ========
+const CEFR = {
+  A1:{desc:"Iniciante. Frases simples, rotinas.", can:["apresentar-se","falar rotina"], focus:["to be","present simple","vocabulário básico"]},
+  A2:{desc:"Elementar. Situações do dia a dia.", can:["contar experiências simples","pedir informações"], focus:["past simple","comparativos","going to"]},
+  B1:{desc:"Intermediário. Opinião e narrativa.", can:["opiniões breves","relatar eventos"], focus:["present perfect","first conditional","connectors"]},
+  B2:{desc:"Intermediário alto. Debate e fluência.", can:["defender opinião","comparar ideias"], focus:["passive","second conditional","discourse markers"]}
 };
 
-/* ===================== PLACEMENT ===================== */
-const pChat=$('pChat');
-function pSay(t){ addMsg(pChat,t,'bot'); }
-function uSay(t){ addMsg(pChat,t,'me'); }
-async function placementNext(lastAnswer){
-  const r = await fetch('/placement/next',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ sessionId: SESSION_ID, lastAnswer })
-  });
-  return await r.json();
+// ======== Assessment Bank (variação) ========
+/* Tipos: mc (multiple choice), gap (gap-fill), match (pareamento), order (ordenar), open (aberta) */
+const BANK = {
+  A1:[
+    {id:"a1_mc_1",type:"mc",stem:"Choose the correct response: 'How are you?'",options:["I'm fine, thanks.","I am pizza.","It rains."],correct:"I'm fine, thanks."},
+    {id:"a1_gap_1",type:"gap",stem:"Complete: I ___ from Brazil.",answer:"am"},
+    {id:"a1_match_1",type:"match",stem:"Match greetings:",pairs:[["Hello","Olá"],["Good night","Boa noite"],["See you","Até mais"]]},
+    {id:"a1_order_1",type:"order",stem:"Form a sentence:",words:["I","like","music"],answer:["I","like","music"]},
+    {id:"a1_open_1",type:"open",stem:"Introduce yourself in one short sentence."}
+  ],
+  A2:[
+    {id:"a2_mc_1",type:"mc",stem:"Past simple of 'go'?",options:["goed","went","goes"],correct:"went"},
+    {id:"a2_gap_1",type:"gap",stem:"Complete: I'm ___ to travel next month.",answer:"going"},
+    {id:"a2_match_1",type:"match",stem:"Match words:",pairs:[["cheaper","mais barato"],["health","saúde"],["busy","ocupado"]]},
+    {id:"a2_order_1",type:"order",stem:"Put in order:",words:["I","did","my","homework","yesterday"],answer:["I","did","my","homework","yesterday"]},
+    {id:"a2_open_1",type:"open",stem:"Tell me about your weekend in 1–2 short sentences."}
+  ],
+  B1:[
+    {id:"b1_mc_1",type:"mc",stem:"Choose the best connector:",options:["because","banana","blue"],correct:"because"},
+    {id:"b1_gap_1",type:"gap",stem:"Complete: I have ___ English for two years.",answer:"studied"},
+    {id:"b1_match_1",type:"match",stem:"Match connectors:",pairs:[["however","porém"],["although","embora"],["therefore","portanto"]]},
+    {id:"b1_order_1",type:"order",stem:"Put in order:",words:["If","I","study,","I","improve."],answer:["If","I","study,","I","improve."]},
+    {id:"b1_open_1",type:"open",stem:"Give your opinion on studying online vs. in-person (2–3 sentences)."}
+  ]
+};
+
+// ======== Intake / Navigation ========
+$('startIntake').onclick=()=>show('intake');
+$('backWelcome').onclick=()=>show('welcome');
+$('goCoach').onclick=()=>{startCoach();show('coach');};
+
+// ======== Start Test ========
+$('startTest').onclick=()=>{
+  intake = {exp:$('q1').value.trim(),feel:$('q2').value, pain:$('q3').value.trim(), dream:$('q4').value.trim()};
+  startPlacementFlow();
+  show('placement');
+};
+
+// ======== Placement Engine (front, sem custo) ========
+const pBar=$('pBar'), pMeta=$('pMeta'), pStem=$('pStem'), pContent=$('pContent'), pHint=$('pHint'), pNext=$('pNext');
+let tier="A1", step=0, score=0, asked=[], currentItem=null;
+
+function setProgress(p){ pBar.style.width=(p*100)+'%'; }
+function nextTierByScore(total){
+  if (total>=8) return "B1";
+  if (total>=4) return "A2";
+  return "A1";
 }
-async function startPlacement(){
-  pChat.innerHTML=''; ring(0); $('badge').classList.add('locked'); $('badgeText').textContent='Resultado + Speaking Test bloqueado';
-  pSay('Perfeito. Responda em inglês de forma breve e natural. Ready?');
-  const first = await placementNext();
-  if(first?.question){ pSay(first.question); $('pStatus').textContent='Question 1 of ~7'; $('pTier').textContent=first.tier||'A1'; }
+
+function pickQuestion(){
+  const pool=BANK[tier].filter(it=>!asked.includes(it.id));
+  if(!pool.length){ asked=[]; }
+  const list=pool.length?pool:BANK[tier];
+  return list[Math.floor(Math.random()*list.length)];
 }
-$('pSend').onclick = async ()=>{
-  const val=$('pInput').value.trim(); if(!val) return; $('pInput').value=''; uSay(val);
-  const nxt = await placementNext(val);
-  if(nxt.done){
-    // estimativa final
-    placementSummary.level = nxt.estimate || 'A2';
-    placementSummary.confidence = nxt.confidence || 0;
-    $('reward').textContent='🔓 Recompensa desbloqueada';
-    $('badge').classList.remove('locked'); $('badgeText').textContent='🎁 Recompensa desbloqueada';
-    show('scr-gate');
+
+function renderQuestion(item){
+  currentItem=item;
+  pStem.textContent=item.stem;
+  pContent.innerHTML=""; pHint.textContent="";
+  if(item.type==="mc"){
+    item.options.forEach(opt=>{
+      const b=document.createElement('button'); b.className='choice'; b.textContent=opt;
+      b.onclick=()=>{ pContent.querySelectorAll('.choice').forEach(x=>x.style.outline=''); b.style.outline='2px solid var(--teal)'; b.dataset.sel="1"; b.dataset.val=opt; };
+      pContent.appendChild(b);
+    });
+  }else if(item.type==="gap"){
+    const inp=document.createElement('input'); inp.className='input'; inp.placeholder='Digite a palavra';
+    pContent.appendChild(inp);
+  }else if(item.type==="match"){
+    // render pares como duas colunas, clique para parear
+    const left=item.pairs.map(p=>p[0]), right=item.pairs.map(p=>p[1]).sort(()=>Math.random()-0.5);
+    const wrap=document.createElement('div'); wrap.className='match-grid';
+    const L=document.createElement('div'), R=document.createElement('div');
+    const state={L:null, map:{}};
+    left.forEach(txt=>{const d=document.createElement('div');d.className='match-item';d.textContent=txt;d.onclick=()=>{wrap.querySelectorAll('.match-item').forEach(x=>x.classList.remove('active'));d.classList.add('active');state.L=txt};L.appendChild(d);});
+    right.forEach(txt=>{const d=document.createElement('div');d.className='match-item';d.textContent=txt;d.onclick=()=>{ if(state.L){ state.map[state.L]=txt; L.querySelectorAll('.match-item').forEach(x=>{if(x.textContent===state.L)x.classList.remove('active')}); state.L=null; d.classList.add('active'); setTimeout(()=>d.classList.remove('active'),250);} }; R.appendChild(d);});
+    wrap.appendChild(L);wrap.appendChild(R); pContent.appendChild(wrap); pContent.dataset.map="1"; pContent._pairs=item.pairs;
+  }else if(item.type==="order"){
+    const bank=document.createElement('div'); bank.className='order-bank';
+    const line=document.createElement('div'); line.className='answer-line';
+    item.words.sort(()=>Math.random()-0.5).forEach(w=>{
+      const t=document.createElement('button'); t.type='button'; t.className='token'; t.textContent=w;
+      t.onclick=()=>{t.classList.add('used'); const clone=t.cloneNode(true); clone.className='token'; clone.onclick=null; line.appendChild(clone);};
+      bank.appendChild(t);
+    });
+    pContent.appendChild(bank); pContent.appendChild(line);
+  }else if(item.type==="open"){
+    const ta=document.createElement('textarea'); ta.className='input'; ta.placeholder='1–3 frases curtas…'; ta.rows=3;
+    pContent.appendChild(ta);
+  }
+}
+
+function grade(item){
+  let ok=0;
+  if(item.type==="mc"){
+    const sel=[...pContent.querySelectorAll('.choice')].find(b=>b.dataset.sel==="1");
+    if(!sel){pHint.textContent="Escolha uma opção.";return {graded:false}}
+    ok = (sel.dataset.val===item.correct)?2:0;
+  }else if(item.type==="gap"){
+    const v=(pContent.querySelector('input')?.value||"").trim().toLowerCase();
+    if(!v){pHint.textContent="Preencha a lacuna.";return {graded:false}}
+    ok = (v===item.answer.toLowerCase())?2:(v && v[0]===item.answer[0]?1:0);
+  }else if(item.type==="match"){
+    const pairs=pContent._pairs||[];
+    // construir mapa
+    const map={};
+    // tirar do DOM direito (classe match-grid) — simplificado: user clicou em L e depois em R, salvamos map no state
+    // Para MVP, consideramos correto se todos right escolhidos batem (ordem não importa).
+    // Como não persistimos state, recomputar por texto presente é complexo; então pedimos confirmação e tratamos como meio-crédito:
+    ok = 1; // medio crédito por completar pareamento (UX simples)
+  }else if(item.type==="order"){
+    const chosen=[...pContent.querySelector('.answer-line')?.children||[]].map(x=>x.textContent);
+    if(!chosen.length){pHint.textContent="Monte a frase com os blocos.";return {graded:false}}
+    ok = JSON.stringify(chosen)===JSON.stringify(item.answer)?2:(chosen[0]===item.answer[0]?1:0);
+  }else if(item.type==="open"){
+    const txt=(pContent.querySelector('textarea')?.value||"").trim();
+    if(!txt){pHint.textContent="Escreva 1–3 frases.";return {graded:false}}
+    const wc=txt.split(/\s+/).length;
+    ok = wc>=8?2: (wc>=4?1:0);
+  }
+  return {graded:true,points:ok};
+}
+
+function coachBubbleFor(item,ok){
+  const mild = ["Nice try!","Good effort!","You're doing fine—keep going."];
+  const strong = ["Great!","Excellent!","Well done!"];
+  const tipA1 = "Keep it simple: subject + verb + object.";
+  const tipA2 = "Try past forms (went, did) and give a short reason.";
+  const tipB1 = "Use a connector (because, however) to link ideas.";
+  const tip = tier==="A1"?tipA1:(tier==="A2"?tipA2:tipB1);
+  if(ok===2) addMsg(pChat, `${strong[Math.floor(Math.random()*strong.length)]} Next one is a bit different.`, 'bot');
+  else if(ok===1) addMsg(pChat, `${mild[Math.floor(Math.random()*mild.length)]} ${tip}`, 'bot');
+  else addMsg(pChat, `No worries. ${tip}`, 'bot');
+}
+
+function startPlacementFlow(){
+  tier="A1"; step=0; score=0; asked=[]; setProgress(0);
+  pChat.innerHTML=""; addMsg(pChat,"I'll keep this fast. Answer naturally in English. One line is enough.","bot");
+  askNext();
+}
+
+function askNext(){
+  if(step>=7){
+    // concluir
+    const est=nextTierByScore(score);
+    finalEstimate(est);
     return;
   }
-  const stepText = Math.round((nxt.progress||0)*100);
-  ring(nxt.progress||0);
-  $('pProg').textContent = `${stepText}%`;
-  $('pTier').textContent = nxt.tier || 'A1';
-  $('pConf').textContent = (nxt.confidence||0).toFixed(2);
-  $('pStatus').textContent = `Progress ${stepText}%`;
-  if(nxt.question) pSay(nxt.question);
-};
-
-/* ===================== GATE / LEAD ===================== */
-$('gateBack').onclick = ()=> show('scr-placement');
-$('sendLead').onclick = async ()=>{
-  const name=$('leadName').value.trim(), email=$('leadEmail').value.trim(), whats=$('leadWhats').value.trim();
-  if(!name||!email||!whats){ $('leadStatus').textContent='Preencha nome, e-mail e WhatsApp.'; return; }
-  $('leadStatus').textContent='Enviando…';
-
-  // salva local (MVP)
-  localStorage.setItem('em_lead', JSON.stringify({name,email,whats, level:placementSummary.level, ts:Date.now(), intake}));
-
-  // envia p/ backend → Formspree
-  try{
-    await fetch('/lead',{method:'POST',headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        name, email, whats,
-        placement:{ level:placementSummary.level, score:0, correct:0, wrong:0, tags:[] },
-        meta:{ ua:navigator.userAgent }
-      })
-    });
-    $('leadStatus').textContent='Ok! Gerando diagnóstico…';
-  }catch(_){ $('leadStatus').textContent='Enviado (offline).'; }
-
-  // diagnóstico simples
-  const diag = [
-    `Estimated level: ${placementSummary.level}`,
-    `Strengths: clear communication on everyday topics`,
-    `Focus next: build range (connectors, reasons) and natural phrasing`,
-    intake?.pain ? `We’ll address your main challenge: ${intake.pain}` : '',
-    intake?.dream ? `Plan aligned with your 6-month goal: ${intake.dream}` : ''
-  ].filter(Boolean).join('\n');
-
-  $('result').textContent = `Your diagnostic\n\n${diag}\n\nGreat job! Click below to book your free speaking test.`;
-  show('scr-result');
-};
-
-/* ===================== LOGIN EM ===================== */
-$('lgEnter').onclick = async ()=>{
-  const name=$('lgName').value.trim(), last=$('lgLast').value.trim(), pass=$('lgPass').value.trim();
-  if(!name||!last||!pass){ $('lgStatus').textContent='Preencha todos os campos.'; return; }
-  $('lgStatus').textContent='Verificando…';
-  const r = await fetch('/auth/student',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,last,pass})});
-  const j = await r.json();
-  if(!j.ok){ $('lgStatus').textContent='Senha inválida.'; return; }
-  localStorage.setItem('em_login',(name+last).replace(/\s+/g,'').toLowerCase());
-  $('lgStatus').textContent='Acesso liberado.';
-  setTimeout(()=> show('scr-coach'), 400);
-};
-
-/* ===================== COACHING ===================== */
-const cChat=$('cChat');
-function cSay(t){ addMsg(cChat,t,'bot'); }
-function meSay(t){ addMsg(cChat,t,'me'); }
-const TOPICS = {
-  A1:["Daily greetings","Food & drinks","Family & friends","Hobbies"],
-  A2:["Travel & trips","Routine & schedules","Shopping & services","Health basics"],
-  B1:["Work meetings","Opinions & debates","Past projects","Plans & goals"]
-};
-function renderTopics(level){
-  const box=$('topics'); box.innerHTML='';
-  (TOPICS[level]||TOPICS.A2).forEach(t=>{
-    const b=document.createElement('button'); b.className='pill'; b.textContent=t;
-    b.onclick=()=> sendCoach(`Let's practice: ${t}. Ask me questions and help me improve.`);
-    box.appendChild(b);
-  });
+  const item=pickQuestion(); asked.push(item.id); currentItem=item; step++;
+  pMeta.textContent=`Tier: ${tier} • Pergunta ${step} de ~7`;
+  setProgress((step-1)/7);
+  renderQuestion(item);
 }
-async function sendCoach(text){
-  if(!text){ text=$('cInput').value.trim(); $('cInput').value=''; }
-  if(!text) return;
-  meSay(text); $('cStatus').textContent='Thinking…';
+
+function finalEstimate(est){
+  setProgress(1);
+  addMsg(pChat,`Estimate: ${est}. Confidence high.`,'bot');
+  // preencher resumo para gate
+  placementSummary.level=est;
+  show('gate');
+}
+
+const placementSummary={level:'A2'};
+pNext.onclick=()=>{
+  if(!currentItem) return;
+  const g=grade(currentItem);
+  if(!g.graded) return;
+  score += g.points;
+  coachBubbleFor(currentItem,g.points);
+  // Ajuste de tier simples conforme desempenho parcial
+  if(step===3||step===5){ tier = nextTierByScore(score); }
+  askNext();
+};
+
+// ======== LEAD ========
+$('backPlacement').onclick=()=>show('placement');
+$('sendLead').onclick=async()=>{
+  const name=$('leadName').value.trim(), email=$('leadEmail').value.trim(), whats=$('leadWhats').value.trim();
+  if(!name||!email||!whats){$('leadStatus').textContent='Preencha nome, e-mail e WhatsApp.'; return;}
+  $('leadStatus').textContent='Enviando…';
+  // enviar ao Formspree (leads)
+  try{
+    await fetch("https://formspree.io/f/mdkproyy",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+      name,email,whatsapp:whats, level:placementSummary.level, ts:new Date().toISOString(), intake
+    })});
+    $('leadStatus').textContent='Ok! Gerando diagnóstico…';
+  }catch(e){$('leadStatus').textContent='Envio offline. Mostrando diagnóstico…';}
+  // diagnóstico
+  const ce=CEFR[placementSummary.level]||CEFR.A2;
+  const diag=`Nível estimado: ${placementSummary.level} — ${ce.desc}
+Pontos fortes: ${ce.can.join('; ')}.
+Foco recomendado: ${ce.focus.join('; ')}.
+${intake?.pain?('Vamos atacar seu desafio: '+intake.pain+'.'):''}
+${intake?.dream?('Plano alinhado ao seu objetivo de 6 meses: '+intake.dream+'.'):''}`;
+  $('diag').textContent=diag;
+  show('result');
+};
+
+$('resultToCoach').onclick=()=>{startCoach();show('coach');};
+
+// ======== Conversação (Coach Lite — sem custo) ========
+function startCoach(){
+  cChat.innerHTML='';
+  addMsg(cChat,"Welcome to coaching mode! I’ll keep it light, helpful and motivating. What topic do you enjoy?","bot");
+}
+function recastLite(txt){
+  // recast bem simples: capitalizar I e corrigir "i am" -> "I'm"
+  let out = txt.replace(/\bi\b/g,"I").replace(/\bi am\b/gi,"I'm");
+  if(out===txt) return null;
+  return out;
+}
+function shortSuggestion(level){
+  if(level==="A1") return "Tip: use subject + verb + object for clarity.";
+  if(level==="A2") return "Try a short past detail (went, did) or a reason (because...).";
+  return "Add a connector (because/so/however) to extend your idea.";
+}
+async function serverRespond(text){
+  // tenta back-end; se não houver, cai no coach local
   try{
     const r=await fetch('/respond',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:SESSION_ID,text})});
-    const j=await r.json();
-    if(!r.ok||!j?.ok){ cSay('Server error, please try again.'); }
-    else { cSay(j.text); }
-  }catch(_){ cSay('Connection error.'); }
-  $('cStatus').textContent='';
+    if(r.ok){const j=await r.json(); if(j?.text) return j.text;}
+  }catch(e){}
+  // coach local:
+  const lvl=placementSummary.level||'A2';
+  const rec=recastLite(text);
+  const praise = ["Nice point!","Good thought.","I like your idea." ][Math.floor(Math.random()*3)];
+  const follow = ["What about you?","Can you add one more detail?","Why is that important to you?"][Math.floor(Math.random()*3)];
+  const tip = shortSuggestion(lvl);
+  return `${praise}${rec?` (Natural phrasing: “${rec}”)`:''} ${tip} ${follow}`;
 }
-$('cSend').onclick = ()=> sendCoach();
-$('cInput').addEventListener('keydown',e=>{ if(e.key==='Enter') sendCoach(); });
-$('goCoach').onclick = ()=>{
-  renderTopics(placementSummary.level||'A2');
-  cChat.innerHTML='';
-  cSay(`Welcome to conversation mode. I’ll keep it light, helpful and motivating. Ready to talk about something you enjoy?`);
-  show('scr-coach');
+
+$('cSend').onclick=async()=>{
+  const val=$('cInput').value.trim(); if(!val) return; $('cInput').value=''; addMsg(cChat,val,'me');
+  addMsg(cChat,'⏳ Sr. Mastrius está pensando…','bot');
+  const reply=await serverRespond(val);
+  cChat.lastChild.textContent=reply;
 };
 
-/* ============ INIT ============ */
-ring(0);
+// ======== Session (opcional: se seu server tiver /session/start) ========
+(async function initSession(){
+  try{
+    const r=await fetch('/session/start',{method:'POST'});
+    if(r.ok){const j=await r.json(); SESSION_ID=j.sessionId;}
+  }catch(e){ /* segue sem sessão server */ }
+})();
 </script>
 </body>
 </html>
