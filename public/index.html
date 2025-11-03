@@ -1,380 +1,424 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sr. Mastrius - Seu Coach de Inglês</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Sr. Mastrius — English Mastery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#31c1bb;--teal-d:#159188;--ink:#0C0101;--muted:#667085;--line:#e9eef3;
+    --bg:#ffffff;--accent:#10b981;--warn:#f59e0b;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  .wrap{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:16px}
+  .card{width:min(920px,100%);border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.05);padding:18px}
+  .hidden{display:none}
+  .center{text-align:center}
 
-    <style>
-        /* Configuração Global */
-        body {
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: #333;
-        }
+  /* hero */
+  .hero{display:flex;gap:14px;align-items:center;justify-content:center;margin:10px 0 12px}
+  .avatar{
+    width:76px;height:76px;border-radius:999px;display:grid;place-items:center;
+    background:radial-gradient(65% 65% at 50% 50%, #eafffd 0%, #d9fff8 60%, #fff 100%);
+    box-shadow:0 0 0 2px #e9fffb, 0 0 22px rgba(49,193,187,.55), inset 0 0 14px rgba(49,193,187,.28);
+    position:relative;isolation:isolate;animation:breath 3.5s ease-in-out infinite;
+  }
+  .avatar::after{
+    content:"";position:absolute;inset:-6px;border-radius:inherit;filter:blur(10px);
+    background:conic-gradient(from 0deg,#b3fff5,transparent 45%,#b3fff5 72%,transparent 90%);opacity:.55;z-index:-1
+  }
+  .avatar span{font-size:36px}
+  @keyframes breath{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+  h1{font-size:1.9rem;margin:0}
+  .kicker{color:var(--muted);margin:.3rem 0 0;font-size:.98rem}
 
-        .container {
-            max-width: 480px;
-            width: 100%;
-            padding: 1rem;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
+  /* grid */
+  .grid{display:grid;gap:12px;margin:12px 0}
+  @media(min-width:800px){.grid{grid-template-columns:1fr 1fr}}
+  .panel{border:1px solid var(--line);border-radius:16px;padding:14px}
+  .panel h2{margin:.2rem 0 .35rem;font-size:1.08rem}
+  .muted{color:var(--muted);font-size:.95rem}
 
-        /* Navegação de Telas */
-        .screen {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        .screen.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  /* buttons */
+  .btn{width:100%;display:block;margin:.45rem 0;padding:14px 14px;border-radius:12px;
+    border:1.5px solid var(--teal);background:#fff;color:var(--teal-d);font-weight:700;cursor:pointer;transition:.2s}
+  .btn:hover{background:var(--teal);color:#fff}
+  .btn.primary{background:var(--teal);color:#fff}
+  .btn.primary:hover{background:var(--teal-d)}
+  .btn.lock{border-color:#cfd6dc;color:#9aa3ab;cursor:not-allowed;position:relative}
+  .btn.lock::after{content:"🔒";position:absolute;right:12px;top:50%;transform:translateY(-50%);opacity:.7}
 
-        /* ===== TELA 1: WELCOME CARD ===== */
-        .welcome-card {
-            background-color: #FFFFFF;
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-            text-align: center;
-        }
+  .hr{height:1px;background:var(--line);margin:12px 0}
+  footer{text-align:center;color:#8a8f98;font-size:.8rem;margin-top:8px}
 
-        .logo-container {
-            margin-bottom: 1rem;
-        }
+  /* steps */
+  .step{max-width:720px;margin:0 auto}
+  .progress{height:8px;background:#f3f6f9;border-radius:999px;overflow:hidden;margin:6px 0 14px}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,var(--teal),#73e4df);transition:width .25s}
+  .title{font-weight:800;margin:0 0 .35rem}
+  .desc{color:var(--muted);margin:0 0 12px}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{padding:10px 12px;border:1px solid var(--line);border-radius:999px;cursor:pointer;background:#fff}
+  .chip.sel{border-color:var(--teal);background:#effdfb}
+  .field{margin:.5rem 0}
+  .input,.textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:1rem}
+  .note{font-size:.85rem;color:#98a1aa;margin-top:6px}
 
-        /* Logo com Aura */
-        .logo-mastrius {
-            font-size: 5rem; /* Tamanho do ícone de cérebro */
-            color: #e77eed; /* Cor rosa do seu logo original */
-            padding: 10px;
-            border-radius: 50%;
-            animation: pulseAura 2.5s infinite ease-in-out;
-        }
-        @keyframes pulseAura {
-            0% {
-                box-shadow: 0 0 0 0 rgba(231, 126, 237, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(231, 126, 237, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(231, 126, 237, 0);
-            }
-        }
+  /* assessment */
+  .badge{display:inline-block;background:#eafff9;color:#065f5b;border:1px solid #b6f7ee;border-radius:999px;padding:.2rem .6rem;font-size:.72rem;margin-left:.35rem}
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin: 0;
-        }
-        .subtitle {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 2rem;
-        }
+  /* results + reward */
+  .reward{display:flex;align-items:center;gap:8px;background:#f0fff7;border:1px solid #b7f7d6;color:#065f46;border-radius:12px;padding:10px;margin:10px 0}
+  .celebrate{position:relative}
+  .confetti{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity .25s}
+  .confetti.on{opacity:1}
+  .piece{position:absolute;width:8px;height:12px;border-radius:2px;opacity:.9;animation:fall 1.8s ease-in forwards}
+  @keyframes fall{to{transform:translateY(100vh) rotate(480deg);opacity:.2}}
 
-        /* Lista de Vantagens */
-        .features-list {
-            list-style: none;
-            padding: 0;
-            margin: 2.5rem 0;
-            text-align: left;
-        }
-        .features-list li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        .feature-icon {
-            width: 40px;
-            height: 40px;
-            margin-right: 1rem;
-            font-size: 1.5rem;
-            color: #31c1bb; /* Cor Teal - English Mastery */
-            text-align: center;
-        }
-        .features-list div {
-            display: flex;
-            flex-direction: column;
-        }
-        .features-list strong {
-            font-weight: 600;
-        }
-        .features-list span {
-            font-size: 0.9rem;
-            color: #666;
-        }
+  /* chat */
+  .chat-wrap{display:grid;grid-template-rows:auto 1fr auto;height:62dvh;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .chat-top{background:var(--teal);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+  .chat-body{background:#fafafa;padding:12px;overflow:auto}
+  .msg{max-width:78%;padding:10px 12px;border-radius:12px;margin:.35rem 0;font-size:.95rem}
+  .msg.me{background:var(--teal);color:#fff;margin-left:auto}
+  .msg.ai{background:#fff;border:1px solid var(--line)}
+  .chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:#fff}
+  .chat-input .input{flex:1}
 
-        /* Botões */
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-            text-decoration: none; /* Para o link do Calendly */
-            display: inline-block; /* Para o link do Calendly */
-        }
-        .btn-primary {
-            background-color: #31c1bb; /* Teal */
-            color: white;
-            margin-bottom: 0.75rem;
-        }
-        .btn-primary:hover {
-            background-color: #2aabb2;
-        }
-        .btn-secondary {
-            background-color: #FFFFFF;
-            color: #555;
-            border: 1px solid #ddd;
-        }
-        .btn-secondary:hover {
-            background-color: #f9f9f9;
-        }
-        .footer-note {
-            font-size: 0.8rem;
-            color: #aaa;
-            margin-top: 1rem;
-            display: inline-block;
-        }
+  /* modal */
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:16px}
+  .modal.on{display:flex}
+  .modal-card{background:#fff;border:1px solid var(--line);border-radius:16px;max-width:420px;width:100%;padding:16px}
 
-        /* ===== TELA 3: LOGIN CARD ===== */
-        .login-card {
-            background-color: #FFFFFF;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-            text-align: center;
-        }
-        .login-card h2 {
-            margin-bottom: 2rem;
-        }
-        .login-card input {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        .login-card .btn-secondary {
-            margin-top: 0.75rem;
-        }
-
-        /* ===== TELA 4: CHAT ===== */
-        .chat-container {
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-        }
-        #chat-box {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 1.5rem;
-        }
-        .input-area {
-            display: flex;
-            border-top: 1px solid #eee;
-            padding: 1rem;
-        }
-        #user-input {
-            flex-grow: 1;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 0.8rem;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-        }
-        #send-button {
-            width: auto;
-            margin-left: 0.5rem;
-            padding: 0 1.2rem;
-            margin-bottom: 0;
-        }
-
-        /* Mensagens do Chat */
-        .chat-message {
-            margin-bottom: 1rem;
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            max-width: 85%;
-            line-height: 1.5;
-        }
-        .user-message {
-            background-color: #f0f0f0;
-            align-self: flex-end;
-            margin-left: auto;
-        }
-        .ai-message {
-            background-color: #e6f9f8; /* Tom claro do seu Teal */
-            align-self: flex-start;
-        }
-         .ai-message.thinking {
-            color: #888;
-            font-style: italic;
-         }
-
-        /* ===== TELA 2: AVALIAÇÃO ===== */
-        #evaluation-screen, #result-screen {
-            background-color: #FFFFFF;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-        }
-        .progress-bar-container {
-            width: 100%;
-            height: 10px;
-            background-color: #eee;
-            border-radius: 5px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 100%;
-            background-color: #f5b305; /* Amarelo */
-            border-radius: 5px;
-            transition: width 0.4s ease;
-        }
-        #question-area button.option-btn {
-            display: block;
-            width: 100%;
-            padding: 0.9rem;
-            margin-bottom: 0.5rem;
-            text-align: left;
-            background-color: #f8f9fa;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        #question-area button.option-btn:hover {
-            background-color: #e6f9f8;
-            border-color: #31c1bb;
-        }
-        #lead-form input {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-        }
-        .reward-unlocked {
-            text-align: center;
-            border: 2px dashed #f5b305;
-            background-color: #fffaf0;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-top: 1.5rem;
-        }
-        .reward-unlocked .fa-gift {
-            font-size: 2rem;
-            color: #f5b305;
-            margin-bottom: 0.5rem;
-        }
-    </style>
-    </head>
+  /* toast */
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;background:#0b1f1e;color:#fff;padding:.7rem 1rem;border-radius:10px;opacity:0;transition:opacity .25s}
+  .toast.show{opacity:1}
+</style>
+</head>
 <body>
+<div class="wrap">
 
-    <div class="container">
-        
-        <div id="welcome-screen" class="screen active">
-            <div class="welcome-card">
-                <div class="logo-container">
-                    <i class="fa-solid fa-brain logo-mastrius"></i>
-                </div>
-                <h1>Sr. Mastrius</h1>
-                <p class="subtitle">Seu coach de inglês com metodologia de especialista</p>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-chart-line feature-icon"></i><div><strong>Avaliação Inteligente</strong><span>Teste adaptativo que se ajusta ao seu nível</span></div></li>
-                    <li><i class="fa-solid fa-bullseye feature-icon"></i><div><strong>Diagnóstico Preciso</strong><span>Descubra seus pontos fortes e áreas de desenvolvimento</span></div></li>
-                    <li><i class="fa-solid fa-user-graduate feature-icon"></i><div><strong>Coaching Personalizado</strong><span>Prática real com seu nível exato</span></div></li>
-                </ul>
-                <button id="start-evaluation-btn" class="btn btn-primary">Começar Avaliação (5-8 min)</button>
-                <button id="student-login-btn" class="btn btn-secondary">Já sou Aluno</button>
-                <span class="footer-note">Nenhum cartão de crédito necessário</span>
-            </div>
-        </div>
-
-        <div id="evaluation-screen" class="screen">
-            <h2>Teste de Nivelamento</h2>
-            <div class="progress-bar-container"><div class="progress-bar" style="width: 0%;"></div></div>
-            <p id="question-counter">Pergunta 1...</p>
-            <div id="question-area"></div>
-            <div id="lead-form" style="display: none;">
-                <h3><i class="fa-solid fa-gift"></i> Diagnóstico Quase Pronto!</h3>
-                <p>Insira seus dados para ver sua análise completa e desbloquear seu prêmio.</p>
-                <input type="text" id="lead-name" placeholder="Seu Nome" required>
-                <input type="email" id="lead-email" placeholder="Seu E-mail" required>
-                <input type="tel" id="lead-whatsapp" placeholder="Seu WhatsApp" required>
-                <button id="submit-lead-btn" class="btn btn-primary">Ver meu Diagnóstico!</button>
-            </div>
-            <button id="back-to-welcome-from-eval" class="btn btn-secondary" style="margin-top: 1rem;">Voltar</button>
-        </div>
-        
-        <div id="result-screen" class="screen">
-            <h3>Seu Diagnóstico:</h3>
-            <p><strong>Nível Estimado: <span id="level-text"></span></strong></p>
-            <p id="diagnostic-text">Analisando seus resultados...</p>
-            <div class="reward-unlocked">
-                <i class="fa-solid fa-gift"></i>
-                <strong>Recompensa Desbloqueada!</strong>
-                <p>Agende sua aula experimental gratuita para validarmos seu nível.</p>
-                <a href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank" class="btn btn-primary" style="background-color: #f5b305; color: #333;">Agendar Aula Gratuita!</a>
-            </div>
-            <button id="back-to-welcome-from-result" class="btn btn-secondary" style="margin-top: 1rem;">Voltar ao Início</button>
-        </div>
-
-        <div id="login-screen" class="screen">
-             <div class="login-card">
-                <i class="fa-solid fa-brain logo-mastrius" style="font-size: 40px; margin-bottom: 1rem;"></i>
-                <h2>Login de Aluno</h2>
-                <input type="text" id="student-name" placeholder="Nome e Sobrenome" required>
-                <input type="password" id="student-password" placeholder="Senha (destrave)" required>
-                <button id="login-submit-btn" class="btn btn-primary">Entrar</button>
-                <button id="back-to-welcome-from-login" class="btn btn-secondary">Voltar</button>
-            </div>
-        </div>
-
-        <div id="chat-screen" class="screen">
-            <h2 style="text-align: center;">Prática com Sr. Mastrius</h2>
-            <div class="chat-container">
-                <div id="chat-box"></div>
-                <div class="input-area">
-                    <input type="text" id="user-input" placeholder="Digite sua mensagem...">
-                    <button id="send-button" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
-                </div>
-            </div>
-        </div>
-
+  <!-- WELCOME -->
+  <main class="card" id="view-welcome" role="main">
+    <div class="hero">
+      <div class="avatar" aria-hidden="true"><span>🧠</span></div>
+      <div>
+        <h1>Sr. Mastrius</h1>
+        <p class="kicker">Welcome! Como posso acelerar seu inglês hoje?</p>
+      </div>
     </div>
 
-    <script src="prompt.js"></script>
-    <script src="cefr.js"></script>
+    <div class="grid" style="margin-top:6px">
+      <section class="panel">
+        <h2>Sou aluno English Mastery</h2>
+        <p class="muted">Entre no seu espaço de prática personalizada.</p>
+        <button class="btn primary" id="btn-open-chat">Entrar agora</button>
+        <p class="note">Seu histórico fica salvo para continuar de onde parou.</p>
+      </section>
 
-    <script src="script.js" defer></script>
+      <section class="panel">
+        <h2>Quero saber meu nível</h2>
+        <p class="muted">Diagnóstico rápido, adaptativo e direto ao ponto.</p>
+        <button class="btn primary" id="btn-start-intake">Começar avaliação 🎯</button>
+        <button class="btn lock" id="btn-chat-locked">Praticar conversa</button>
+        <p class="note">Prática liberada no ambiente de aluno.</p>
+      </section>
+    </div>
+
+    <div class="hr"></div>
+    <footer>© English Mastery • <a href="#">Termos</a> • <a href="#">Privacidade</a></footer>
+  </main>
+
+  <!-- INTAKE -->
+  <main class="card hidden" id="view-intake">
+    <div class="step">
+      <div class="hero">
+        <div class="avatar"><span>🧠</span></div>
+        <div><h1>Vamos te conhecer melhor</h1><p class="kicker">Responda rapidinho — isso personaliza tudo para você.</p></div>
+      </div>
+      <div class="progress"><div class="bar" id="intake-bar"></div></div>
+      <div id="intake-stage"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="intake-back">Voltar</button>
+        <button class="btn primary" id="intake-next">Avançar</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ASSESSMENT -->
+  <main class="card hidden" id="view-assessment">
+    <div class="step">
+      <div class="hero">
+        <div class="avatar"><span>🧠</span></div>
+        <div><h1>Teste de nível</h1><p class="kicker">Perguntas variam A1 → C2, conforme o seu desempenho.</p></div>
+      </div>
+
+      <div class="progress"><div class="bar" id="assess-bar"></div></div>
+      <p class="note" style="margin:-2px 0 8px">Dica: responda com calma, é rapidinho.</p>
+
+      <div id="assess-stage"></div>
+
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="assess-back">Voltar</button>
+        <button class="btn primary" id="assess-next">Próxima</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- LEAD GATE -->
+  <main class="card hidden" id="view-lead">
+    <div class="hero">
+      <div class="avatar"><span>🧠</span></div>
+      <div><h1>Quase lá!</h1><p class="kicker">Envie seus dados para receber seu diagnóstico e um presente especial.</p></div>
+    </div>
+
+    <section class="panel">
+      <form id="lead-form">
+        <div class="field"><input class="input" name="name" placeholder="Seu nome completo" required/></div>
+        <div class="field"><input class="input" name="email" type="email" placeholder="Seu e-mail" required/></div>
+        <div class="field"><input class="input" name="phone" type="tel" placeholder="Seu WhatsApp (com DDI)"/></div>
+        <button class="btn primary" type="submit">Receber meu diagnóstico</button>
+        <p class="note">Em seguida você desbloqueia uma sessão gratuita para praticar ao vivo.</p>
+      </form>
+    </section>
+    <div class="row" style="margin-top:8px"><button class="btn" id="lead-back">Voltar</button></div>
+  </main>
+
+  <!-- RESULTS + REWARD -->
+  <main class="card hidden celebrate" id="view-results">
+    <canvas class="confetti" id="confetti"></canvas>
+
+    <div class="hero">
+      <div class="avatar"><span>🧠</span></div>
+      <div><h1>Seu diagnóstico</h1><p class="kicker">Seu momento no inglês e o plano para avançar.</p></div>
+    </div>
+
+    <section class="panel" id="result-summary">
+      <h2 style="margin:.2rem 0 .35rem">Resultado</h2>
+      <p class="muted" id="result-level">Nível estimado: —</p>
+      <p class="muted" id="result-strengths">Pontos fortes: —</p>
+      <p class="muted" id="result-improve">O que desenvolver: —</p>
+    </section>
+
+    <div class="reward" id="reward">
+      <span>🏆</span>
+      <div><strong>BÔNUS desbloqueado:</strong> agende sua sessão de conversa gratuita e receba orientações personalizadas.</div>
+    </div>
+
+    <div class="row" style="margin-top:8px">
+      <a class="btn" id="results-calendly" target="_blank" rel="noopener"
+         href="https://calendly.com/carloseduardo-englishmastery/30min">Agendar minha sessão</a>
+      <button class="btn" id="results-home">Concluir</button>
+    </div>
+  </main>
+
+  <!-- CHAT (ALUNO) -->
+  <main class="card hidden" id="view-chat">
+    <div class="chat-wrap">
+      <div class="chat-top">
+        <div><strong>Sr. Mastrius</strong> <span class="badge" id="badge-level">Ajustando ao seu nível</span></div>
+        <button class="btn" id="btn-exit-chat" style="width:auto;padding:.4rem .8rem;border-color:#fff;color:#fff;background:transparent">Sair</button>
+      </div>
+      <div class="chat-body" id="chat-body"></div>
+      <div class="chat-input">
+        <input class="input" id="chat-input" placeholder="Escreva aqui..."/>
+        <button class="btn primary" id="chat-send" style="width:auto">Enviar</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal de acesso (login/registro no chat) -->
+<div class="modal" id="modal-access" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <h3 style="margin:0 0 6px">Acesso de aluno</h3>
+    <p class="muted" style="margin:0 0 10px">Entre no seu espaço de prática personalizada.</p>
+    <div class="field"><input class="input" id="acc-name" placeholder="Seu nome completo" autocomplete="name"/></div>
+    <div class="field"><input class="input" id="acc-key" placeholder="Chave de acesso" autocomplete="off"/></div>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" id="acc-cancel">Cancelar</button>
+      <button class="btn primary" id="acc-enter">Entrar</button>
+    </div>
+    <p class="note" id="acc-msg" style="margin-top:6px"></p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status">Mensagem</div>
+
+<script>
+  /* ========= Sons ========= */
+  const audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  function tone(f=600,d=.09){const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="triangle";o.frequency.value=f;g.gain.value=.06;o.connect(g);g.connect(audioCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+d);o.stop(audioCtx.currentTime+d)}
+  const S={tap(){tone(520,.05)},ok(){tone(660,.07);setTimeout(()=>tone(880,.09),95)}};
+
+  /* ========= Views ========= */
+  const V=Object.fromEntries(["welcome","intake","assessment","lead","results","chat"].map(id=>[id,document.getElementById("view-"+id)]));
+  function show(id){Object.values(V).forEach(n=>n.classList.add("hidden"));V[id].classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});}
+  const Toast=document.getElementById("toast"); function toast(t){Toast.textContent=t;Toast.classList.add("show");setTimeout(()=>Toast.classList.remove("show"),2100);}
+
+  /* ========= Estado + hooks ========= */
+  window.EM=window.EM||{};
+  const state={intake:{}, assess:{score:0,level:"A1",strengths:[],improve:[]}, user:JSON.parse(localStorage.getItem("studentData")||"null"), chatHistory:[]};
+
+  /* ========= Welcome ========= */
+  document.getElementById("btn-open-chat").onclick=()=>{S.tap(); if(state.user?.userType==="student"){show("chat");initChat();} else openAccessModal();}
+  document.getElementById("btn-start-intake").onclick=()=>{S.ok();startIntake();}
+  document.getElementById("btn-chat-locked").onclick=()=>{S.tap();toast("Prática liberada no ambiente de aluno.");};
+
+  /* ========= Modal de acesso (“destrave”) ========= */
+  const modal=document.getElementById("modal-access"), accMsg=document.getElementById("acc-msg");
+  function openAccessModal(){modal.classList.add("on");accMsg.textContent="";}
+  document.getElementById("acc-cancel").onclick=()=>modal.classList.remove("on");
+  document.getElementById("acc-enter").onclick=()=>{S.ok();
+    const name=document.getElementById("acc-name").value.trim();
+    const key=document.getElementById("acc-key").value.trim();
+    if(!name||!key){accMsg.textContent="Preencha os campos.";return;}
+    if(key!=="destrave"){accMsg.textContent="Não foi possível acessar.";return;}
+    state.user={name,email:"",phone:"",level:state.assess.level||"A1",userType:"student"};
+    localStorage.setItem("studentData",JSON.stringify(state.user));
+    modal.classList.remove("on"); show("chat"); initChat();
+  };
+
+  /* ========= Intake ========= */
+  const intakeStages=[
+    {key:"isEM",label:"Você é aluno English Mastery?",type:"choice",options:["Sim","Não"]},
+    {key:"studied",label:"Você já estudou inglês antes?",type:"choice",options:["Sim","Não"]},
+    {key:"time",label:"Por quanto tempo?",type:"choice",options:["Até 6 meses","6–18 meses","2–4 anos","5+ anos"]},
+    {key:"feel",label:"Como você se sente com seu inglês hoje?",type:"choice",options:["Inseguro(a)","Mediano","Confiante"]},
+    {key:"goal",label:"Qual é seu principal objetivo?",type:"choice",options:["Conversar com segurança","Oportunidades profissionais","Viagem/Intercâmbio","Estudos/Exames"]},
+    {key:"pain",label:"O que mais atrapalha hoje?",type:"choice",options:["Medo de falar","Falta de vocabulário","Gramática confunde","Não entendo nativos","Falta de prática"]}
+  ];
+  const iBar=document.getElementById("intake-bar"), iStage=document.getElementById("intake-stage"); let iIdx=0;
+  function startIntake(){show("intake");iIdx=0;renderIntake();}
+  function renderIntake(){
+    const s=intakeStages[iIdx];
+    iBar.style.width=((iIdx+1)/intakeStages.length*100)+"%";
+    iStage.innerHTML=`<h3 class="title">${s.label}</h3><p class="desc">Escolha a opção que melhor descreve você.</p><div class="row" id="intake-opts"></div>`;
+    const row=document.getElementById("intake-opts");
+    s.options.forEach(opt=>{
+      const b=document.createElement("button");
+      b.className="chip"; b.textContent=opt;
+      b.onclick=()=>{document.querySelectorAll("#intake-opts .chip").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");state.intake[s.key]=opt;};
+      row.appendChild(b);
+    });
+  }
+  document.getElementById("intake-next").onclick=()=>{const s=intakeStages[iIdx]; if(!state.intake[s.key]){toast("Selecione uma opção.");return;} if(iIdx<intakeStages.length-1){iIdx++;renderIntake();} else {S.ok();startAssessment();}};
+  document.getElementById("intake-back").onclick=()=>{if(iIdx>0){iIdx--;renderIntake();} else show("welcome");};
+
+  /* ========= Assessment A1→C2 (fallback simples; usa EM.assessment se existir) ========= */
+  const aBar=document.getElementById("assess-bar"), aStage=document.getElementById("assess-stage"); let aIdx=0;
+  const Q=[
+    {id:"a1_mc",lvl:"A1",type:"mc",q:"Choose: I ___ coffee.",opts:["am drink","drink","drinks","drank"],a:"drink"},
+    {id:"a2_gap",lvl:"A2",type:"gap",q:"Complete: I have been ___ English for a year.",gap:"studying"},
+    {id:"b1_open",lvl:"B1",type:"open",q:"Write 2–3 lines about a challenge you faced and how you solved it."},
+    {id:"b2_mc",lvl:"B2",type:"mc",q:"Choose the best option: 'She insisted ___ paying the bill.'",opts:["in","on","about","for"],a:"on"},
+    {id:"c1_gap",lvl:"C1",type:"gap",q:"Complete: 'Had I known, I ___ (not/invest) so much time.'",gap:"wouldn't have invested"},
+    {id:"c2_open",lvl:"C2",type:"open",q:"Briefly argue: Do large language models enhance or threaten authentic learning?"}
+  ];
+  function startAssessment(){
+    if(window.EM.assessment?.start) return window.EM.assessment.start(state.intake, onExternalAssessmentDone);
+    aIdx=0; state.assess={score:0,level:"A1",strengths:[],improve:[]}; show("assessment"); renderAssess();
+  }
+  function renderAssess(){
+    aBar.style.width=((aIdx+1)/Q.length*100)+"%";
+    const cur=Q[aIdx]; const base=`<h3 class="title">${cur.q}</h3>`;
+    if(cur.type==="mc"){
+      aStage.innerHTML=base+`<div class="row" id="mc"></div>`;
+      const box=document.getElementById("mc");
+      cur.opts.forEach(opt=>{
+        const b=document.createElement("button"); b.className="chip"; b.textContent=opt;
+        b.onclick=()=>{document.querySelectorAll("#mc .chip").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");aStage.dataset.answer=opt;};
+        box.appendChild(b);
+      });
+    } else if(cur.type==="gap"){
+      aStage.innerHTML=base+`<div class="field"><input class="input" id="gap" placeholder="Digite aqui"/></div>`;
+    } else {
+      aStage.innerHTML=base+`<div class="field"><textarea class="textarea" id="open" rows="4" placeholder="Escreva sua resposta"></textarea></div>`;
+    }
+  }
+  document.getElementById("assess-next").onclick=()=>{
+    const cur=Q[aIdx]; let ok=false, ans="";
+    if(cur.type==="mc"){ans=aStage.dataset.answer||""; ok=(ans.toLowerCase()===cur.a.toLowerCase());}
+    if(cur.type==="gap"){ans=(document.getElementById("gap").value||"").trim(); ok=ans.toLowerCase()===cur.gap.toLowerCase();}
+    if(cur.type==="open"){ans=(document.getElementById("open").value||"").trim(); const min=cur.lvl==="B1"?25:(cur.lvl==="C2"?45:35); ok=ans.split(/\s+/).length>=min;}
+    state.assess.score+= ok?1:0;
+    const order=["A1","A2","B1","B2","C1","C2"]; if(ok && order.indexOf(cur.lvl)>order.indexOf(state.assess.level)) state.assess.level=cur.lvl;
+    if(ok) state.assess.strengths.push(cur.lvl); else state.assess.improve.push(cur.lvl);
+    if(aIdx<Q.length-1){aIdx++;renderAssess();} else {S.ok(); show("lead");}
+  };
+  document.getElementById("assess-back").onclick=()=>{if(aIdx>0){aIdx--;renderAssess();} else show("intake");};
+  function onExternalAssessmentDone(payload){state.assess=payload; show("lead");}
+
+  /* ========= Lead → Formspree (mdkproyy) ⇒ resultados + bônus com confete ========= */
+  document.getElementById("lead-back").onclick=()=> show("assessment");
+  const leadForm=document.getElementById("lead-form");
+  leadForm.addEventListener("submit", async (e)=>{
+    e.preventDefault(); S.ok();
+    const fd=new FormData(leadForm);
+    const body={
+      name:fd.get("name"),email:fd.get("email"),phone:fd.get("phone"),
+      level:state.assess.level,score:state.assess.score,
+      strengths:[...new Set(state.assess.strengths)].join(", "),
+      improvements:[...new Set(state.assess.improve)].join(", "),
+      intake:state.intake,timestamp:new Date().toISOString()
+    };
+    if(window.EM.leads?.send){try{await window.EM.leads.send(body);}catch{}}
+    else{try{await fetch("https://formspree.io/f/mdkproyy",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});}catch{}}
+    show("results"); fillResults(); party();
+  });
+  function fillResults(){
+    document.getElementById("result-level").textContent=`Nível estimado: ${state.assess.level}`;
+    document.getElementById("result-strengths").textContent=`Pontos fortes: ${([...new Set(state.assess.strengths)].join(", ")||"—")}`;
+    document.getElementById("result-improve").textContent=`O que desenvolver: ${([...new Set(state.assess.improve)].join(", ")||"—")}`;
+  }
+  document.getElementById("results-home").onclick=()=> show("welcome");
+
+  /* ========= Confetti ========= */
+  function party(){
+    const c=document.getElementById("confetti"); c.classList.add("on");
+    const colors=["#31c1bb","#10b981","#f59e0b","#3b82f6","#ef4444","#a855f7"];
+    for(let i=0;i<90;i++){
+      const s=document.createElement("div"); s.className="piece";
+      s.style.left=Math.random()*100+"vw"; s.style.top="-10px";
+      s.style.background=colors[Math.floor(Math.random()*colors.length)];
+      s.style.transform=`translateY(0) rotate(${Math.random()*180}deg)`;
+      s.style.animationDelay=(Math.random()*.7)+"s"; c.appendChild(s);
+      setTimeout(()=>s.remove(),2200);
+    }
+    setTimeout(()=>c.classList.remove("on"),2000);
+  }
+
+  /* ========= Chat (apenas aluno) ========= */
+  const chatBody=document.getElementById("chat-body");
+  document.getElementById("btn-exit-chat").onclick=()=>{S.tap();show("welcome");};
+  document.getElementById("chat-send").onclick=sendMsg;
+  document.getElementById("chat-input").addEventListener("keypress",(e)=>{if(e.key==="Enter")sendMsg();});
+  function initChat(){
+    chatBody.innerHTML="";
+    document.getElementById("badge-level").textContent=`Nível: ${state.user?.level||state.assess.level||"A1"}`;
+    addAI("Que bom te ver aqui! O que você quer treinar hoje?");
+  }
+  function addUser(t){const d=document.createElement("div");d.className="msg me";d.textContent=t;chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;}
+  function addAI(t){const d=document.createElement("div");d.className="msg ai";d.textContent=t;chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;}
+  async function sendMsg(){
+    const inp=document.getElementById("chat-input"); const text=(inp.value||"").trim(); if(!text) return;
+    addUser(text); inp.value="";
+    const payload={message:text,studentName:state.user?.name||"Aluno EM",studentLevel:state.user?.level||state.assess.level||"A1",theme:"General",focusAreas:[],previousMessages:state.chatHistory,intakeData:state.intake};
+    state.chatHistory.push({role:"user",content:text,timestamp:Date.now()});
+    if(window.EM.coach?.send){ try{const reply=await window.EM.coach.send(payload); state.chatHistory.push({role:"assistant",content:reply,timestamp:Date.now()}); addAI(reply); return;}catch{} }
+    try{const r=await fetch("/api/coach",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)}); const j=await r.json(); const reply=j.response||"Vamos seguir!"; state.chatHistory.push({role:"assistant",content:reply,timestamp:Date.now()}); addAI(reply);}catch{addAI("Tive uma instabilidade. Tente novamente.");}
+  }
+
+  /* ========= Autologin (aluno) ========= */
+  const stored=localStorage.getItem("studentData"); if(stored){const d=JSON.parse(stored); if(d?.userType==="student"){state.user=d; show("chat"); initChat();}}
+
+  /* ========= Bindings ========= */
+  const openAccessModal=()=>modal.classList.add("on");
+  const modal=document.getElementById("modal-access");
+</script>
 </body>
 </html>
