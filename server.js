@@ -1,198 +1,112 @@
-// server.js — English Mastery Coach (Sr. Mastrius)
 import express from "express";
 import fetch from "node-fetch";
-import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
+import cors from "cors";
+import bodyParser from "body-parser";
+import cefrKnowledge from "./cefr-knowledge.json" assert { type: "json" };
 
-dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(cors());
+app.use(bodyParser.json());
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// ✅ Endpoint base
+app.get("/", (req, res) => {
+  res.send(`
+  <html style="font-family:sans-serif;text-align:center;padding:50px">
+    <h1>🧠 Sr. Mastrius is online!</h1>
+    <p>Your AI English Coach is ready to guide students based on CEFR levels.</p>
+  </html>
+  `);
+});
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+// 🔑 Configure sua chave Groq (se quiser usar IA real)
+const GROQ_KEY = process.env.GROQ_API_KEY || "";
 
-// 🔹 Health check
-app.get("/health", (_, res) => res.json({ ok: true }));
+// 🔍 Função de análise do CEFR (detecta nível simples com base no texto)
+function detectLevel(text) {
+  const lower = text.toLowerCase();
+  if (lower.includes("future") || lower.includes("would") || lower.includes("could")) return "B2";
+  if (lower.includes("because") || lower.includes("if")) return "B1";
+  if (lower.includes("i am") || lower.includes("my") || lower.includes("like")) return "A1";
+  return "A2";
+}
 
-/* ==========================================================
-   🧠 ROUTE 1 — CHAT / CONVERSATION MODE (Groq)
-   ========================================================== */
+// ⚙️ Endpoint principal de resposta (chat)
 app.post("/respond", async (req, res) => {
   try {
-    const userText = (req.body?.text || "").toString().trim();
-    if (!userText) {
-      return res.status(400).json({ error: "Missing 'text' field" });
-    }
+    const { text, sessionId } = req.body;
+    if (!text) return res.status(400).json({ error: "Missing text" });
 
-    const apiKey = process.env.GROQ_API_KEY;
-    if (!apiKey) {
-      return res.status(500).json({ error: "Missing GROQ_API_KEY on server" });
-    }
+    // Detecta o nível aproximado do aluno
+    const studentLevel = detectLevel(text);
+    const guide = cefrKnowledge[studentLevel] || cefrKnowledge["A1"];
 
-    const model = "llama-3.1-8b-instant";
+    // Constrói prompt contextualizado com o CEFR
+    const cefrPrompt = `
+You are Sr. Mastrius 🧠, an empathetic, encouraging English coach.
+Your student is roughly level ${studentLevel}.
+Adapt your feedback, tone and language based on the CEFR descriptors below.
+Speak mostly in English, but may use short Portuguese explanations when needed.
 
-    const response = await fetch(
-      "https://api.groq.com/openai/v1/chat/completions",
-      {
+Level ${studentLevel} overview:
+- Speaking: ${guide.speaking.map(x => x.en).slice(0,4).join("; ")}
+- Listening: ${guide.listening.map(x => x.en).slice(0,3).join("; ")}
+- Writing: ${guide.writing.map(x => x.en).slice(0,2).join("; ")}
+- Interaction: ${guide.interaction.map(x => x.en).slice(0,3).join("; ")}
+- Mediation: ${guide.mediation.map(x => x.en).slice(0,2).join("; ")}
+
+When replying:
+1️⃣ React naturally to what the student said.
+2️⃣ Give light correction or encouragement.
+3️⃣ Add a short example or follow-up question to keep the talk going.
+4️⃣ Never explain CEFR or levels directly.
+`;
+
+    // Se houver chave Groq válida, usa IA real
+    if (GROQ_KEY) {
+      const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
+          Authorization: `Bearer ${GROQ_KEY}`,
         },
         body: JSON.stringify({
-          model,
+          model: "llama-3.1-8b-instant",
           messages: [
-            {
-              role: "system",
-              content: [
-                "You are Sr. Mastrius, the English Mastery Coach — a friendly, curious, and supportive English teacher for Brazilian adults.",
-                "Speak naturally in English with warmth and light humor.",
-                "Correct mistakes briefly and encourage improvement.",
-                "Ask one short follow-up question at the end.",
-                "Keep replies short (3–6 sentences).",
-                "Avoid robotic or generic AI tone; sound human, inspiring, and insightful."
-              ].join(" "),
-            },
-            { role: "user", content: userText },
+            { role: "system", content: cefrPrompt },
+            { role: "user", content: text },
           ],
-          temperature: 0.7,
-          top_p: 1,
+          temperature: 0.8,
+          max_tokens: 200,
         }),
-      }
-    );
-
-    if (!response.ok) {
-      const errText = await response.text().catch(() => "");
-      return res.status(response.status).json({
-        error: "Groq HTTP error",
-        status: response.status,
-        detail: errText,
       });
+
+      const data = await response.json();
+      const reply =
+        data?.choices?.[0]?.message?.content ||
+        "I'm here! Tell me more about you. 😊";
+      return res.json({ text: reply, level: studentLevel });
     }
 
-    const data = await response.json();
+    // 🔁 Fallback local (se não tiver Groq)
+    const simulatedReplies = [
+      "Nice! Tell me more about that. 😊",
+      "That's interesting! How often do you do it?",
+      "Good example! Try saying it again with more detail.",
+      "Awesome effort — your English is improving already!",
+      "Can you give me one more sentence using that idea?",
+    ];
+    const reply =
+      simulatedReplies[Math.floor(Math.random() * simulatedReplies.length)];
 
-    // Debug log
-    console.log("DEBUG raw Groq response:", JSON.stringify(data, null, 2));
-
-    let output =
-      data?.choices?.[0]?.message?.content?.trim() ||
-      (Array.isArray(data?.choices?.[0]?.message?.content)
-        ? data.choices[0].message.content
-            .map((c) => (typeof c === "string" ? c : c?.text || ""))
-            .join(" ")
-            .trim()
-        : "");
-
-    if (!output) {
-      return res.status(502).json({
-        error: "Empty reply from Groq model",
-        raw: data,
-      });
-    }
-
-    return res.json({ ok: true, text: output });
+    return res.json({ text: reply, level: studentLevel });
   } catch (err) {
-    console.error("Groq respond error:", err);
-    return res.status(500).json({
-      error: "Server error",
-      detail: String(err?.message || err),
-    });
+    console.error("Server error:", err);
+    res.status(500).json({ error: "Server error", details: err.message });
   }
 });
 
-/* ==========================================================
-   🧾 ROUTE 2 — LEAD CAPTURE (placement test → Formspree)
-   ========================================================== */
-app.post("/lead", async (req, res) => {
-  try {
-    const payload = req.body || {};
-    console.log("LEAD UPSERT:", JSON.stringify(payload, null, 2));
-
-    const formspreeUrl = "https://formspree.io/f/mdkproyy"; // ✅ Leads Form
-
-    const r = await fetch(formspreeUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: payload.name,
-        email: payload.email,
-        whatsapp: payload.whats,
-        level: payload.placement?.level,
-        score: payload.placement?.score,
-        correct: payload.placement?.correct,
-        wrong: payload.placement?.wrong,
-        tags: (payload.placement?.tags || []).join(", "),
-        timestamp: new Date().toISOString(),
-        userAgent: payload.meta?.ua,
-      }),
-    });
-
-    if (!r.ok) {
-      const text = await r.text();
-      console.error("Formspree LEAD error:", text);
-      return res.status(500).json({ error: "Formspree error", detail: text });
-    }
-
-    console.log("✅ Lead enviado para o Formspree (mdkproyy)");
-    return res.json({ ok: true });
-  } catch (err) {
-    console.error("lead error:", err);
-    return res.status(500).json({
-      error: "Server error",
-      detail: String(err),
-    });
-  }
-});
-
-/* ==========================================================
-   🎓 ROUTE 3 — STUDENT METRICS / FEEDBACK (Formspree)
-   ========================================================== */
-app.post("/student", async (req, res) => {
-  try {
-    const payload = req.body || {};
-    console.log("STUDENT DATA:", JSON.stringify(payload, null, 2));
-
-    const formspreeUrl = "https://formspree.io/f/xjkpqvjp"; // ✅ Students Form
-
-    const r = await fetch(formspreeUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: payload.name,
-        email: payload.email,
-        topic: payload.topic,
-        feedback: payload.feedback,
-        duration: payload.duration,
-        timestamp: new Date().toISOString(),
-        userAgent: payload.meta?.ua,
-      }),
-    });
-
-    if (!r.ok) {
-      const text = await r.text();
-      console.error("Formspree STUDENT error:", text);
-      return res.status(500).json({ error: "Formspree error", detail: text });
-    }
-
-    console.log("✅ Dados de aluno enviados para o Formspree (xjkpqvjp)");
-    return res.json({ ok: true });
-  } catch (err) {
-    console.error("student error:", err);
-    return res.status(500).json({
-      error: "Server error",
-      detail: String(err),
-    });
-  }
-});
-
-/* ==========================================================
-   🚀 START SERVER
-   ========================================================== */
+// 🚀 Inicialização
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
+  console.log(`✅ Sr. Mastrius is live on port ${PORT}`);
 });
