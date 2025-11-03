@@ -6,411 +6,147 @@
 <title>Sr. Mastrius — English Mastery</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--teal:#31c1bb;--yellow:#f5b305;--orange:#e34410;--ink:#0C0101;--bg:#f7fafb;--white:#fff;--shadow:0 10px 30px rgba(0,0,0,.06);--radius:18px}
-*{box-sizing:border-box} html,body{height:100%} body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:#0f172a}
-.container{max-width:980px;margin:0 auto;padding:20px}
+:root{
+  --teal:#31c1bb;--yellow:#f5b305;--orange:#e34410;
+  --ink:#0C0101;--bg:#f7fafb;--white:#fff;
+  --shadow:0 10px 30px rgba(0,0,0,.06);--radius:18px
+}
+*{box-sizing:border-box;font-family:"Inter",system-ui,sans-serif}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
+button{cursor:pointer;border:0;border-radius:12px;padding:12px 18px;font-weight:700;transition:.2s}
+button.primary{background:var(--orange);color:#fff;box-shadow:0 6px 16px rgba(227,68,16,.28)}
+button.primary:hover{transform:translateY(-1px);background:#ff4e11}
+button.secondary{background:#fff;border:1px solid rgba(0,0,0,.12)}
+.hidden{display:none}
+.container{max-width:980px;margin:auto;padding:20px}
 .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
-h1,h2{margin:0 0 .5em} h1{font-size:2.2rem;font-weight:800}
-p{margin:.4em 0} .muted{color:#64748b}
-button{cursor:pointer;border:0;border-radius:12px;padding:12px 16px;font-weight:700;transition:.2s}
-.btn{background:#fff;border:1px solid #e5e7eb} .primary{background:var(--orange);color:#fff;border:0;box-shadow:0 6px 16px rgba(227,68,16,.28)}
-.primary:hover{transform:translateY(-1px);background:#ff4e11}
-.secondary{background:#fff;border:1px solid rgba(0,0,0,.12)}
-.hidden{display:none} .center{text-align:center}
-.grid{display:grid;gap:16px} @media(min-width:900px){.grid-2{grid-template-columns:1.15fr .85fr}}
-.input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #cbd5e1;font:inherit}
+.center{text-align:center}
+.input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #cbd5e1;font:inherit}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 .progress{height:8px;border-radius:8px;background:#e2e8f0;overflow:hidden;margin:10px 0 14px}
 .progress>div{height:100%;width:0;background:var(--teal);transition:width .35s}
 .bubbles{height:420px;overflow:auto;border:1px solid #e5e7eb;border-radius:14px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px}
 .msg{max-width:80%;padding:10px 14px;border-radius:14px;white-space:pre-wrap;line-height:1.45;font-size:15px}
-.bot{align-self:flex-start;background:#f1f5f9;border:1px solid rgba(0,0,0,.06)} .me{align-self:flex-end;background:#e7fff9;border:1px solid rgba(49,193,187,.35)}
-.controls{display:flex;gap:8px;margin-top:10px}
-.controls .input{flex:1}
+.bot{align-self:flex-start;background:#f1f5f9;border:1px solid rgba(0,0,0,.06)}
+.me{align-self:flex-end;background:#e7fff9;border:1px solid rgba(49,193,187,.35)}
+footer{text-align:center;padding:14px;font-size:12px;color:#64748b}
+.avatar{width:80px;height:80px;border-radius:999px;border:2px solid var(--teal);display:grid;place-items:center;background:#fff;margin:0 auto 10px;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(49,193,187,.4)}70%{box-shadow:0 0 0 18px rgba(49,193,187,0)}100%{box-shadow:0 0 0 0 rgba(49,193,187,0)}}
+.features{list-style:none;padding:0;margin:14px 0;color:#334155}
+.features li{margin:6px 0}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px dashed #caeaea;background:#fff;padding:8px 12px;border-radius:999px}
 .pill{padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:13px}
-.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px dashed #d1e6e6;background:#fff}
-.fade{animation:fade .25s ease} @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.choice{border:1.5px solid #e5e7eb;background:#fff;border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer}
-.choice:hover{border-color:#cbd5e1}
-.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.match-item{border:1.5px solid #e5e7eb;border-radius:12px;padding:10px;cursor:pointer;background:#fff}
-.match-item.active{outline:2px solid var(--teal)}
-.order-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.token{padding:8px 10px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;cursor:pointer}
-.token.used{opacity:.5;pointer-events:none}
-.answer-line{min-height:40px;border:1px dashed #cbd5e1;border-radius:10px;padding:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#fcfdfd;margin-top:8px}
-footer{padding:14px;text-align:center;font-size:12px;color:#64748b}
-.avatar{width:70px;height:70px;border-radius:999px;border:2px solid var(--teal);display:grid;place-items:center;background:#fff;margin:0 auto 10px}
+.reward-card{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;border:1px solid #e5e7eb;border-radius:14px;background:#fff;padding:12px}
+.reward-icon{font-size:28px}
+.reward-copy p{margin:.2em 0 0;color:#64748b}
+.lock{font-size:18px;opacity:.8}
+.howitworks{list-style:none;padding:0;margin:12px 0;display:grid;gap:10px}
+.howitworks li{display:flex;align-items:center;gap:10px}
+.howitworks li span{width:26px;height:26px;border-radius:999px;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:700}
+.modal{position:fixed;inset:0;background:rgba(2,6,23,.35);display:grid;place-items:center;padding:20px;z-index:50}
+.modal__card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:22px;max-width:460px;width:100%}
+.modal__title{margin:0 0 6px;font-weight:800}
+.modal__subtitle{margin:0 0 12px}
 </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- ======== WELCOME ======== -->
-  <section id="welcome" class="card">
-    <div class="center">
-      <div class="avatar"><img src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/color/svg/1F9E0.svg" width="42" height="42" alt="🧠"></div>
-      <h1>Sr. Mastrius</h1>
-      <p class="muted" style="font-size:1.1rem">Seu mentor de inglês — preciso, humano e baseado no CEFR.</p>
-      <p class="muted">Descubra seu nível e receba um diagnóstico claro. Sem custo.</p>
-      <div class="row" style="justify-content:center;margin-top:12px">
-        <button id="startIntake" class="primary">Fazer avaliação</button>
-        <button id="goCoach" class="secondary">Ir direto para Conversação (Lite)</button>
+<!-- ========== WELCOME HERO ========== -->
+<section id="welcome" class="card">
+  <div class="center">
+    <div class="avatar"><img src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/color/svg/1F9E0.svg" width="56" height="56" alt="🧠"></div>
+    <h1>Sr. Mastrius</h1>
+    <p>Seu mentor de inglês — gamificado, humano e baseado no CEFR.</p>
+    <ul class="features">
+      <li>🎯 Teste adaptativo rápido e inteligente</li>
+      <li>🧩 Questões variadas e dinâmicas</li>
+      <li>📊 Diagnóstico + plano de ação no final</li>
+    </ul>
+    <div class="row" style="justify-content:center">
+      <button id="startIntake" class="primary">Descobrir meu nível</button>
+      <button id="openStudentLogin" class="secondary">Sou aluno EM</button>
+    </div>
+    <div class="row" style="justify-content:center;margin-top:10px">
+      <span class="badge">🔒 Recompensa: Diagnóstico + Speaking Test</span>
+      <span class="pill">⏱️ 5–8 min</span>
+      <span class="pill">💸 Sem custo</span>
+    </div>
+    <div class="reward-card" style="margin-top:18px;max-width:500px;margin-inline:auto">
+      <div class="reward-icon">🏆</div>
+      <div class="reward-copy">
+        <strong>Nível + Sessão Grátis</strong>
+        <p>Complete o teste para desbloquear seu resultado e agendar.</p>
       </div>
-      <div class="badge" style="margin-top:12px">🎁 Resultado + convite para speaking test</div>
+      <div class="lock">🔒</div>
     </div>
-  </section>
+    <ol class="howitworks">
+      <li><span>1</span> Responda o intake (rápido)</li>
+      <li><span>2</span> Faça o teste adaptativo</li>
+      <li><span>3</span> Desbloqueie seu diagnóstico e agende</li>
+    </ol>
+  </div>
+</section>
 
-  <!-- ======== INTAKE ======== -->
-  <section id="intake" class="card hidden">
-    <h2>Antes de começar</h2>
-    <p class="muted">Responda rapidinho para personalizar sua experiência.</p>
-    <div class="grid">
-      <input id="q1" class="input" placeholder="Já estudou inglês? Por quanto tempo? (ex.: 1 ano em curso livre)"/>
-      <select id="q2" class="input">
-        <option value="">Como você se sente com seu inglês?</option>
-        <option>Confiante</option><option>Ok, mas inseguro(a)</option><option>Travado(a)</option>
-      </select>
-      <input id="q3" class="input" placeholder="Seu maior desafio hoje (ex.: falar sem travar, listening...)"/>
-      <input id="q4" class="input" placeholder="Seu objetivo em 6 meses (ex.: entrevista, viagem, B2...)"/>
-    </div>
+<!-- ========== MODAL LOGIN ALUNO ========== -->
+<div id="studentModal" class="modal hidden">
+  <div class="modal__card">
+    <h3 class="modal__title">Acesso de Aluno EM</h3>
+    <p class="modal__subtitle">Digite nome e sobrenome e a senha de acesso.</p>
+    <input id="alunoFirst" class="input" placeholder="Nome"/>
+    <input id="alunoLast"  class="input" placeholder="Sobrenome"/>
+    <input id="alunoPass"  class="input" placeholder="Senha" type="password"/>
+    <div id="alunoError" style="color:#e34410;margin-top:6px"></div>
     <div class="row" style="margin-top:12px">
-      <button id="startTest" class="primary">Começar teste</button>
-      <button id="backWelcome" class="secondary">Voltar</button>
+      <button id="alunoConfirm" class="primary">Entrar</button>
+      <button id="alunoClose" class="secondary">Cancelar</button>
     </div>
-  </section>
+    <p class="muted" style="margin-top:8px;font-size:12px">
+      Dica: a senha padrão é <em>destrave</em>. No primeiro acesso, seu login será <em>nome+sobrenome</em> juntos.
+    </p>
+  </div>
+</div>
 
-  <!-- ======== PLACEMENT (VARIAÇÃO) ======== -->
-  <section id="placement" class="card hidden">
-    <div class="grid grid-2">
-      <div>
-        <h2>Avaliação CEFR Adaptativa</h2>
-        <div class="progress"><div id="pBar"></div></div>
-        <div id="pMeta" class="muted">Tier: A1 • Pergunta 1 de ~7</div>
-        <div id="pPanel" class="card" style="padding:16px;margin-top:10px">
-          <!-- conteúdo dinâmico por tipo de questão -->
-          <div id="pStem" style="font-weight:600;margin-bottom:8px"></div>
-          <div id="pContent"></div>
-          <div class="row" style="margin-top:10px">
-            <button id="pNext" class="primary">Confirmar</button>
-          </div>
-          <div id="pHint" class="muted" style="margin-top:6px"></div>
-        </div>
-      </div>
-      <aside>
-        <div class="card" style="padding:16px">
-          <div class="muted"><strong>Assistente</strong></div>
-          <div class="bubbles" id="pChat" style="margin-top:8px"></div>
-        </div>
-      </aside>
-    </div>
-  </section>
+<!-- ========== OUTRAS SEÇÕES (intake, teste, gate, coach) ========== -->
+<section id="intake" class="card hidden">
+  <h2>Antes de começar</h2>
+  <p class="muted">Responda rapidinho para personalizar sua experiência.</p>
+  <input id="q1" class="input" placeholder="Já estudou inglês? Por quanto tempo?"/>
+  <select id="q2" class="input"><option value="">Como você se sente com seu inglês?</option><option>Confiante</option><option>Ok, mas inseguro(a)</option><option>Travado(a)</option></select>
+  <input id="q3" class="input" placeholder="Seu maior desafio hoje"/>
+  <input id="q4" class="input" placeholder="Seu objetivo em 6 meses"/>
+  <div class="row" style="margin-top:12px">
+    <button id="startTest" class="primary">Começar teste</button>
+    <button id="backWelcome" class="secondary">Voltar</button>
+  </div>
+</section>
 
-  <!-- ======== LEAD (GATE) ======== -->
-  <section id="gate" class="card hidden">
-    <div class="msg bot">Excelente! Para ver seu diagnóstico detalhado e liberar sua sessão gratuita, preencha:</div>
-    <div class="grid" style="margin-top:10px">
-      <input id="leadName" class="input" placeholder="Nome completo"/>
-      <input id="leadEmail" class="input" type="email" placeholder="E-mail"/>
-      <input id="leadWhats" class="input" placeholder="WhatsApp (com DDD)"/>
-    </div>
-    <div class="row" style="margin-top:12px">
-      <button id="sendLead" class="primary">Ver diagnóstico & desbloquear</button>
-      <button id="backPlacement" class="secondary">Voltar</button>
-    </div>
-    <div id="leadStatus" class="muted" style="margin-top:6px"></div>
-  </section>
-
-  <!-- ======== RESULT ======== -->
-  <section id="result" class="card hidden">
-    <h2>Seu diagnóstico</h2>
-    <div id="diag" class="msg bot" style="margin-top:8px"></div>
-    <div class="row" style="margin-top:12px">
-      <a class="pill" href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank" rel="noopener">📅 Agendar Speaking Test (30min)</a>
-      <button id="resultToCoach" class="primary">Ir para Conversação</button>
-    </div>
-  </section>
-
-  <!-- ======== COACH (FREE) ======== -->
-  <section id="coach" class="card hidden">
-    <div class="center">
-      <div class="avatar"><img src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/color/svg/1F4AA.svg" width="40" height="40" alt="💪"></div>
-      <h2>Conversação com Sr. Mastrius</h2>
-      <p class="muted">Sem custo. Feedback leve, expansão e uma pergunta final em cada resposta.</p>
-    </div>
-    <div class="bubbles" id="cChat"></div>
-    <div class="controls">
-      <input id="cInput" class="input" placeholder="Talk to your coach…" autocomplete="off"/>
-      <button id="cSend" class="primary">Send</button>
-    </div>
-  </section>
+<!-- o restante do teste, gate e coach vem do arquivo anterior -->
+<!-- ...  (coloque aqui as seções de teste, gate, result e coach que já funcionam) -->
 
 </div>
 <footer>© 2025 English Mastery • Sr. Mastrius Coach</footer>
 
 <script>
-// ======== STATE & HELPERS ========
 const $=id=>document.getElementById(id)
-const screens={welcome:$('welcome'),intake:$('intake'),placement:$('placement'),gate:$('gate'),result:$('result'),coach:$('coach')}
-function show(name){Object.values(screens).forEach(s=>s.classList.add('hidden'));screens[name].classList.remove('hidden')}
-function addMsg(el, text, who='bot'){const d=document.createElement('div');d.className='msg '+who+' fade';d.textContent=text;el.appendChild(d);el.scrollTop=el.scrollHeight}
-const pChat=$('pChat'); const cChat=$('cChat');
-let SESSION_ID=null; let intake=null;
+const modal=$('studentModal'),openBtn=$('openStudentLogin'),
+alunoConfirm=$('alunoConfirm'),alunoClose=$('alunoClose'),
+alunoFirst=$('alunoFirst'),alunoLast=$('alunoLast'),
+alunoPass=$('alunoPass'),alunoError=$('alunoError');
+openBtn?.addEventListener('click',()=>{modal.classList.remove('hidden');alunoFirst.focus()})
+alunoClose?.addEventListener('click',()=>{modal.classList.add('hidden');alunoError.textContent=''})
 
-// ======== CEFR Reference (resumo) ========
-const CEFR = {
-  A1:{desc:"Iniciante. Frases simples, rotinas.", can:["apresentar-se","falar rotina"], focus:["to be","present simple","vocabulário básico"]},
-  A2:{desc:"Elementar. Situações do dia a dia.", can:["contar experiências simples","pedir informações"], focus:["past simple","comparativos","going to"]},
-  B1:{desc:"Intermediário. Opinião e narrativa.", can:["opiniões breves","relatar eventos"], focus:["present perfect","first conditional","connectors"]},
-  B2:{desc:"Intermediário alto. Debate e fluência.", can:["defender opinião","comparar ideias"], focus:["passive","second conditional","discourse markers"]}
-};
-
-// ======== Assessment Bank (variação) ========
-/* Tipos: mc (multiple choice), gap (gap-fill), match (pareamento), order (ordenar), open (aberta) */
-const BANK = {
-  A1:[
-    {id:"a1_mc_1",type:"mc",stem:"Choose the correct response: 'How are you?'",options:["I'm fine, thanks.","I am pizza.","It rains."],correct:"I'm fine, thanks."},
-    {id:"a1_gap_1",type:"gap",stem:"Complete: I ___ from Brazil.",answer:"am"},
-    {id:"a1_match_1",type:"match",stem:"Match greetings:",pairs:[["Hello","Olá"],["Good night","Boa noite"],["See you","Até mais"]]},
-    {id:"a1_order_1",type:"order",stem:"Form a sentence:",words:["I","like","music"],answer:["I","like","music"]},
-    {id:"a1_open_1",type:"open",stem:"Introduce yourself in one short sentence."}
-  ],
-  A2:[
-    {id:"a2_mc_1",type:"mc",stem:"Past simple of 'go'?",options:["goed","went","goes"],correct:"went"},
-    {id:"a2_gap_1",type:"gap",stem:"Complete: I'm ___ to travel next month.",answer:"going"},
-    {id:"a2_match_1",type:"match",stem:"Match words:",pairs:[["cheaper","mais barato"],["health","saúde"],["busy","ocupado"]]},
-    {id:"a2_order_1",type:"order",stem:"Put in order:",words:["I","did","my","homework","yesterday"],answer:["I","did","my","homework","yesterday"]},
-    {id:"a2_open_1",type:"open",stem:"Tell me about your weekend in 1–2 short sentences."}
-  ],
-  B1:[
-    {id:"b1_mc_1",type:"mc",stem:"Choose the best connector:",options:["because","banana","blue"],correct:"because"},
-    {id:"b1_gap_1",type:"gap",stem:"Complete: I have ___ English for two years.",answer:"studied"},
-    {id:"b1_match_1",type:"match",stem:"Match connectors:",pairs:[["however","porém"],["although","embora"],["therefore","portanto"]]},
-    {id:"b1_order_1",type:"order",stem:"Put in order:",words:["If","I","study,","I","improve."],answer:["If","I","study,","I","improve."]},
-    {id:"b1_open_1",type:"open",stem:"Give your opinion on studying online vs. in-person (2–3 sentences)."}
-  ]
-};
-
-// ======== Intake / Navigation ========
-$('startIntake').onclick=()=>show('intake');
-$('backWelcome').onclick=()=>show('welcome');
-$('goCoach').onclick=()=>{startCoach();show('coach');};
-
-// ======== Start Test ========
-$('startTest').onclick=()=>{
-  intake = {exp:$('q1').value.trim(),feel:$('q2').value, pain:$('q3').value.trim(), dream:$('q4').value.trim()};
-  startPlacementFlow();
-  show('placement');
-};
-
-// ======== Placement Engine (front, sem custo) ========
-const pBar=$('pBar'), pMeta=$('pMeta'), pStem=$('pStem'), pContent=$('pContent'), pHint=$('pHint'), pNext=$('pNext');
-let tier="A1", step=0, score=0, asked=[], currentItem=null;
-
-function setProgress(p){ pBar.style.width=(p*100)+'%'; }
-function nextTierByScore(total){
-  if (total>=8) return "B1";
-  if (total>=4) return "A2";
-  return "A1";
-}
-
-function pickQuestion(){
-  const pool=BANK[tier].filter(it=>!asked.includes(it.id));
-  if(!pool.length){ asked=[]; }
-  const list=pool.length?pool:BANK[tier];
-  return list[Math.floor(Math.random()*list.length)];
-}
-
-function renderQuestion(item){
-  currentItem=item;
-  pStem.textContent=item.stem;
-  pContent.innerHTML=""; pHint.textContent="";
-  if(item.type==="mc"){
-    item.options.forEach(opt=>{
-      const b=document.createElement('button'); b.className='choice'; b.textContent=opt;
-      b.onclick=()=>{ pContent.querySelectorAll('.choice').forEach(x=>x.style.outline=''); b.style.outline='2px solid var(--teal)'; b.dataset.sel="1"; b.dataset.val=opt; };
-      pContent.appendChild(b);
-    });
-  }else if(item.type==="gap"){
-    const inp=document.createElement('input'); inp.className='input'; inp.placeholder='Digite a palavra';
-    pContent.appendChild(inp);
-  }else if(item.type==="match"){
-    // render pares como duas colunas, clique para parear
-    const left=item.pairs.map(p=>p[0]), right=item.pairs.map(p=>p[1]).sort(()=>Math.random()-0.5);
-    const wrap=document.createElement('div'); wrap.className='match-grid';
-    const L=document.createElement('div'), R=document.createElement('div');
-    const state={L:null, map:{}};
-    left.forEach(txt=>{const d=document.createElement('div');d.className='match-item';d.textContent=txt;d.onclick=()=>{wrap.querySelectorAll('.match-item').forEach(x=>x.classList.remove('active'));d.classList.add('active');state.L=txt};L.appendChild(d);});
-    right.forEach(txt=>{const d=document.createElement('div');d.className='match-item';d.textContent=txt;d.onclick=()=>{ if(state.L){ state.map[state.L]=txt; L.querySelectorAll('.match-item').forEach(x=>{if(x.textContent===state.L)x.classList.remove('active')}); state.L=null; d.classList.add('active'); setTimeout(()=>d.classList.remove('active'),250);} }; R.appendChild(d);});
-    wrap.appendChild(L);wrap.appendChild(R); pContent.appendChild(wrap); pContent.dataset.map="1"; pContent._pairs=item.pairs;
-  }else if(item.type==="order"){
-    const bank=document.createElement('div'); bank.className='order-bank';
-    const line=document.createElement('div'); line.className='answer-line';
-    item.words.sort(()=>Math.random()-0.5).forEach(w=>{
-      const t=document.createElement('button'); t.type='button'; t.className='token'; t.textContent=w;
-      t.onclick=()=>{t.classList.add('used'); const clone=t.cloneNode(true); clone.className='token'; clone.onclick=null; line.appendChild(clone);};
-      bank.appendChild(t);
-    });
-    pContent.appendChild(bank); pContent.appendChild(line);
-  }else if(item.type==="open"){
-    const ta=document.createElement('textarea'); ta.className='input'; ta.placeholder='1–3 frases curtas…'; ta.rows=3;
-    pContent.appendChild(ta);
-  }
-}
-
-function grade(item){
-  let ok=0;
-  if(item.type==="mc"){
-    const sel=[...pContent.querySelectorAll('.choice')].find(b=>b.dataset.sel==="1");
-    if(!sel){pHint.textContent="Escolha uma opção.";return {graded:false}}
-    ok = (sel.dataset.val===item.correct)?2:0;
-  }else if(item.type==="gap"){
-    const v=(pContent.querySelector('input')?.value||"").trim().toLowerCase();
-    if(!v){pHint.textContent="Preencha a lacuna.";return {graded:false}}
-    ok = (v===item.answer.toLowerCase())?2:(v && v[0]===item.answer[0]?1:0);
-  }else if(item.type==="match"){
-    const pairs=pContent._pairs||[];
-    // construir mapa
-    const map={};
-    // tirar do DOM direito (classe match-grid) — simplificado: user clicou em L e depois em R, salvamos map no state
-    // Para MVP, consideramos correto se todos right escolhidos batem (ordem não importa).
-    // Como não persistimos state, recomputar por texto presente é complexo; então pedimos confirmação e tratamos como meio-crédito:
-    ok = 1; // medio crédito por completar pareamento (UX simples)
-  }else if(item.type==="order"){
-    const chosen=[...pContent.querySelector('.answer-line')?.children||[]].map(x=>x.textContent);
-    if(!chosen.length){pHint.textContent="Monte a frase com os blocos.";return {graded:false}}
-    ok = JSON.stringify(chosen)===JSON.stringify(item.answer)?2:(chosen[0]===item.answer[0]?1:0);
-  }else if(item.type==="open"){
-    const txt=(pContent.querySelector('textarea')?.value||"").trim();
-    if(!txt){pHint.textContent="Escreva 1–3 frases.";return {graded:false}}
-    const wc=txt.split(/\s+/).length;
-    ok = wc>=8?2: (wc>=4?1:0);
-  }
-  return {graded:true,points:ok};
-}
-
-function coachBubbleFor(item,ok){
-  const mild = ["Nice try!","Good effort!","You're doing fine—keep going."];
-  const strong = ["Great!","Excellent!","Well done!"];
-  const tipA1 = "Keep it simple: subject + verb + object.";
-  const tipA2 = "Try past forms (went, did) and give a short reason.";
-  const tipB1 = "Use a connector (because, however) to link ideas.";
-  const tip = tier==="A1"?tipA1:(tier==="A2"?tipA2:tipB1);
-  if(ok===2) addMsg(pChat, `${strong[Math.floor(Math.random()*strong.length)]} Next one is a bit different.`, 'bot');
-  else if(ok===1) addMsg(pChat, `${mild[Math.floor(Math.random()*mild.length)]} ${tip}`, 'bot');
-  else addMsg(pChat, `No worries. ${tip}`, 'bot');
-}
-
-function startPlacementFlow(){
-  tier="A1"; step=0; score=0; asked=[]; setProgress(0);
-  pChat.innerHTML=""; addMsg(pChat,"I'll keep this fast. Answer naturally in English. One line is enough.","bot");
-  askNext();
-}
-
-function askNext(){
-  if(step>=7){
-    // concluir
-    const est=nextTierByScore(score);
-    finalEstimate(est);
-    return;
-  }
-  const item=pickQuestion(); asked.push(item.id); currentItem=item; step++;
-  pMeta.textContent=`Tier: ${tier} • Pergunta ${step} de ~7`;
-  setProgress((step-1)/7);
-  renderQuestion(item);
-}
-
-function finalEstimate(est){
-  setProgress(1);
-  addMsg(pChat,`Estimate: ${est}. Confidence high.`,'bot');
-  // preencher resumo para gate
-  placementSummary.level=est;
-  show('gate');
-}
-
-const placementSummary={level:'A2'};
-pNext.onclick=()=>{
-  if(!currentItem) return;
-  const g=grade(currentItem);
-  if(!g.graded) return;
-  score += g.points;
-  coachBubbleFor(currentItem,g.points);
-  // Ajuste de tier simples conforme desempenho parcial
-  if(step===3||step===5){ tier = nextTierByScore(score); }
-  askNext();
-};
-
-// ======== LEAD ========
-$('backPlacement').onclick=()=>show('placement');
-$('sendLead').onclick=async()=>{
-  const name=$('leadName').value.trim(), email=$('leadEmail').value.trim(), whats=$('leadWhats').value.trim();
-  if(!name||!email||!whats){$('leadStatus').textContent='Preencha nome, e-mail e WhatsApp.'; return;}
-  $('leadStatus').textContent='Enviando…';
-  // enviar ao Formspree (leads)
-  try{
-    await fetch("https://formspree.io/f/mdkproyy",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
-      name,email,whatsapp:whats, level:placementSummary.level, ts:new Date().toISOString(), intake
-    })});
-    $('leadStatus').textContent='Ok! Gerando diagnóstico…';
-  }catch(e){$('leadStatus').textContent='Envio offline. Mostrando diagnóstico…';}
-  // diagnóstico
-  const ce=CEFR[placementSummary.level]||CEFR.A2;
-  const diag=`Nível estimado: ${placementSummary.level} — ${ce.desc}
-Pontos fortes: ${ce.can.join('; ')}.
-Foco recomendado: ${ce.focus.join('; ')}.
-${intake?.pain?('Vamos atacar seu desafio: '+intake.pain+'.'):''}
-${intake?.dream?('Plano alinhado ao seu objetivo de 6 meses: '+intake.dream+'.'):''}`;
-  $('diag').textContent=diag;
-  show('result');
-};
-
-$('resultToCoach').onclick=()=>{startCoach();show('coach');};
-
-// ======== Conversação (Coach Lite — sem custo) ========
-function startCoach(){
-  cChat.innerHTML='';
-  addMsg(cChat,"Welcome to coaching mode! I’ll keep it light, helpful and motivating. What topic do you enjoy?","bot");
-}
-function recastLite(txt){
-  // recast bem simples: capitalizar I e corrigir "i am" -> "I'm"
-  let out = txt.replace(/\bi\b/g,"I").replace(/\bi am\b/gi,"I'm");
-  if(out===txt) return null;
-  return out;
-}
-function shortSuggestion(level){
-  if(level==="A1") return "Tip: use subject + verb + object for clarity.";
-  if(level==="A2") return "Try a short past detail (went, did) or a reason (because...).";
-  return "Add a connector (because/so/however) to extend your idea.";
-}
-async function serverRespond(text){
-  // tenta back-end; se não houver, cai no coach local
-  try{
-    const r=await fetch('/respond',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:SESSION_ID,text})});
-    if(r.ok){const j=await r.json(); if(j?.text) return j.text;}
-  }catch(e){}
-  // coach local:
-  const lvl=placementSummary.level||'A2';
-  const rec=recastLite(text);
-  const praise = ["Nice point!","Good thought.","I like your idea." ][Math.floor(Math.random()*3)];
-  const follow = ["What about you?","Can you add one more detail?","Why is that important to you?"][Math.floor(Math.random()*3)];
-  const tip = shortSuggestion(lvl);
-  return `${praise}${rec?` (Natural phrasing: “${rec}”)`:''} ${tip} ${follow}`;
-}
-
-$('cSend').onclick=async()=>{
-  const val=$('cInput').value.trim(); if(!val) return; $('cInput').value=''; addMsg(cChat,val,'me');
-  addMsg(cChat,'⏳ Sr. Mastrius está pensando…','bot');
-  const reply=await serverRespond(val);
-  cChat.lastChild.textContent=reply;
-};
-
-// ======== Session (opcional: se seu server tiver /session/start) ========
-(async function initSession(){
-  try{
-    const r=await fetch('/session/start',{method:'POST'});
-    if(r.ok){const j=await r.json(); SESSION_ID=j.sessionId;}
-  }catch(e){ /* segue sem sessão server */ }
-})();
+alunoConfirm?.addEventListener('click',async()=>{
+ const first=(alunoFirst.value||'').trim(),last=(alunoLast.value||'').trim(),pass=(alunoPass.value||'').trim()
+ if(!first||!last||!pass){alunoError.textContent='Preencha nome, sobrenome e senha.';return}
+ if(pass!=='destrave'){alunoError.textContent='Senha inválida.';return}
+ const fullName=`${first} ${last}`
+ const studentData={name:fullName,email:'',phone:'',level:'A2',strengths:['Conversação'],improvements:['Gramática'],assessmentScore:10,userType:'student',sessionStartTime:Date.now(),interactions:0}
+ localStorage.setItem('studentData',JSON.stringify(studentData))
+ fetch('https://formspree.io/f/xjkpqvjp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:`Aluno EM logou: ${fullName}`})}).catch(()=>{})
+ modal.classList.add('hidden');alunoError.textContent=''
+ if(typeof startCoach==='function'){startCoach()} show('coach')
+})
 </script>
 </body>
 </html>
