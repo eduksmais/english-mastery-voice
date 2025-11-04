@@ -1,68 +1,75 @@
-import express from 'express';
-import Groq from 'groq-sdk';
-import cors from 'cors';
-import 'dotenv/config'; // Carrega a chave do ambiente
+// server.js — Mastrius backend (Render + Groq + CORS)
+import express from "express";
+import path from "path";
+import fetch from "node-fetch";
+import cors from "cors";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
 
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
-app.use(cors()); // Permite que seu frontend chame este backend
+
+// === CORS: libera chamadas do front ===
+app.use(cors({
+  origin: "*", // ou coloque seu domínio exato ex: "https://englishmastery.com.br"
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+// === Middlewares ===
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(__dirname)); // serve index.html
 
-// Pega a chave secreta do Render
-const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY
-});
-
-if (!process.env.GROQ_API_KEY) {
-    console.error("ERRO: A variável GROQ_API_KEY não foi definida no Render.");
-}
-
-// Endpoint para o Chat do Aluno
-app.post('/api/chat', async (req, res) => {
-    try {
-        const { history } = req.body;
-        if (!history) {
-            return res.status(400).json({ error: 'Nenhum histórico fornecido.' });
-        }
-
-        const completion = await groq.chat.completions.create({
-            messages: history,
-            model: "llama3-8b-8192"
-        });
-
-        res.json({ response: completion.choices[0].message.content });
-
-    } catch (error) {
-        console.error('Erro no /api/chat:', error);
-        res.status(500).json({ error: 'Falha ao processar a resposta do chat.' });
+// === Endpoint principal para IA ===
+app.post("/api/chat", async (req, res) => {
+  try {
+    const { messages } = req.body;
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: "Invalid messages array" });
     }
-});
 
-// Endpoint para o Diagnóstico do Lead
-app.post('/api/diagnose', async (req, res) => {
-    try {
-        const { prompt } = req.body;
-        if (!prompt) {
-            return res.status(400).json({ error: 'Nenhum prompt fornecido.' });
-        }
-        
-        const completion = await groq.chat.completions.create({
-            messages: [
-                { role: "system", content: "Você é um especialista em CEFR e diagnóstico de inglês." },
-                { role: "user", content: prompt }
-            ],
-            model: "llama3-8b-8192"
-        });
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile", // 🚀 modelo mais recente e natural
+        messages,
+        temperature: 0.7,
+        max_tokens: 800,
+        stream: false
+      })
+    });
 
-        res.json({ response: completion.choices[0].message.content });
+    const data = await response.json();
 
-    } catch (error) {
-        console.error('Erro no /api/diagnose:', error);
-        res.status(500).json({ error: 'Falha ao processar o diagnóstico.' });
+    if (!response.ok) {
+      console.error("Groq API error:", data);
+      return res.status(500).json({
+        error: data?.error?.message || "Groq API failed"
+      });
     }
+
+    res.json(data);
+  } catch (err) {
+    console.error("❌ Server error:", err);
+    res.status(500).json({ error: "Server error connecting to Groq" });
+  }
 });
 
+// === Rota fallback (SPA) ===
+app.get("*", (_, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
-const PORT = process.env.PORT || 3001;
+// === Inicia o servidor ===
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor seguro do Sr. Mastrius rodando na porta ${PORT}`);
+  console.log(`🚀 Mastrius backend ativo em http://localhost:${PORT}`);
 });
