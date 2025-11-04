@@ -13,20 +13,22 @@ const app = express();
 
 // === CORS: libera chamadas do front ===
 app.use(cors({
-  origin: "*", // ou coloque seu domínio exato ex: "https://englishmastery.com.br"
+  origin: "*", // ou substitua pelo seu domínio exato
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 // === Middlewares ===
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(__dirname)); // serve index.html
 
-// === Endpoint principal para IA ===
+// 🔧 serve arquivos estáticos da pasta "main" (onde estão index.html, styles.css etc)
+app.use(express.static(path.join(__dirname, "main")));
+
+// === Endpoint principal da IA (Groq) ===
 app.post("/api/chat", async (req, res) => {
   try {
     const { messages } = req.body;
+
     if (!messages || !Array.isArray(messages)) {
       return res.status(400).json({ error: "Invalid messages array" });
     }
@@ -38,7 +40,7 @@ app.post("/api/chat", async (req, res) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile", // 🚀 modelo mais recente e natural
+        model: "llama-3.3-70b-versatile", // modelo atual e natural
         messages,
         temperature: 0.7,
         max_tokens: 800,
@@ -50,9 +52,7 @@ app.post("/api/chat", async (req, res) => {
 
     if (!response.ok) {
       console.error("Groq API error:", data);
-      return res.status(500).json({
-        error: data?.error?.message || "Groq API failed"
-      });
+      return res.status(500).json({ error: data?.error?.message || "Groq API failed" });
     }
 
     res.json(data);
@@ -63,8 +63,9 @@ app.post("/api/chat", async (req, res) => {
 });
 
 // === Rota fallback (SPA) ===
+// Se o usuário digitar uma rota qualquer, o index.html é retornado
 app.get("*", (_, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "main", "index.html"));
 });
 
 // === Inicia o servidor ===
