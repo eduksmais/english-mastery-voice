@@ -20,10 +20,14 @@ app.use(cors({
 
 app.use(express.json());
 
-// === SERVE arquivos estáticos (onde estão index.html e styles.css) ===
+// === SERVE arquivos estáticos ===
+// Serve tudo na raiz (onde estão index.html e styles.css)
 app.use(express.static(__dirname));
 
-// === Endpoint principal da IA (Groq) ===
+// Também serve o conteúdo da pasta /public se necessário
+app.use(express.static(path.join(__dirname, "public")));
+
+// === Endpoint da IA (Groq) ===
 app.post("/api/chat", async (req, res) => {
   try {
     const { messages } = req.body;
@@ -59,18 +63,17 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// === Rota principal ===
+// === ROTAS PRINCIPAIS ===
 app.get("/", (_, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// === Fallback (SPA) ===
 app.get("*", (_, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// === Inicializa o servidor ===
+// === INICIA SERVIDOR ===
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Mastrius backend ativo em http://localhost:${PORT}`);
+  console.log(`✅ Mastrius ativo em http://localhost:${PORT}`);
 });
