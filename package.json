@@ -1,16 +1,19 @@
 {
-  "name": "english-mastery-backend",
+  "name": "english-mastery-voice",
   "version": "1.0.0",
   "type": "module",
-  "description": "Backend seguro para a API do Groq",
-  "main": "server.js",
+  "private": true,
+  "description": "Mastrius | English Mastery Voice - Placement + Conversa + IA Groq",
   "scripts": {
+    "dev": "node server.js",
     "start": "node server.js"
   },
   "dependencies": {
-    "groq-sdk": "^0.5.0",
     "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
