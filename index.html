@@ -1,108 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sr. Mastrius | English Mastery</title>
-  <link rel="preload" href="/mastrius.png" as="image" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Sr. Mastrius — Seu Coach de Inglês</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css" />
 </head>
+
 <body>
-  <!-- TELA 1 — CARD INICIAL -->
-  <main id="introScreen" class="mastrius-card">
-    <img src="/mastrius.png" class="brain-icon" alt="Sr. Mastrius" />
-    <h1>Sr. Mastrius</h1>
-    <p class="subtitle">Seu coach de inglês com metodologia de especialista</p>
+  <div class="container">
 
-    <ul class="features">
-      <li><span class="i i-trend"></span>
-        <b>Avaliação Inteligente</b><br />
-        Teste adaptativo que se ajusta ao seu nível
-      </li>
-      <li><span class="i i-target"></span>
-        <b>Diagnóstico Preciso</b><br />
-        Descubra pontos fortes e áreas de desenvolvimento
-      </li>
-      <li><span class="i i-cap"></span>
-        <b>Coaching Personalizado</b><br />
-        Prática real no seu nível exato
-      </li>
-    </ul>
+    <!-- ===== 1. WELCOME ===== -->
+    <section id="welcome" class="screen active">
+      <div class="welcome-card">
+        <div class="logo-container"><i class="fa-solid fa-brain logo-mastrius"></i></div>
+        <h1>Sr. Mastrius</h1>
+        <p class="subtitle">O coach que traduz seu inglês em crescimento real.</p>
 
-    <button id="startBtn" class="btn primary">Começar Avaliação (5–8 min)</button>
-    <button id="loginBtn" class="btn ghost">Já sou Aluno</button>
-  </main>
+        <ul class="features-list">
+          <li><i class="fa-solid fa-chart-line feature-icon"></i><div><strong>Avaliação Inteligente</strong><span>Um teste que se ajusta ao seu nível em tempo real</span></div></li>
+          <li><i class="fa-solid fa-bullseye feature-icon"></i><div><strong>Diagnóstico Profundo</strong><span>Descubra suas forças e o que está travando seu progresso</span></div></li>
+          <li><i class="fa-solid fa-user-graduate feature-icon"></i><div><strong>Coaching Personalizado</strong><span>Experimente um atendimento humano, preciso e estratégico</span></div></li>
+        </ul>
 
-  <!-- TELA 2 — PERGUNTAS (uma por vez) -->
-  <section id="questionScreen" class="screen hidden">
-    <div class="progress"><div id="bar"></div></div>
-    <div id="qWrap" class="q-wrap">
-      <h3 id="question"></h3>
-      <div id="answers" class="answers"></div>
-    </div>
-    <div id="helper" class="helper"></div>
-  </section>
-
-  <!-- TELA 3 — GATE DE LEAD + DIAGNÓSTICO -->
-  <section id="resultScreen" class="screen hidden">
-    <h2>Seu diagnóstico</h2>
-    <div id="resultText" class="result-box"></div>
-
-    <form id="leadForm" class="lead-form">
-      <div class="row">
-        <input name="name" placeholder="Nome completo" required />
-        <input type="email" name="email" placeholder="E-mail" required />
+        <button id="btnStartIntake" class="btn btn-primary">Começar</button>
+        <button id="btnStudentLogin" class="btn btn-secondary">Sou aluno English Mastery</button>
+        <span class="footer-note">Sem custo ou cartão de crédito</span>
       </div>
-      <input name="whats" placeholder="WhatsApp (opcional)" />
-      <button id="revealBtn" class="btn primary" type="submit">Ver resultado e destravar bônus</button>
-    </form>
+    </section>
 
-    <div id="bonus" class="bonus hidden">
-      <a class="btn primary"
-         href="https://calendly.com/carloseduardo-englishmastery/30min"
-         target="_blank" rel="noopener">Agendar Teste de Speaking Gratuito</a>
-      <p class="note">Bônus destravado: nível + recomedações personalizadas.</p>
-    </div>
-  </section>
+    <!-- ===== 2. INTAKE SPIN ===== -->
+    <section id="intake" class="screen">
+      <h2>Antes de começarmos...</h2>
+      <p>Quero entender melhor sua relação com o inglês. Responda com sinceridade — isso vai me ajudar a te guiar melhor. 💬</p>
+      <div id="intakeArea"></div>
+    </section>
 
-  <!-- MODAL LOGIN ALUNO (mesmo app, sem revelar senha em dicas) -->
-  <div id="loginModal" class="modal hidden">
-    <div class="modal-card">
-      <h3>Entrar (Alunos EM)</h3>
-      <form id="studentLogin" class="login-form">
-        <input name="firstName" placeholder="Nome" required />
-        <input name="lastName" placeholder="Sobrenome" required />
-        <input name="password" type="password" placeholder="Senha" required />
-        <button class="btn primary" type="submit">Destravar Conversa</button>
-        <button class="btn ghost" type="button" id="closeLogin">Cancelar</button>
+    <!-- ===== 3. PLACEMENT ===== -->
+    <section id="placement" class="screen">
+      <h2>Teste de Nivelamento</h2>
+      <div class="progress-bar-container"><div class="progress-bar" id="placementBar"></div></div>
+      <p id="questionCounter">Pergunta 1...</p>
+      <div id="questionArea"></div>
+    </section>
+
+    <!-- ===== 4. RESULTADO ===== -->
+    <section id="result" class="screen">
+      <h3>Seu Diagnóstico</h3>
+      <p><strong>Nível estimado: <span id="levelText"></span></strong></p>
+      <div id="diagnosticBox"></div>
+
+      <form id="leadForm">
+        <h4><i class="fa-solid fa-gift"></i> Desbloqueie seu Bônus</h4>
+        <p>Preencha para receber seu relatório e um convite para uma sessão gratuita comigo.</p>
+        <input id="leadName" placeholder="Nome completo" required>
+        <input id="leadEmail" type="email" placeholder="E-mail" required>
+        <input id="leadWhats" placeholder="WhatsApp" required>
+        <button class="btn btn-primary">Receber meu Diagnóstico</button>
       </form>
-      <p class="tiny">No primeiro acesso, seu login será salvo para as próximas sessões.</p>
-    </div>
-  </div>
 
-  <!-- ÁREA DE CONVERSA DO ALUNO -->
-  <section id="coachScreen" class="screen hidden">
-    <header class="coach-head">
-      <div class="coach-id">
-        <img src="/mastrius.png" class="mini" alt="Mastrius" />
-        <div>
-          <strong>Mastrius</strong>
-          <div class="muted">Especialista EM • Conversa orientada</div>
+      <div class="reward hidden" id="rewardBox">
+        <i class="fa-solid fa-gift"></i>
+        <strong>Recompensa Desbloqueada!</strong>
+        <p>Agende sua sessão gratuita para validar seu nível e receber orientações personalizadas.</p>
+        <a href="https://calendly.com/carloseduardo-englishmastery/30min" class="btn btn-primary" target="_blank" style="background:#f5b305;color:#333;">Agendar Sessão</a>
+      </div>
+    </section>
+
+    <!-- ===== 5. LOGIN ===== -->
+    <section id="login" class="screen">
+      <div class="login-card">
+        <i class="fa-solid fa-brain logo-mastrius" style="font-size:40px;margin-bottom:1rem;"></i>
+        <h2>Entrar como Aluno</h2>
+        <input id="studentName" placeholder="Nome e Sobrenome" required>
+        <input id="studentPass" type="password" placeholder="Senha" required>
+        <button id="btnLogin" class="btn btn-primary">Entrar</button>
+        <button id="btnBackLogin" class="btn btn-secondary">Voltar</button>
+      </div>
+    </section>
+
+    <!-- ===== 6. CHAT ===== -->
+    <section id="chat" class="screen">
+      <h2 style="text-align:center;">Sessão com Sr. Mastrius</h2>
+      <div class="chat-container">
+        <div id="chatBox"></div>
+        <div class="input-area">
+          <input id="userInput" placeholder="Escreva sua mensagem..." />
+          <button id="sendBtn" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
       </div>
-      <div class="coach-actions">
-        <button id="themesBtn" class="btn ghost">Escolher tema</button>
-      </div>
-    </header>
+    </section>
 
-    <div id="chat" class="chat"></div>
+  </div>
 
-    <div class="composer">
-      <input id="composerInput" placeholder="Fale com o Mastrius…" />
-      <button id="sendBtn" class="btn primary">Enviar</button>
-    </div>
-  </section>
-
-  <script src="./app.js" type="module"></script>
+  <script src="./script.js" type="module"></script>
 </body>
 </html>
