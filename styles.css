@@ -1,72 +1,134 @@
-:root{
-  --teal:#31c1bb; --yellow:#f5b305; --orange:#e34410; --ink:#0C0101; --white:#FFFFFF;
-  --bg:#f6f7f8; --card:#fff; --muted:#5f6368; --line:#e9ecef;
+// script.js — front completo: intake SPIN + placement Groq + chat
+const GROQ_API = "/api/chat";
+const FORMSPREE_LEADS = "https://formspree.io/f/mdkproyy";
+const FORMSPREE_STUDENTS = "https://formspree.io/f/xjkpqvjp";
+
+const $ = (s) => document.querySelector(s);
+const screens = ["welcome","intake","placement","result","login","chat"];
+function show(id){ screens.forEach(sc=>$("#"+sc).classList.toggle("active", sc===id)); }
+
+// ===== 1. navegação =====
+$("#btnStartIntake").onclick = ()=>show("intake");
+$("#btnStudentLogin").onclick = ()=>show("login");
+$("#btnBackLogin").onclick = ()=>show("welcome");
+
+// ===== 2. INTAKE (SPIN) =====
+const spinQs = [
+  {id:"situation",q:"Qual é sua relação atual com o inglês?"},
+  {id:"problem",q:"O que mais te incomoda quando tenta usar ou estudar inglês?"},
+  {id:"implication",q:"Como isso tem te atrapalhado no trabalho ou na vida pessoal?"},
+  {id:"need",q:"Se você resolvesse isso nos próximos meses, o que mudaria pra você?"}
+];
+let spinData = {}, spinIndex = 0;
+const intakeArea = $("#intakeArea");
+renderSpin();
+
+function renderSpin(){
+  if(spinIndex>=spinQs.length){ return startPlacement(); }
+  const q = spinQs[spinIndex];
+  intakeArea.innerHTML = `
+    <h3>${q.q}</h3>
+    <textarea id="spinAns" rows="4" placeholder="Escreva aqui..."></textarea>
+    <button id="nextSpin" class="btn btn-primary">Continuar</button>
+  `;
+  $("#nextSpin").onclick = async ()=>{
+    const val = $("#spinAns").value.trim(); if(!val) return;
+    spinData[q.id]=val;
+    // envia p/ Groq (gera follow-up leve)
+    const reply = await groqReply([{role:"user",content:val}],
+      "Act as an empathetic interviewer. Give one short encouraging reply.");
+    intakeArea.innerHTML += `<p class="ai-reply">${reply}</p>`;
+    setTimeout(()=>{ spinIndex++; renderSpin(); },800);
+  };
 }
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-  font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
-
-.hidden{display:none!important}
-
-/* ====== CARD INICIAL ====== */
-.mastrius-card{
-  max-width:420px;margin:48px auto;background:var(--card);padding:28px 24px;
-  border-radius:22px;box-shadow:0 14px 36px rgba(0,0,0,.07)
+// ===== 3. PLACEMENT =====
+let questions=[], qIndex=0, score={A1:0,A2:0,B1:0}, total=6;
+async function startPlacement(){
+  show("placement");
+  // perguntas fixas + Groq valida
+  questions=[
+    {q:"Complete: I ___ a teacher.",opts:["is","are","am"],a:2,l:"A1"},
+    {q:"Choose: She ___ to the gym every morning.",opts:["go","goes","going"],a:1,l:"A1"},
+    {q:"What does 'I’m used to waking up early' mean?",opts:["I wake up early often","I hate waking up early","I rarely wake up early"],a:0,l:"A2"},
+    {q:"Choose the correct sentence:",opts:["He can to drive","He can drives","He can drive"],a:2,l:"A2"},
+    {q:"Fill in: If I ___ more time, I would study English every day.",opts:["have","had","would have"],a:1,l:"B1"},
+    {q:"Which sentence is more natural?",opts:["She said me that…","She told me that…","She told to me that…"],a:1,l:"B1"}
+  ];
+  renderQ();
 }
-.brain-icon{width:90px;height:90px;display:block;margin:4px auto 8px}
-h1{font-size:2.1rem;margin:.2rem 0 .3rem}
-.subtitle{color:var(--muted);margin:0 0 14px;text-align:center}
+function renderQ(){
+  const q=questions[qIndex]; if(!q) return endPlacement();
+  $("#questionCounter").textContent=`Pergunta ${qIndex+1} de ${total}`;
+  $("#placementBar").style.width=`${(qIndex/total)*100}%`;
+  $("#questionArea").innerHTML = `
+    <h3>${q.q}</h3>
+    ${q.opts.map((o,i)=>`<button class="option-btn" data-i="${i}">${o}</button>`).join("")}
+  `;
+  document.querySelectorAll(".option-btn").forEach(b=>b.onclick=(e)=>checkAns(parseInt(e.target.dataset.i)));
+}
+async function checkAns(i){
+  const q=questions[qIndex];
+  const correct=(i===q.a);
+  if(correct) score[q.l]++;
+  const feedback=await groqReply(
+    [{role:"user",content:`Question: ${q.q}\nAnswer chosen: ${q.opts[i]}\nCorrect: ${correct}`}],
+    "Give a 1-sentence encouraging comment (in learner's level English).");
+  $("#questionArea").innerHTML+=`<p class='ai-reply'>${feedback}</p>`;
+  qIndex++; setTimeout(renderQ,900);
+}
+function endPlacement(){
+  const level=Object.entries(score).sort((a,b)=>b[1]-a[1])[0][0];
+  $("#levelText").textContent=level;
+  $("#diagnosticBox").innerHTML=`<p><b>Forças:</b> ${strengths(level)}</p><p><b>Oportunidades:</b> ${weakness(level)}</p>`;
+  show("result");
+}
 
-.features{list-style:none;padding:0;margin:12px 0 18px}
-.features li{display:grid;grid-template-columns:28px 1fr;gap:10px;margin:10px 0}
-.i{width:28px;height:28px;border-radius:8px;background:var(--teal);display:inline-block}
-.i-target{background:linear-gradient(135deg,var(--teal),#7be2de)}
-.i-trend{background:linear-gradient(135deg,var(--yellow),#ffe082)}
-.i-cap{background:linear-gradient(135deg,var(--orange),#ff9f7a)}
+// ===== 4. RESULT + LEAD =====
+$("#leadForm").onsubmit=async(e)=>{
+  e.preventDefault();
+  const data={
+    name:$("#leadName").value, email:$("#leadEmail").value, whats:$("#leadWhats").value,
+    ...spinData, level:$("#levelText").textContent
+  };
+  await fetch(FORMSPREE_LEADS,{method:"POST",headers:{Accept:"application/json"},body:JSON.stringify(data)});
+  $("#leadForm").classList.add("hidden"); $("#rewardBox").classList.remove("hidden");
+};
 
-/* ====== BOTÕES ====== */
-.btn{padding:12px 16px;border-radius:12px;border:1px solid transparent;
-  font-weight:700;cursor:pointer;width:100%}
-.btn.primary{background:var(--teal);color:#003332}
-.btn.ghost{background:var(--card);border-color:var(--line);color:var(--ink)}
+// ===== 5. LOGIN =====
+$("#btnLogin").onclick=()=>{
+  const pass=$("#studentPass").value.trim();
+  const name=$("#studentName").value.trim();
+  if(pass!=="destrave"||!name)return;
+  localStorage.setItem("emStudent",name);
+  fetch(FORMSPREE_STUDENTS,{method:"POST",headers:{Accept:"application/json"},body:JSON.stringify({name,loginAt:new Date().toISOString()})});
+  show("chat"); addMsg("ai","Bem-vindo(a)! Vamos conversar em inglês? 😊");
+};
 
-/* ====== PERGUNTAS ====== */
-.screen{max-width:680px;margin:22px auto;background:var(--card);padding:18px 18px 22px;
-  border-radius:18px;box-shadow:0 10px 28px rgba(0,0,0,.05)}
-.progress{height:8px;background:#eef2f3;border-radius:999px;overflow:hidden;margin:6px 0 14px}
-#bar{height:8px;width:0;background:linear-gradient(90deg,var(--teal),var(--yellow));
-  transition:width .3s ease}
+// ===== 6. CHAT =====
+const chatBox=$("#chatBox");
+function addMsg(role,txt){
+  const el=document.createElement("div");
+  el.className=`chat-message ${role==="user"?"user-message":"ai-message"}`;
+  el.innerHTML=txt; chatBox.appendChild(el); chatBox.scrollTop=chatBox.scrollHeight;
+}
+$("#sendBtn").onclick=async()=>{
+  const t=$("#userInput").value.trim(); if(!t)return;
+  $("#userInput").value=""; addMsg("user",t);
+  const r=await groqReply([{role:"user",content:t}],
+    "You are Mastrius, an English coach. Reply naturally, CEFR-adjusted, friendly, concise.");
+  addMsg("ai",r);
+};
 
-.q-wrap{min-height:140px}
-h3{margin:6px 0 10px;font-size:1.2rem}
-.answers{display:grid;gap:10px}
-.answers .btn{width:auto}
-
-.helper{margin-top:8px;color:var(--muted);font-size:.9rem}
-
-/* ====== RESULTADO + LEAD ====== */
-.result-box{background:#fafafa;border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
-.lead-form .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.lead-form input{padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
-.note{color:var(--muted);font-size:.9rem}
-
-/* ====== MODAL LOGIN ====== */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
-.modal-card{background:var(--card);border-radius:18px;padding:18px;max-width:420px;width:92%}
-.login-form input{padding:12px;border:1px solid var(--line);border-radius:12px;margin:6px 0}
-
-/* ====== COACH (ALUNO) ====== */
-.coach-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.coach-id{display:flex;gap:10px;align-items:center}
-.coach-id .mini{width:36px;height:36px;border-radius:50%;border:2px solid var(--teal)}
-.muted{color:var(--muted);font-size:.9rem}
-
-.chat{background:var(--card);border:1px solid var(--line);border-radius:16px;min-height:260px;padding:12px}
-.msg{display:flex;gap:10px;margin:8px 0}
-.msg .bubble{max-width:75%;padding:10px 12px;border-radius:14px}
-.msg.user .bubble{background:#f3f4f6}
-.msg.bot .bubble{background:#e8fbf9;border:1px solid #b9efe9}
-
-.composer{display:flex;gap:8px;margin-top:10px}
-.composer input{flex:1;border:1px solid var(--line);border-radius:12px;padding:12px}
+// ===== util =====
+async function groqReply(msgs,system){
+  try{
+    const res=await fetch(GROQ_API,{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({messages:[{role:"system",content:system},...msgs]})});
+    const data=await res.json(); return data.choices?.[0]?.message?.content||"";
+  }catch(e){return"(connection issue)";}
+}
+function strengths(l){return l==="A1"?"vocabulário básico e clareza":
+ l==="A2"?"fluência em tópicos do dia a dia":"capacidade de expressar opiniões com confiança";}
+function weakness(l){return l==="A1"?"verbos e estrutura de frases":
+ l==="A2"?"precisão gramatical e variedade de vocabulário":"naturalidade e ampliação lexical";}
