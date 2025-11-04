@@ -1,375 +1,268 @@
-// app.js — English Mastery Voice (Mastrius Edition)
-// ✅ Groq AI + Formspree integration + Placement + EM Login
+// app.js — UI clean + fluxo sequencial + Groq + Formspree + alunos salvos
 
-const $ = (s) => document.querySelector(s);
-const chat = $("#chat");
-const progressBar = $("#progressBar");
-const progressText = $("#progressText");
-const reward = $("#reward");
-const resultModal = $("#resultModal");
-const diagnosticBox = $("#diagnostic");
-
-// ==== CONFIGURAÇÕES ====
+// ====== CONFIG ======
 const FORMSPREE_LEADS = "https://formspree.io/f/mdkproyy";
 const FORMSPREE_STUDENTS = "https://formspree.io/f/xjkpqvjp";
+const USE_GROQ = true; // usa /api/chat no seu server
 
-// se estiver hospedado com server.js com endpoint /api/chat (Groq)
-const USE_GROQ = true;
+// ====== DOM ======
+const $ = (s) => document.querySelector(s);
+const intro = $("#introScreen");
+const qScreen = $("#questionScreen");
+const rScreen = $("#resultScreen");
+const cScreen = $("#coachScreen");
 
+const bar = $("#bar");
+const qEl = $("#question");
+const aEl = $("#answers");
+const helper = $("#helper");
+const resultText = $("#resultText");
+const leadForm = $("#leadForm");
+const bonus = $("#bonus");
+
+const loginModal = $("#loginModal");
+const closeLogin = $("#closeLogin");
+const chat = $("#chat");
+const composer = $("#composerInput");
+
+// ====== ESTADO ======
 const state = {
-  mode: "visitor", // visitor | student
-  lead: null,
-  student: null,
-  placement: {
-    level: "A2",
-    correctStreak: 0,
-    wrongStreak: 0,
-    seen: new Set(),
-    asked: 0,
-    max: 9,
-    score: { A1: 0, A2: 0, B1: 0 },
-    finished: false,
-  },
+  // placement
+  level: "A2",
+  asked: 0,
+  max: 9,
+  current: null,
+  seen: new Set(),
+  score: { A1: 0, A2: 0, B1: 0 },
+  finished: false,
+
+  // dados
   pools: null,
   canDos: null,
-  history: [],
+
+  // usuário
+  lead: null,       // {name,email,whats}
+  student: null,    // {firstName,lastName,login}
+  history: [],      // chat log p/ Groq e insights
 };
 
-// ==== UI helpers ====
-function addMsg(role, text) {
+// ====== HELPERS ======
+function setProgress(p){ bar.style.width = `${p}%`; }
+function addMsg(role, text){
   const row = document.createElement("div");
   row.className = `msg ${role}`;
   row.innerHTML = `<div class="bubble">${text}</div>`;
-  chat.appendChild(row);
-  chat.scrollTop = chat.scrollHeight;
+  chat.appendChild(row); chat.scrollTop = chat.scrollHeight;
   state.history.push({ ts: Date.now(), role, text });
 }
-function setProgress(p) {
-  progressBar.style.width = `${p}%`;
-  progressText.textContent = `${p}%`;
-  if (p >= 100) reward.textContent = "🟢 Reward";
-}
-function switchTab(tab) {
-  document
-    .querySelectorAll(".tab")
-    .forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
-  $("#panel-visitor").classList.toggle("hidden", tab !== "visitor");
-  $("#panel-student").classList.toggle("hidden", tab !== "student");
-  state.mode = tab === "visitor" ? "visitor" : "student";
-}
-document.querySelectorAll(".tab").forEach((b) =>
-  b.addEventListener("click", () => switchTab(b.dataset.tab))
-);
+function keyStudent(s){ return `student:${(s.firstName+s.lastName).toLowerCase().replace(/\s+/g,"")}`; }
+function keyLead(l){ return `lead:${(l.email||l.name).toLowerCase().replace(/\s+/g,"_")}`; }
+function saveLocal(k, obj){ const prev = JSON.parse(localStorage.getItem(k)||"{}"); localStorage.setItem(k, JSON.stringify({...prev, ...obj, updatedAt:Date.now()})); }
+function loadLocal(k){ try{ return JSON.parse(localStorage.getItem(k)||"{}"); }catch{return{}} }
 
-// ==== Storage helpers ====
-function keyForLead(l) {
-  if (l?.email) return `lead:${l.email.toLowerCase()}`;
-  return `lead:${l.name?.toLowerCase().replace(/\s+/g, "_")}`;
-}
-function keyForStudent(s) {
-  return `student:${(s.firstName + s.lastName)
-    .toLowerCase()
-    .replace(/\s+/g, "")}`;
-}
-function saveLocal(key, data) {
-  const prev = JSON.parse(localStorage.getItem(key) || "{}");
-  localStorage.setItem(key, JSON.stringify({ ...prev, ...data }));
-}
-function loadLocal(key) {
-  return JSON.parse(localStorage.getItem(key) || "{}");
-}
+// ====== TELA 1 — AÇÕES ======
+$("#startBtn").onclick = async () => {
+  intro.classList.add("hidden");
+  qScreen.classList.remove("hidden");
+  await startPlacement();
+};
+$("#loginBtn").onclick = () => loginModal.classList.remove("hidden");
+closeLogin.onclick = () => loginModal.classList.add("hidden");
 
-// ==== Form actions ====
-$("#startPlacement").addEventListener("click", () => {
-  const fd = new FormData($("#leadForm"));
-  const lead = {
-    name: fd.get("name").trim(),
-    email: fd.get("email").trim(),
-    whats: fd.get("whats").trim(),
-  };
-  if (!lead.name || !lead.email) {
-    alert("Preencha nome e e-mail.");
+// ====== LOGIN ALUNO (sem dica de senha) ======
+$("#studentLogin").addEventListener("submit", (e)=>{
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const firstName = fd.get("firstName").trim();
+  const lastName  = fd.get("lastName").trim();
+  const password  = fd.get("password").trim();
+
+  // validação silenciosa — sem revelar senha no front
+  if(!firstName || !lastName || !password) return;
+
+  if(password !== "destrave"){ // não exibir qual é a senha
+    e.target.reset();
+    e.target.password?.focus();
     return;
   }
-  state.lead = lead;
-  saveLocal(keyForLead(lead), { ...lead, startedAt: Date.now() });
-  sendForm(FORMSPREE_LEADS, { ...lead, startedAt: new Date().toISOString() });
-  startPlacementFlow();
-});
-
-$("#unlockStudent").addEventListener("click", () => {
-  const fd = new FormData($("#studentLogin"));
-  const f = fd.get("firstName").trim();
-  const l = fd.get("lastName").trim();
-  const p = fd.get("password").trim();
-  if (!f || !l) return alert("Preencha nome e sobrenome.");
-  if (p !== "destrave") return alert("Senha incorreta.");
-  const stu = { firstName: f, lastName: l, login: (f + l).toLowerCase() };
+  const stu = { firstName, lastName, login:(firstName+lastName).toLowerCase() };
   state.student = stu;
-  saveLocal(keyForStudent(stu), { ...stu, unlockedAt: Date.now() });
-  sendForm(FORMSPREE_STUDENTS, {
-    ...stu,
-    unlockedAt: new Date().toISOString(),
-  });
-  addMsg(
-    "bot",
-    `Bem-vindo(a), <b>${f}</b>! 🎉 Modo conversa desbloqueado. Escolha um tema para praticar:`
-  );
-  offerThemes("A2");
+  saveLocal(keyStudent(stu), stu);
+  sendForm(FORMSPREE_STUDENTS, { ...stu, unlockedAt: new Date().toISOString() });
+
+  loginModal.classList.add("hidden");
+  intro.classList.add("hidden");
+  qScreen.classList.add("hidden");
+  rScreen.classList.add("hidden");
+  cScreen.classList.remove("hidden");
+
+  addMsg("bot","Bem-vindo(a)! Escolha um tema para começarmos ou mande sua mensagem.");
 });
 
-// ==== Chat controls ====
-$("#sendBtn").addEventListener("click", handleUserInput);
-$("#composerInput").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") handleUserInput();
-});
-
-async function handleUserInput() {
-  const text = $("#composerInput").value.trim();
-  if (!text) return;
-  $("#composerInput").value = "";
-  addMsg("user", text);
-
-  if (text.toLowerCase() === "reset") return resetPlacement(true);
-
-  if (state.mode === "visitor" && !state.placement.finished)
-    return handlePlacementAnswer(text);
-
-  const lev = estimateLevel();
-  const reply = USE_GROQ
-    ? await aiReplyGroq(text, lev)
-    : coachStyleReply(text, lev);
-  addMsg("bot", reply);
-  collectInsights(text, lev);
-  setProgress(Math.min(100, (state.history.length / 40) * 100));
+// ====== PLACEMENT ======
+async function loadPools(){
+  if(state.pools) return;
+  const r = await fetch("./data/questions.json"); state.pools = await r.json();
 }
-
-// ==== Placement logic ====
-async function loadPools() {
-  if (!state.pools) {
-    const r = await fetch("./data/questions.json");
-    state.pools = await r.json();
-  }
-}
-async function startPlacementFlow() {
-  resetPlacement();
-  addMsg("bot", "Vamos começar! Responda direto no chat. 🎯");
-  nextQuestion();
-}
-function resetPlacement(silent = false) {
-  state.placement = {
-    level: "A2",
-    correctStreak: 0,
-    wrongStreak: 0,
-    seen: new Set(),
-    asked: 0,
-    max: 9,
-    score: { A1: 0, A2: 0, B1: 0 },
-    finished: false,
-  };
-  setProgress(0);
-  if (!silent) addMsg("bot", "Placement reiniciado!");
-}
-async function nextQuestion() {
+async function startPlacement(){
+  state.level="A2"; state.asked=0; state.seen=new Set(); state.finished=false;
+  state.score={A1:0,A2:0,B1:0}; setProgress(0);
+  helper.textContent = "Responda no chat abaixo. Uma pergunta por vez.";
   await loadPools();
-  const lvl = state.placement.level;
-  const pool = state.pools[lvl].filter((q) => !state.placement.seen.has(q.id));
-  if (!pool.length) return finalizePlacement();
-  const q = pool[Math.floor(Math.random() * pool.length)];
-  state.placement.current = q;
-  state.placement.seen.add(q.id);
-  state.placement.asked++;
-  const p = Math.round((state.placement.asked / state.placement.max) * 100);
-  setProgress(Math.min(p, 95));
-  const txt =
-    q.type === "mc"
-      ? `${q.q}<br>${q.options
-          .map((o, i) => `<br>${i + 1}) ${o}`)
-          .join("")}<br><i>Responda com o número.</i>`
-      : `${q.q}<i> (responda com a palavra)</i>`;
-  addMsg("bot", txt);
+  nextQ();
 }
-function handlePlacementAnswer(t) {
-  const q = state.placement.current;
-  if (!q) return;
-  const correct =
-    q.type === "mc"
-      ? parseInt(t.trim(), 10) - 1 === q.answer
-      : t.trim().toLowerCase() === q.answer.toLowerCase();
+function nextQ(){
+  const pool = state.pools[state.level].filter(q=>!state.seen.has(q.id));
+  if(pool.length===0 || state.asked>=state.max){ return endPlacement(); }
+  const q = pool[Math.floor(Math.random()*pool.length)];
+  state.current=q; state.seen.add(q.id); state.asked++;
+  setProgress(Math.min(95, Math.round(state.asked/state.max*100)));
 
-  if (correct) {
-    addMsg("bot", "✅ Boa!");
-    state.placement.score[q.level ?? state.placement.level]++;
-    state.placement.correctStreak++;
-    state.placement.wrongStreak = 0;
-    if (state.placement.correctStreak >= 2 && state.placement.level === "A2")
-      state.placement.level = "B1";
-  } else {
-    addMsg(
-      "bot",
-      `❌ Quase. Resposta esperada: <b>${
-        q.type === "mc" ? q.options[q.answer] : q.answer
-      }</b>`
-    );
-    state.placement.wrongStreak++;
-    state.placement.correctStreak = 0;
-    if (state.placement.wrongStreak >= 2 && state.placement.level === "A2")
-      state.placement.level = "A1";
-  }
-  if (state.placement.asked >= state.placement.max) finalizePlacement();
-  else nextQuestion();
-}
-function finalizePlacement() {
-  state.placement.finished = true;
-  const { score } = state.placement;
-  const best =
-    Object.entries(score).sort((a, b) => b[1] - a[1])[0]?.[0] || "A2";
-  const diag = `
-  <p><b>Nível estimado:</b> ${best}</p>
-  <p><b>Pontos fortes:</b> ${strengths(best)}</p>
-  <p><b>O que melhorar:</b> ${weakness(best)}</p>`;
-  showResult(diag);
-  const payload = {
-    diagnosticLevel: best,
-    finishedAt: new Date().toISOString(),
-    usage: state.history.length,
-  };
-  if (state.mode === "visitor" && state.lead) {
-    saveLocal(keyForLead(state.lead), payload);
-    sendForm(FORMSPREE_LEADS, { ...state.lead, ...payload });
-  } else if (state.student) {
-    saveLocal(keyForStudent(state.student), payload);
-    sendForm(FORMSPREE_STUDENTS, { ...state.student, ...payload });
+  qEl.innerHTML = q.q;
+  if(q.type==="mc"){
+    aEl.innerHTML = q.options.map((o,i)=>`<button class="btn ghost" data-i="${i}">${o}</button>`).join("");
+  }else{
+    aEl.innerHTML = `
+      <input id="gapAns" class="gap" placeholder="Digite sua resposta" />
+      <button id="gapBtn" class="btn primary">Responder</button>`;
   }
 }
-function showResult(html) {
-  diagnosticBox.innerHTML = html;
-  resultModal.classList.remove("hidden");
-}
-$("#closeResult").onclick = () => resultModal.classList.add("hidden");
-
-// ==== Conversation & themes ====
-async function offerThemes(level) {
-  if (!state.canDos) {
-    const r = await fetch("./data/can-dos.json");
-    state.canDos = await r.json();
+aEl.addEventListener("click",(e)=>{
+  if(!(e.target instanceof HTMLElement))return;
+  if(e.target.matches("[data-i]")){
+    const sel = parseInt(e.target.dataset.i,10);
+    checkAnswer(sel);
   }
-  const list = state.canDos[level] || [];
-  const html = list
-    .map(
-      (t, i) =>
-        `<button data-t="${encodeURIComponent(
-          t
-        )}" class="ghost" style="margin:4px">${i + 1}. ${t}</button>`
-    )
-    .join("");
-  addMsg("bot", `Escolha um tema:<br>${html}`);
-  const last = chat.lastElementChild;
-  last.querySelectorAll("button").forEach((b) =>
-    b.addEventListener("click", () =>
-      startThemeConversation(decodeURIComponent(b.dataset.t), level)
-    )
-  );
-}
-function startThemeConversation(theme, level) {
-  addMsg("bot", `Tema: <b>${theme}</b>. Conte um exemplo real.`);
-  state.currentTheme = { theme, level };
-}
-function strengths(l) {
-  if (l === "A1") return "vocabulário básico e clareza na mensagem";
-  if (l === "A2") return "fluência em tópicos familiares";
-  return "capacidade de expressar opiniões e conectar ideias";
-}
-function weakness(l) {
-  if (l === "A1") return "verbos e preposições";
-  if (l === "A2") return "collocations e tempos verbais";
-  return "precisão gramatical e variedade lexical";
-}
-function estimateLevel() {
-  const s = state.placement.score;
-  return Object.entries(s).sort((a, b) => b[1] - a[1])[0]?.[0] || "A2";
-}
-
-// ==== Formspree sender ====
-async function sendForm(endpoint, data) {
-  const key = `${endpoint}:${data.email || data.login}`;
-  const sent = loadLocal(key)?.sent;
-  if (sent) return;
-  try {
-    await fetch(endpoint, {
-      method: "POST",
-      headers: { Accept: "application/json" },
-      body: JSON.stringify(data),
-    });
-    saveLocal(key, { sent: true });
-  } catch (e) {
-    console.warn("Formspree error", e);
+});
+aEl.addEventListener("click",(e)=>{
+  if(!(e.target instanceof HTMLElement))return;
+  if(e.target.id==="gapBtn"){
+    const v = $("#gapAns")?.value?.trim()||"";
+    checkAnswer(v);
   }
-}
+});
+function checkAnswer(val){
+  const q=state.current; if(!q) return;
+  let ok=false;
+  if(q.type==="mc"){ ok = (val===q.answer); }
+  else{ ok = (String(val).toLowerCase()===q.answer.toLowerCase()); }
 
-// ==== Groq AI integration ====
-async function aiReplyGroq(userText, level) {
-  const history = state.history.map((h) => ({
-    role: h.role === "bot" ? "assistant" : "user",
-    content: h.text,
-  }));
-  const system = `
-  You are Mastrius, an empathetic but demanding English learning coach.
-  Respond in ${level}-level English only.
-  Be warm, curious, encouraging.
-  Give brief contextual feedback and one challenge.
-  Never reveal you are AI.
+  helper.innerHTML = ok ? "✅ Boa!" : `❌ Quase. Correto: <b>${q.type==="mc"?q.options[q.answer]:q.answer}</b>`;
+  if(ok){ state.score[state.level]++; if(state.level==="A2") state.level="B1"; }
+  else{ if(state.level==="A2") state.level="A1"; }
+
+  setTimeout(()=>{ helper.textContent=""; nextQ(); }, 700);
+}
+function endPlacement(){
+  state.finished=true;
+  const best = Object.entries(state.score).sort((a,b)=>b[1]-a[1])[0]?.[0] || "A2";
+  qScreen.classList.add("hidden");
+  rScreen.classList.remove("hidden");
+  setProgress(100);
+  resultText.innerHTML = `
+    <p><b>Nível estimado:</b> ${best}</p>
+    <p><b>Pontos fortes:</b> ${strengths(best)}</p>
+    <p><b>O que melhorar:</b> ${weakness(best)}</p>
   `;
-  const payload = {
-    messages: [{ role: "system", content: system }, ...history, { role: "user", content: userText }],
+  // mantém gate de lead — só revela quando enviar o form
+}
+
+// ====== LEAD GATE (revela diagnóstico + bônus e envia ao Formspree) ======
+leadForm.addEventListener("submit",(e)=>{
+  e.preventDefault();
+  const fd = new FormData(leadForm);
+  const lead = {
+    name: (fd.get("name")||"").trim(),
+    email: (fd.get("email")||"").trim(),
+    whats: (fd.get("whats")||"").trim(),
   };
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content || "(No reply)";
-  } catch (e) {
-    console.error("Groq error", e);
-    return "(connection issue)";
+  if(!lead.name || !lead.email) return;
+
+  state.lead = lead;
+  saveLocal(keyLead(lead), lead);
+  sendForm(FORMSPREE_LEADS, {
+    ...lead,
+    diagnosticLevel: currentLevel(),
+    finishedAt: new Date().toISOString()
+  });
+
+  // Revela bônus
+  $("#revealBtn").disabled = true;
+  bonus.classList.remove("hidden");
+});
+
+// ====== CONVERSA (ALUNO) ======
+$("#themesBtn").onclick = async ()=>{
+  const level = currentLevel();
+  const list = await getThemes(level);
+  addMsg("bot", "Escolha um tema:");
+  list.forEach((t,i)=>{
+    addMsg("bot", `<button class="btn ghost" data-theme="${encodeURIComponent(t)}">${i+1}. ${t}</button>`);
+    // delegação simples
+    const last = chat.lastElementChild.querySelector("button");
+    last.onclick = () => addMsg("bot", `Tema: <b>${t}</b>. Conte um exemplo real.`);
+  });
+};
+$("#sendBtn").onclick = onUserSend;
+composer.addEventListener("keydown",(e)=>{ if(e.key==="Enter") onUserSend(); });
+
+async function onUserSend(){
+  const text = composer.value.trim(); if(!text) return;
+  composer.value=""; addMsg("user", text);
+
+  const level = currentLevel();
+  const reply = USE_GROQ ? await aiReplyGroq(text, level) : coachReply(text, level);
+  addMsg("bot", reply);
+
+  // insights + salvar aluno
+  if(state.student){
+    const key = keyStudent(state.student);
+    saveLocal(key, { lastInteractionAt: Date.now() });
+    sendForm(FORMSPREE_STUDENTS, { ...state.student, level, textLen:text.length });
   }
 }
 
-// ==== Backup simple AI (offline fallback) ====
-function coachStyleReply(text, level) {
-  const tips = {
-    A1: "Nice try! Practice verb forms (I am / you are).",
-    A2: "Good! Add more detail or reason next time.",
-    B1: "Great ideas! Try to use linkers like because or although.",
-  };
-  return `${tips[level] || "Good!"} Tell me more.`;
+// ====== AI (Groq) ======
+async function aiReplyGroq(userText, level){
+  const history = state.history.map(h=>({ role: h.role==="bot"?"assistant":"user", content: h.text }));
+  const system = `
+    You are Mastrius, an educational coach for English Mastery.
+    Speak ${level}-level English. Be warm, curious, encouraging.
+    Give short contextual replies, one micro feedback, and one light challenge.
+    Never reveal you are an AI or mention passwords.
+  `;
+  const payload = { messages: [{role:"system",content:system}, ...history, {role:"user",content:userText}] };
+  try{
+    const r = await fetch("/api/chat", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(payload) });
+    const data = await r.json();
+    return data?.choices?.[0]?.message?.content || "(sem resposta)";
+  }catch(e){
+    console.warn("Groq error", e);
+    return coachReply(userText, level);
+  }
 }
 
-// ==== Insights tracking ====
-function collectInsights(t, level) {
-  const pain = /(hard|difícil|stuck|problem)/i.test(t);
-  const dream = /(job|promotion|travel|viagem|exchange)/i.test(t);
-  const wish = /(wish|gostaria|queria)/i.test(t);
-  const payload = {
-    level,
-    pain,
-    dream,
-    wish,
-    len: t.length,
-    ts: new Date().toISOString(),
-  };
-  if (state.mode === "visitor" && state.lead)
-    sendForm(FORMSPREE_LEADS, { ...state.lead, ...payload });
-  if (state.mode === "student" && state.student)
-    sendForm(FORMSPREE_STUDENTS, { ...state.student, ...payload });
+// ====== DADOS AUX ======
+function strengths(l){ if(l==="A1") return "vocabulário básico e clareza"; if(l==="A2") return "tópicos do dia a dia"; return "opiniões e conexão de ideias"; }
+function weakness(l){ if(l==="A1") return "verbos e preposições"; if(l==="A2") return "collocations e tempos verbais"; return "precisão e variedade lexical"; }
+function currentLevel(){
+  if(!state.finished) return "A2";
+  return Object.entries(state.score).sort((a,b)=>b[1]-a[1])[0]?.[0] || "A2";
+}
+function coachReply(_t,l){ return ({"A1":"Nice! Tell me one more example.","A2":"Good! Add one detail or reason.","B1":"Great! Try linking ideas with because/although."}[l]||"Tell me more."); }
+async function getThemes(level){
+  if(!state.canDos){ const r = await fetch("./data/can-dos.json"); state.canDos = await r.json(); }
+  return state.canDos[level] || ["Daily routine","Work tasks","Travel plans"];
 }
 
-// ==== Boot ====
-(async function init() {
-  addMsg(
-    "bot",
-    "Olá! Eu sou <b>Mastrius</b> 🤖. Posso avaliar seu inglês ou praticar uma conversa com você."
-  );
-})();
+// ====== FORMSPREE ======
+async function sendForm(endpoint, data){
+  try{
+    await fetch(endpoint,{ method:"POST", headers:{Accept:"application/json"}, body: JSON.stringify(data) });
+  }catch(e){ console.warn("Formspree", e); }
+}
+
+// ====== BOOT ======
+addEventListener("DOMContentLoaded", ()=>{
+  // apenas inicia — tudo é acionado por botões
+});
