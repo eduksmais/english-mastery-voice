@@ -1,114 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mastrius | English Mastery Voice</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <title>Sr. Mastrius | English Mastery</title>
   <link rel="preload" href="/mastrius.png" as="image" />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-left">
-      <div class="avatar-wrap">
-        <img src="/mastrius.png" alt="Mastrius, seu especialista educacional" class="avatar" />
-        <div class="aura"></div>
-      </div>
-      <div>
-        <h1>Mastrius</h1>
-        <p class="tagline">Seu especialista educacional — leve, curioso, exigente no ponto certo.</p>
-        <div class="badges">
-          <span class="badge">Gamified</span>
-          <span class="badge">Placement AI</span>
-          <span class="badge">Personalized</span>
-        </div>
-      </div>
-    </div>
+  <!-- TELA 1 — CARD INICIAL -->
+  <main id="introScreen" class="mastrius-card">
+    <img src="/mastrius.png" class="brain-icon" alt="Sr. Mastrius" />
+    <h1>Sr. Mastrius</h1>
+    <p class="subtitle">Seu coach de inglês com metodologia de especialista</p>
 
-    <div class="hero-right">
-      <div class="tabs">
-        <button class="tab active" data-tab="visitor">Prática & Teste (Visitante)</button>
-        <button class="tab" data-tab="student">Sou aluno EM</button>
-      </div>
+    <ul class="features">
+      <li><span class="i i-trend"></span>
+        <b>Avaliação Inteligente</b><br />
+        Teste adaptativo que se ajusta ao seu nível
+      </li>
+      <li><span class="i i-target"></span>
+        <b>Diagnóstico Preciso</b><br />
+        Descubra pontos fortes e áreas de desenvolvimento
+      </li>
+      <li><span class="i i-cap"></span>
+        <b>Coaching Personalizado</b><br />
+        Prática real no seu nível exato
+      </li>
+    </ul>
 
-      <div class="panel" id="panel-visitor">
-        <form id="leadForm" class="grid">
-          <div class="col">
-            <label>Nome completo</label>
-            <input name="name" required placeholder="Seu nome" />
-          </div>
-          <div class="col">
-            <label>E-mail</label>
-            <input name="email" type="email" required placeholder="voce@email.com" />
-          </div>
-          <div class="col">
-            <label>WhatsApp (opcional)</label>
-            <input name="whats" placeholder="DDD + número" />
-          </div>
-        </form>
-        <div class="cta-wrap">
-          <button id="startPlacement" class="primary">Começar placement test</button>
-          <button id="resumePlacement" class="ghost" title="Continua de onde parou">Retomar</button>
-        </div>
-      </div>
-
-      <div class="panel hidden" id="panel-student">
-        <form id="studentLogin" class="grid">
-          <div class="col">
-            <label>Nome</label>
-            <input name="firstName" required placeholder="Primeiro nome" />
-          </div>
-          <div class="col">
-            <label>Sobrenome</label>
-            <input name="lastName" required placeholder="Sobrenome" />
-          </div>
-          <div class="col">
-            <label>Senha</label>
-            <input name="password" type="password" required placeholder="Digite: destrave" />
-          </div>
-        </form>
-        <div class="cta-wrap">
-          <button id="unlockStudent" class="primary">Destravar modo conversa</button>
-        </div>
-        <p class="hint">No primeiro acesso, seu login salvo ficará <b>primeironome+sobrenome</b>. Nos próximos, basta usar o mesmo nome e sobrenome.</p>
-      </div>
-    </div>
-  </header>
-
-  <div class="progress">
-    <div class="progress-bar" id="progressBar" style="width:0%"></div>
-    <div class="progress-meta"><span id="progressText">0%</span><span id="reward">🔒 Reward</span></div>
-  </div>
-
-  <main class="shell">
-    <div id="chat" class="chat">
-      <!-- mensagens entram aqui -->
-    </div>
-    <div class="composer">
-      <input id="composerInput" placeholder="Fale com o Mastrius..." />
-      <button id="sendBtn" class="primary">Enviar</button>
-      <button id="micBtn" class="ghost">🎙</button>
-    </div>
+    <button id="startBtn" class="btn primary">Começar Avaliação (5–8 min)</button>
+    <button id="loginBtn" class="btn ghost">Já sou Aluno</button>
   </main>
 
-  <section class="calendly">
-    <h3>🔓 Recompensa: Level + Free Speaking Test</h3>
-    <p>Ao concluir o placement e preencher seus dados, destrave seu <b>diagnóstico</b> e agende um teste oral gratuito (30 min):</p>
-    <div class="calendly-inline-widget" data-url="https://calendly.com/carloseduardo-englishmastery/30min" style="min-width:320px;height:700px;"></div>
-    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <!-- TELA 2 — PERGUNTAS (uma por vez) -->
+  <section id="questionScreen" class="screen hidden">
+    <div class="progress"><div id="bar"></div></div>
+    <div id="qWrap" class="q-wrap">
+      <h3 id="question"></h3>
+      <div id="answers" class="answers"></div>
+    </div>
+    <div id="helper" class="helper"></div>
   </section>
 
-  <!-- Modal diagnóstico -->
-  <div id="resultModal" class="modal hidden">
-    <div class="modal-card">
-      <h2>Seu diagnóstico</h2>
-      <div id="diagnostic"></div>
-      <div class="modal-actions">
-        <button id="closeResult" class="ghost">Fechar</button>
-        <a class="primary" href="#calendly" onclick="document.querySelector('.calendly').scrollIntoView({behavior:'smooth'})">Agendar speaking test</a>
+  <!-- TELA 3 — GATE DE LEAD + DIAGNÓSTICO -->
+  <section id="resultScreen" class="screen hidden">
+    <h2>Seu diagnóstico</h2>
+    <div id="resultText" class="result-box"></div>
+
+    <form id="leadForm" class="lead-form">
+      <div class="row">
+        <input name="name" placeholder="Nome completo" required />
+        <input type="email" name="email" placeholder="E-mail" required />
       </div>
+      <input name="whats" placeholder="WhatsApp (opcional)" />
+      <button id="revealBtn" class="btn primary" type="submit">Ver resultado e destravar bônus</button>
+    </form>
+
+    <div id="bonus" class="bonus hidden">
+      <a class="btn primary"
+         href="https://calendly.com/carloseduardo-englishmastery/30min"
+         target="_blank" rel="noopener">Agendar Teste de Speaking Gratuito</a>
+      <p class="note">Bônus destravado: nível + recomedações personalizadas.</p>
+    </div>
+  </section>
+
+  <!-- MODAL LOGIN ALUNO (mesmo app, sem revelar senha em dicas) -->
+  <div id="loginModal" class="modal hidden">
+    <div class="modal-card">
+      <h3>Entrar (Alunos EM)</h3>
+      <form id="studentLogin" class="login-form">
+        <input name="firstName" placeholder="Nome" required />
+        <input name="lastName" placeholder="Sobrenome" required />
+        <input name="password" type="password" placeholder="Senha" required />
+        <button class="btn primary" type="submit">Destravar Conversa</button>
+        <button class="btn ghost" type="button" id="closeLogin">Cancelar</button>
+      </form>
+      <p class="tiny">No primeiro acesso, seu login será salvo para as próximas sessões.</p>
     </div>
   </div>
+
+  <!-- ÁREA DE CONVERSA DO ALUNO -->
+  <section id="coachScreen" class="screen hidden">
+    <header class="coach-head">
+      <div class="coach-id">
+        <img src="/mastrius.png" class="mini" alt="Mastrius" />
+        <div>
+          <strong>Mastrius</strong>
+          <div class="muted">Especialista EM • Conversa orientada</div>
+        </div>
+      </div>
+      <div class="coach-actions">
+        <button id="themesBtn" class="btn ghost">Escolher tema</button>
+      </div>
+    </header>
+
+    <div id="chat" class="chat"></div>
+
+    <div class="composer">
+      <input id="composerInput" placeholder="Fale com o Mastrius…" />
+      <button id="sendBtn" class="btn primary">Enviar</button>
+    </div>
+  </section>
 
   <script src="./app.js" type="module"></script>
 </body>
