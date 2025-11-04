@@ -1,0 +1,17 @@
+{
+  "A1": [
+    {"id":"a1_1","type":"mc","q":"Choose the correct option: 'I ___ Carlos.'","options":["is","are","am"],"answer":2,"skill":"grammar"},
+    {"id":"a1_2","type":"gap","q":"Complete: 'I live ___ São Paulo.'","answer":"in","skill":"preposition"},
+    {"id":"a1_3","type":"mc","q":"What's the opposite of 'cheap'?","options":["expensive","fast","late"],"answer":0,"skill":"vocabulary"}
+  ],
+  "A2": [
+    {"id":"a2_1","type":"mc","q":"Choose: 'She ___ to the gym twice a week.'","options":["go","goes","is go"],"answer":1,"skill":"grammar"},
+    {"id":"a2_2","type":"gap","q":"Complete: 'I have been ___ English for two years.' (not perfect)","answer":"learning","skill":"vocabulary"},
+    {"id":"a2_3","type":"mc","q":"Meaning of 'deadline' is closest to:","options":["party","due date","address"],"answer":1,"skill":"vocabulary"}
+  ],
+  "B1": [
+    {"id":"b1_1","type":"mc","q":"Choose the best: 'If I ___ more time, I'd study everyday.'","options":["have","had","would have"],"answer":1,"skill":"grammar"},
+    {"id":"b1_2","type":"gap","q":"Complete: 'I'm looking forward ___ you next week.'","answer":"to seeing","skill":"collocation"},
+    {"id":"b1_3","type":"mc","q":"Closest to 'insightful':","options":["shallow","boring","perceptive"],"answer":2,"skill":"vocabulary"}
+  ]
+}
