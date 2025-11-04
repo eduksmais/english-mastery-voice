@@ -1,268 +1,289 @@
-// app.js — UI clean + fluxo sequencial + Groq + Formspree + alunos salvos
-
-// ====== CONFIG ======
+// ===== CONFIG =====
+const GROQ_API = "/api/chat"; // seu backend no Render
 const FORMSPREE_LEADS = "https://formspree.io/f/mdkproyy";
 const FORMSPREE_STUDENTS = "https://formspree.io/f/xjkpqvjp";
-const USE_GROQ = true; // usa /api/chat no seu server
 
-// ====== DOM ======
 const $ = (s) => document.querySelector(s);
-const intro = $("#introScreen");
-const qScreen = $("#questionScreen");
-const rScreen = $("#resultScreen");
-const cScreen = $("#coachScreen");
+const screens = ["welcome","intake","placement","result","login","chat"];
+function show(id){ screens.forEach(sc => $("#"+sc).classList.toggle("active", sc===id)); }
 
-const bar = $("#bar");
-const qEl = $("#question");
-const aEl = $("#answers");
-const helper = $("#helper");
-const resultText = $("#resultText");
-const leadForm = $("#leadForm");
-const bonus = $("#bonus");
+// ===== NAV =====
+$("#btnStartIntake").onclick = () => show("intake");
+$("#btnStudentLogin").onclick = () => show("login");
+$("#btnBackLogin").onclick = () => show("welcome");
 
-const loginModal = $("#loginModal");
-const closeLogin = $("#closeLogin");
-const chat = $("#chat");
-const composer = $("#composerInput");
-
-// ====== ESTADO ======
+// ===== STATE =====
 const state = {
-  // placement
-  level: "A2",
-  asked: 0,
-  max: 9,
-  current: null,
-  seen: new Set(),
-  score: { A1: 0, A2: 0, B1: 0 },
-  finished: false,
+  spinIndex: 0,
+  spin: { situation:"", problem:"", implication:"", need:"" },
 
-  // dados
-  pools: null,
-  canDos: null,
+  placementIdx: 0,
+  placementMax: 10,
+  levelScores: { A1:0, A2:0, B1:0, B2:0 },
+  currentLevel: "A2",
+  questions: [],
 
-  // usuário
-  lead: null,       // {name,email,whats}
-  student: null,    // {firstName,lastName,login}
-  history: [],      // chat log p/ Groq e insights
+  lead: null,
+  student: null,
+
+  chatHistory: [] // {role: "user"|"assistant", content: "..."}
 };
 
-// ====== HELPERS ======
-function setProgress(p){ bar.style.width = `${p}%`; }
-function addMsg(role, text){
-  const row = document.createElement("div");
-  row.className = `msg ${role}`;
-  row.innerHTML = `<div class="bubble">${text}</div>`;
-  chat.appendChild(row); chat.scrollTop = chat.scrollHeight;
-  state.history.push({ ts: Date.now(), role, text });
-}
-function keyStudent(s){ return `student:${(s.firstName+s.lastName).toLowerCase().replace(/\s+/g,"")}`; }
-function keyLead(l){ return `lead:${(l.email||l.name).toLowerCase().replace(/\s+/g,"_")}`; }
-function saveLocal(k, obj){ const prev = JSON.parse(localStorage.getItem(k)||"{}"); localStorage.setItem(k, JSON.stringify({...prev, ...obj, updatedAt:Date.now()})); }
-function loadLocal(k){ try{ return JSON.parse(localStorage.getItem(k)||"{}"); }catch{return{}} }
+// ===== INTAKE (SPIN) =====
+const spinQs = [
+  {key:"situation", q:"Qual é sua situação atual com o inglês? (rotina, uso no trabalho/viagem)"},
+  {key:"problem",   q:"O que mais te trava quando tenta usar ou estudar inglês?"},
+  {key:"implication", q:"Como isso tem impactado seu trabalho, estudos ou oportunidades?"},
+  {key:"need",      q:"Se você resolvesse isso nos próximos meses, o que mudaria pra você?"}
+];
 
-// ====== TELA 1 — AÇÕES ======
-$("#startBtn").onclick = async () => {
-  intro.classList.add("hidden");
-  qScreen.classList.remove("hidden");
-  await startPlacement();
-};
-$("#loginBtn").onclick = () => loginModal.classList.remove("hidden");
-closeLogin.onclick = () => loginModal.classList.add("hidden");
+const intakeArea = $("#intakeArea");
+renderSpin();
 
-// ====== LOGIN ALUNO (sem dica de senha) ======
-$("#studentLogin").addEventListener("submit", (e)=>{
-  e.preventDefault();
-  const fd = new FormData(e.target);
-  const firstName = fd.get("firstName").trim();
-  const lastName  = fd.get("lastName").trim();
-  const password  = fd.get("password").trim();
-
-  // validação silenciosa — sem revelar senha no front
-  if(!firstName || !lastName || !password) return;
-
-  if(password !== "destrave"){ // não exibir qual é a senha
-    e.target.reset();
-    e.target.password?.focus();
+function renderSpin(){
+  if(state.spinIndex >= spinQs.length){
+    startPlacement();
     return;
   }
-  const stu = { firstName, lastName, login:(firstName+lastName).toLowerCase() };
-  state.student = stu;
-  saveLocal(keyStudent(stu), stu);
-  sendForm(FORMSPREE_STUDENTS, { ...stu, unlockedAt: new Date().toISOString() });
-
-  loginModal.classList.add("hidden");
-  intro.classList.add("hidden");
-  qScreen.classList.add("hidden");
-  rScreen.classList.add("hidden");
-  cScreen.classList.remove("hidden");
-
-  addMsg("bot","Bem-vindo(a)! Escolha um tema para começarmos ou mande sua mensagem.");
-});
-
-// ====== PLACEMENT ======
-async function loadPools(){
-  if(state.pools) return;
-  const r = await fetch("./data/questions.json"); state.pools = await r.json();
-}
-async function startPlacement(){
-  state.level="A2"; state.asked=0; state.seen=new Set(); state.finished=false;
-  state.score={A1:0,A2:0,B1:0}; setProgress(0);
-  helper.textContent = "Responda no chat abaixo. Uma pergunta por vez.";
-  await loadPools();
-  nextQ();
-}
-function nextQ(){
-  const pool = state.pools[state.level].filter(q=>!state.seen.has(q.id));
-  if(pool.length===0 || state.asked>=state.max){ return endPlacement(); }
-  const q = pool[Math.floor(Math.random()*pool.length)];
-  state.current=q; state.seen.add(q.id); state.asked++;
-  setProgress(Math.min(95, Math.round(state.asked/state.max*100)));
-
-  qEl.innerHTML = q.q;
-  if(q.type==="mc"){
-    aEl.innerHTML = q.options.map((o,i)=>`<button class="btn ghost" data-i="${i}">${o}</button>`).join("");
-  }else{
-    aEl.innerHTML = `
-      <input id="gapAns" class="gap" placeholder="Digite sua resposta" />
-      <button id="gapBtn" class="btn primary">Responder</button>`;
-  }
-}
-aEl.addEventListener("click",(e)=>{
-  if(!(e.target instanceof HTMLElement))return;
-  if(e.target.matches("[data-i]")){
-    const sel = parseInt(e.target.dataset.i,10);
-    checkAnswer(sel);
-  }
-});
-aEl.addEventListener("click",(e)=>{
-  if(!(e.target instanceof HTMLElement))return;
-  if(e.target.id==="gapBtn"){
-    const v = $("#gapAns")?.value?.trim()||"";
-    checkAnswer(v);
-  }
-});
-function checkAnswer(val){
-  const q=state.current; if(!q) return;
-  let ok=false;
-  if(q.type==="mc"){ ok = (val===q.answer); }
-  else{ ok = (String(val).toLowerCase()===q.answer.toLowerCase()); }
-
-  helper.innerHTML = ok ? "✅ Boa!" : `❌ Quase. Correto: <b>${q.type==="mc"?q.options[q.answer]:q.answer}</b>`;
-  if(ok){ state.score[state.level]++; if(state.level==="A2") state.level="B1"; }
-  else{ if(state.level==="A2") state.level="A1"; }
-
-  setTimeout(()=>{ helper.textContent=""; nextQ(); }, 700);
-}
-function endPlacement(){
-  state.finished=true;
-  const best = Object.entries(state.score).sort((a,b)=>b[1]-a[1])[0]?.[0] || "A2";
-  qScreen.classList.add("hidden");
-  rScreen.classList.remove("hidden");
-  setProgress(100);
-  resultText.innerHTML = `
-    <p><b>Nível estimado:</b> ${best}</p>
-    <p><b>Pontos fortes:</b> ${strengths(best)}</p>
-    <p><b>O que melhorar:</b> ${weakness(best)}</p>
+  const item = spinQs[state.spinIndex];
+  intakeArea.innerHTML = `
+    <h3>${item.q}</h3>
+    <textarea id="spinAns" rows="4" placeholder="Escreva aqui..."></textarea>
+    <button id="nextSpin" class="btn btn-primary">Continuar</button>
   `;
-  // mantém gate de lead — só revela quando enviar o form
-}
+  $("#nextSpin").onclick = async () => {
+    const val = $("#spinAns").value.trim();
+    if(!val) return;
+    state.spin[item.key] = val;
 
-// ====== LEAD GATE (revela diagnóstico + bônus e envia ao Formspree) ======
-leadForm.addEventListener("submit",(e)=>{
-  e.preventDefault();
-  const fd = new FormData(leadForm);
-  const lead = {
-    name: (fd.get("name")||"").trim(),
-    email: (fd.get("email")||"").trim(),
-    whats: (fd.get("whats")||"").trim(),
+    // micro-resposta empática (Groq) — curta e motivadora
+    const follow = await groqReply(
+      [{role:"user",content:val}],
+      "Give a short, empathetic, motivating reply. Portuguese. One sentence."
+    );
+    intakeArea.innerHTML += `<p class="ai-reply">${follow}</p>`;
+
+    setTimeout(() => { state.spinIndex++; renderSpin(); }, 700);
   };
-  if(!lead.name || !lead.email) return;
+}
 
-  state.lead = lead;
-  saveLocal(keyLead(lead), lead);
-  sendForm(FORMSPREE_LEADS, {
-    ...lead,
-    diagnosticLevel: currentLevel(),
-    finishedAt: new Date().toISOString()
-  });
+// ===== PLACEMENT (Groq + base local) =====
+async function startPlacement(){
+  show("placement");
+  state.placementIdx = 0;
+  state.currentLevel = "A2";
+  state.levelScores = { A1:0, A2:0, B1:0, B2:0 };
 
-  // Revela bônus
-  $("#revealBtn").disabled = true;
-  bonus.classList.remove("hidden");
-});
+  // carrega base local (garante confiabilidade e foco CEFR)
+  const res = await fetch("./data/questions.json");
+  const pools = await res.json();
 
-// ====== CONVERSA (ALUNO) ======
-$("#themesBtn").onclick = async ()=>{
-  const level = currentLevel();
-  const list = await getThemes(level);
-  addMsg("bot", "Escolha um tema:");
-  list.forEach((t,i)=>{
-    addMsg("bot", `<button class="btn ghost" data-theme="${encodeURIComponent(t)}">${i+1}. ${t}</button>`);
-    // delegação simples
-    const last = chat.lastElementChild.querySelector("button");
-    last.onclick = () => addMsg("bot", `Tema: <b>${t}</b>. Conte um exemplo real.`);
-  });
-};
-$("#sendBtn").onclick = onUserSend;
-composer.addEventListener("keydown",(e)=>{ if(e.key==="Enter") onUserSend(); });
+  // cria trilha inicial balanceada (mistura por nível)
+  state.questions = buildQuestionPath(pools, state.placementMax);
+  renderPlacementQ();
+}
 
-async function onUserSend(){
-  const text = composer.value.trim(); if(!text) return;
-  composer.value=""; addMsg("user", text);
+function buildQuestionPath(pools, max){
+  const out = [];
+  const order = ["A2","A1","A2","B1","A2","B1","B2","B1","A2","A1"]; // começa mediano e ajusta
+  for(let i=0;i<max;i++){
+    const lvl = order[i] || "A2";
+    const pool = pools[lvl] || [];
+    const q = pool[Math.floor(Math.random()*pool.length)];
+    out.push({...q, lvl});
+  }
+  return out;
+}
 
-  const level = currentLevel();
-  const reply = USE_GROQ ? await aiReplyGroq(text, level) : coachReply(text, level);
-  addMsg("bot", reply);
+function renderPlacementQ(){
+  const i = state.placementIdx;
+  if(i >= state.placementMax){ return endPlacement(); }
 
-  // insights + salvar aluno
-  if(state.student){
-    const key = keyStudent(state.student);
-    saveLocal(key, { lastInteractionAt: Date.now() });
-    sendForm(FORMSPREE_STUDENTS, { ...state.student, level, textLen:text.length });
+  const q = state.questions[i];
+  $("#questionCounter").textContent = `Pergunta ${i+1} de ${state.placementMax}`;
+  $("#placementBar").style.width = `${(i/state.placementMax)*100}%`;
+
+  if(q.type === "mc"){
+    $("#questionArea").innerHTML = `
+      <h3>${q.q}</h3>
+      ${q.options.map((o,idx)=>`<button class="option-btn" data-i="${idx}">${o}</button>`).join("")}
+    `;
+    document.querySelectorAll(".option-btn").forEach(b => {
+      b.onclick = () => checkPlacementAnswer(q, parseInt(b.dataset.i,10));
+    });
+  } else {
+    $("#questionArea").innerHTML = `
+      <h3>${q.q}</h3>
+      <input id="gapInput" class="option-btn" placeholder="Digite sua resposta" />
+      <button id="gapBtn" class="option-btn" style="text-align:center">Responder</button>
+    `;
+    $("#gapBtn").onclick = () => {
+      const ans = $("#gapInput").value.trim();
+      if(!ans) return;
+      checkPlacementAnswer(q, ans);
+    };
   }
 }
 
-// ====== AI (Groq) ======
-async function aiReplyGroq(userText, level){
-  const history = state.history.map(h=>({ role: h.role==="bot"?"assistant":"user", content: h.text }));
-  const system = `
-    You are Mastrius, an educational coach for English Mastery.
-    Speak ${level}-level English. Be warm, curious, encouraging.
-    Give short contextual replies, one micro feedback, and one light challenge.
-    Never reveal you are an AI or mention passwords.
+async function checkPlacementAnswer(q, userAnswer){
+  // verificação local
+  const isCorrectLocal = q.type==="mc"
+    ? userAnswer === q.answer
+    : String(userAnswer).toLowerCase() === String(q.answer).toLowerCase();
+
+  // validação + micro-feedback via Groq (aumenta confiabilidade e dá coaching)
+  const feedback = await groqReply(
+    [{role:"user", content:
+`Question: ${q.q}
+Options: ${q.type==="mc"? q.options.join(" | ") : "(gap)"}
+User answer: ${q.type==="mc" ? q.options[userAnswer] : userAnswer}
+Is correct (local check): ${isCorrectLocal ? "yes" : "no"}`}],
+    "Give a concise, encouraging comment for a learner. Portuguese. One sentence."
+  );
+
+  // aplica pontuação/ajuste de nível
+  if(isCorrectLocal){ state.levelScores[q.lvl]++; adjustLevelUp(); }
+  else { adjustLevelDown(); }
+
+  // mostra feedback curto e continua
+  const p = document.createElement("p");
+  p.className = "ai-reply";
+  p.textContent = feedback;
+  $("#questionArea").appendChild(p);
+
+  state.placementIdx++;
+  setTimeout(renderPlacementQ, 800);
+}
+
+function adjustLevelUp(){
+  if(state.currentLevel==="A1") state.currentLevel="A2";
+  else if(state.currentLevel==="A2") state.currentLevel="B1";
+  else if(state.currentLevel==="B1") state.currentLevel="B2";
+}
+function adjustLevelDown(){
+  if(state.currentLevel==="B2") state.currentLevel="B1";
+  else if(state.currentLevel==="B1") state.currentLevel="A2";
+  else if(state.currentLevel==="A2") state.currentLevel="A1";
+}
+
+function endPlacement(){
+  $("#placementBar").style.width = "100%";
+
+  // nível = vencedor por score; desempate pelo currentLevel
+  const best = Object.entries(state.levelScores).sort((a,b)=>b[1]-a[1])[0]?.[0] || state.currentLevel;
+  $("#levelText").textContent = best;
+  $("#diagnosticBox").innerHTML = `
+    <p><b>Pontos fortes:</b> ${strengths(best)}</p>
+    <p><b>Oportunidades:</b> ${weakness(best)}</p>
   `;
-  const payload = { messages: [{role:"system",content:system}, ...history, {role:"user",content:userText}] };
+  show("result");
+}
+
+function strengths(l){ return l==="A1"?"vocabulário básico e clareza"
+  : l==="A2"?"tópicos familiares e rotina"
+  : l==="B1"?"opiniões e conexão de ideias"
+  : "consistência e autonomia em temas variados"; }
+function weakness(l){ return l==="A1"?"verbos básicos e preposições"
+  : l==="A2"?"collocations e tempos verbais"
+  : l==="B1"?"precisão gramatical e variedade lexical"
+  : "naturalidade avançada e finesse lexical"; }
+
+// ===== RESULT + LEAD (Formspree, com SPIN)
+$("#leadForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const name = $("#leadName").value.trim();
+  const email = $("#leadEmail").value.trim();
+  const whats = $("#leadWhats").value.trim();
+  if(!name || !email) return;
+
+  const payload = {
+    name, email, whats,
+    level: $("#levelText").textContent,
+    ...state.spin,
+    finishedAt: new Date().toISOString()
+  };
   try{
-    const r = await fetch("/api/chat", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(payload) });
-    const data = await r.json();
-    return data?.choices?.[0]?.message?.content || "(sem resposta)";
-  }catch(e){
-    console.warn("Groq error", e);
-    return coachReply(userText, level);
+    await fetch(FORMSPREE_LEADS, { method:"POST", headers:{Accept:"application/json"}, body: JSON.stringify(payload) });
+  }catch(e){ console.warn("Formspree lead error", e); }
+
+  state.lead = {name,email,whats};
+  $("#leadForm").classList.add("hidden");
+  $("#rewardBox").classList.remove("hidden");
+});
+
+// ===== LOGIN (sem revelar senha)
+$("#btnLogin").onclick = ()=>{
+  const pass = $("#studentPass").value.trim();
+  const name = $("#studentName").value.trim();
+  if(!name || !pass) return;
+  if(pass !== "destrave"){ // valida, sem mensagens de dica
+    $("#studentPass").value = "";
+    $("#studentPass").focus();
+    return;
+  }
+  const student = { name, login: name.toLowerCase().replace(/\s+/g,"") };
+  state.student = student;
+  localStorage.setItem("em:students:"+student.login, JSON.stringify(student));
+
+  try{
+    fetch(FORMSPREE_STUDENTS, { method:"POST", headers:{Accept:"application/json"}, body: JSON.stringify({ name, loginAt: new Date().toISOString() }) });
+  }catch(e){}
+
+  show("chat");
+  addMsg("assistant","Bem-vindo(a)! Vamos praticar em inglês? Envie uma mensagem quando estiver pronto(a).");
+};
+
+// ===== CHAT (Groq)
+const chatBox = $("#chatBox");
+$("#sendBtn").onclick = onChatSend;
+$("#userInput").addEventListener("keydown",(e)=>{ if(e.key==="Enter") onChatSend(); });
+
+function addMsg(role, content){
+  const el = document.createElement("div");
+  el.className = `chat-message ${role==="user"?"user-message":"ai-message"}`;
+  el.innerHTML = content;
+  chatBox.appendChild(el);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  state.chatHistory.push({ role, content: stripHtml(content) });
+}
+function stripHtml(s){ const d=document.createElement("div"); d.innerHTML=s; return d.textContent||""; }
+
+async function onChatSend(){
+  const t = $("#userInput").value.trim();
+  if(!t) return;
+  $("#userInput").value = "";
+  addMsg("user", t);
+
+  const reply = await groqReply(
+    [...toGroqHistory(state.chatHistory), {role:"user", content:t}],
+    // prompt mínimo no front; o tom/estratégia fina ficam no backend
+    "Responda de forma natural, amigável e objetiva em inglês, ajustando ao nível do falante."
+  );
+  addMsg("assistant", reply);
+
+  // telemetria leve de aluno
+  if(state.student){
+    try{
+      fetch(FORMSPREE_STUDENTS, { method:"POST", headers:{Accept:"application/json"},
+        body: JSON.stringify({ name: state.student.name, textLen: t.length, ts: new Date().toISOString() }) });
+    }catch(e){}
   }
 }
 
-// ====== DADOS AUX ======
-function strengths(l){ if(l==="A1") return "vocabulário básico e clareza"; if(l==="A2") return "tópicos do dia a dia"; return "opiniões e conexão de ideias"; }
-function weakness(l){ if(l==="A1") return "verbos e preposições"; if(l==="A2") return "collocations e tempos verbais"; return "precisão e variedade lexical"; }
-function currentLevel(){
-  if(!state.finished) return "A2";
-  return Object.entries(state.score).sort((a,b)=>b[1]-a[1])[0]?.[0] || "A2";
-}
-function coachReply(_t,l){ return ({"A1":"Nice! Tell me one more example.","A2":"Good! Add one detail or reason.","B1":"Great! Try linking ideas with because/although."}[l]||"Tell me more."); }
-async function getThemes(level){
-  if(!state.canDos){ const r = await fetch("./data/can-dos.json"); state.canDos = await r.json(); }
-  return state.canDos[level] || ["Daily routine","Work tasks","Travel plans"];
+function toGroqHistory(hist){
+  // converte mensagens anteriores p/ formato Groq compatível (user/assistant)
+  return hist.map(m => ({ role: m.role==="assistant" ? "assistant" : "user", content: m.content }));
 }
 
-// ====== FORMSPREE ======
-async function sendForm(endpoint, data){
+// ===== Groq helper (usa seu /api/chat)
+async function groqReply(messages, systemText){
   try{
-    await fetch(endpoint,{ method:"POST", headers:{Accept:"application/json"}, body: JSON.stringify(data) });
-  }catch(e){ console.warn("Formspree", e); }
+    const body = { messages: [{role:"system", content: systemText}, ...messages] };
+    const r = await fetch(GROQ_API, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(body) });
+    const data = await r.json();
+    return data?.choices?.[0]?.message?.content || "";
+  }catch(e){
+    console.warn("Groq fail", e);
+    return "Desculpe, tive um problema de conexão. Tente novamente.";
+  }
 }
-
-// ====== BOOT ======
-addEventListener("DOMContentLoaded", ()=>{
-  // apenas inicia — tudo é acionado por botões
-});
