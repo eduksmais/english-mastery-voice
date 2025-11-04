@@ -5,87 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sr. Mastrius – Seu Coach de Inglês</title>
 
-  <!-- Ícones -->
+  <!-- Ícones e fonte -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-  <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- CSS local -->
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-
   <div class="container">
-    <!-- TELA 1 – Boas-vindas -->
-    <div id="welcome-screen" class="screen active">
+
+    <!-- BOAS-VINDAS -->
+    <section id="welcome-screen" class="screen active">
       <div class="welcome-card">
         <i class="fa-solid fa-brain logo-mastrius"></i>
         <h1>Sr. Mastrius</h1>
         <p class="subtitle">O coach que traduz seu inglês em crescimento real.</p>
 
         <ul class="features-list">
-          <li>
-            <i class="fa-solid fa-chart-line feature-icon"></i>
-            <div>
-              <strong>Avaliação Inteligente</strong>
-              <span>Um teste que se ajusta ao seu nível em tempo real</span>
-            </div>
-          </li>
-          <li>
-            <i class="fa-solid fa-bullseye feature-icon"></i>
-            <div>
-              <strong>Diagnóstico Profundo</strong>
-              <span>Descubra suas forças e o que está travando seu progresso</span>
-            </div>
-          </li>
-          <li>
-            <i class="fa-solid fa-user-graduate feature-icon"></i>
-            <div>
-              <strong>Coaching Personalizado</strong>
-              <span>Experimente um atendimento humano, preciso e estratégico</span>
-            </div>
-          </li>
+          <li><i class="fa-solid fa-chart-line feature-icon"></i>
+            <div><strong>Avaliação Inteligente</strong><span>Um teste que se ajusta ao seu nível em tempo real</span></div></li>
+          <li><i class="fa-solid fa-bullseye feature-icon"></i>
+            <div><strong>Diagnóstico Profundo</strong><span>Descubra suas forças e o que está travando seu progresso</span></div></li>
+          <li><i class="fa-solid fa-user-graduate feature-icon"></i>
+            <div><strong>Coaching Personalizado</strong><span>Experimente um atendimento humano, preciso e estratégico</span></div></li>
         </ul>
 
         <button id="start-evaluation-btn" class="btn btn-primary">Começar Avaliação (5-8 min)</button>
         <button id="student-login-btn" class="btn btn-secondary">Sou aluno English Mastery</button>
         <span class="footer-note">Sem custo ou cartão de crédito</span>
       </div>
-    </div>
+    </section>
 
-    <!-- TELA 2 – Intake/Pré-avaliação -->
-    <div id="intake-screen" class="screen">
+    <!-- INTAKE -->
+    <section id="intake-screen" class="screen">
       <h2>Antes de começarmos…</h2>
-      <p>Quero entender melhor sua relação com o inglês. Responda com sinceridade — isso vai me ajudar a te guiar melhor. 💬</p>
+      <p>Quero entender melhor sua relação com o inglês. Responda com sinceridade — isso ajusta sua experiência. 💬</p>
       <div id="intake-area"></div>
       <button id="begin-test-btn" class="btn btn-primary">Ir para teste de nivelamento</button>
       <button id="back-to-welcome-from-intake" class="btn btn-secondary">Voltar</button>
-    </div>
+    </section>
 
-    <!-- TELA 3 – Teste de Nivelamento -->
-    <div id="evaluation-screen" class="screen">
+    <!-- TESTE -->
+    <section id="evaluation-screen" class="screen">
       <h2>Teste de Nivelamento</h2>
-      <div class="progress-bar-container"><div class="progress-bar" style="width:0%;"></div></div>
+      <div class="progress-bar-container"><div class="progress-bar" id="placement-bar" style="width:0%"></div></div>
       <p id="question-counter">Pergunta 1…</p>
       <div id="question-area"></div>
 
       <div id="lead-form" style="display:none;">
         <h3><i class="fa-solid fa-gift"></i> Desbloqueie seu Bônus</h3>
         <p>Preencha para receber seu relatório e um convite para uma sessão gratuita comigo.</p>
-        <input type="text" id="lead-name" placeholder="Nome completo" required>
-        <input type="email" id="lead-email" placeholder="E-mail" required>
-        <input type="tel" id="lead-whatsapp" placeholder="WhatsApp" required>
+        <input id="lead-name" placeholder="Nome completo" required>
+        <input id="lead-email" placeholder="E-mail" type="email" required>
+        <input id="lead-whatsapp" placeholder="WhatsApp" required>
         <button id="submit-lead-btn" class="btn btn-primary">Receber meu Diagnóstico</button>
       </div>
 
       <button id="back-to-welcome-from-eval" class="btn btn-secondary" style="margin-top:1rem;">Voltar</button>
-    </div>
+    </section>
 
-    <!-- TELA 4 – Resultado -->
-    <div id="result-screen" class="screen">
+    <!-- RESULTADO -->
+    <section id="result-screen" class="screen">
       <h3>Seu Diagnóstico</h3>
       <p><strong>Nível estimado:</strong> <span id="level-text"></span></p>
       <div id="diagnostic-text"></div>
@@ -94,44 +76,38 @@
         <i class="fa-solid fa-gift"></i>
         <strong>🎁 Recompensa Desbloqueada!</strong>
         <p>Agende sua sessão gratuita para validar seu nível e receber orientações personalizadas.</p>
-        <a href="https://calendly.com/carloseduardo-englishmastery/30min"
-           target="_blank"
-           class="btn btn-primary"
-           style="background-color:#f5b305;color:#0C0101;">Agendar Sessão Gratuita</a>
+        <a href="https://calendly.com/carloseduardo-englishmastery/30min" target="_blank"
+           class="btn btn-primary" style="background:#f5b305;color:#0C0101;">Agendar Sessão</a>
       </div>
 
       <button id="back-to-welcome-from-result" class="btn btn-secondary" style="margin-top:1rem;">Voltar ao início</button>
-    </div>
+    </section>
 
-    <!-- TELA 5 – Login -->
-    <div id="login-screen" class="screen">
+    <!-- LOGIN -->
+    <section id="login-screen" class="screen">
       <div class="login-card">
         <i class="fa-solid fa-brain logo-mastrius" style="font-size:40px;margin-bottom:1rem;"></i>
         <h2>Acesso de Alunos</h2>
-        <input type="text" id="student-name" placeholder="Nome e Sobrenome" required>
-        <input type="password" id="student-password" placeholder="Senha (destrave)" required>
+        <input id="student-name" placeholder="Nome e Sobrenome" required>
+        <input id="student-password" placeholder="Senha (destrave)" type="password" required>
         <button id="login-submit-btn" class="btn btn-primary">Entrar</button>
         <button id="back-to-welcome-from-login" class="btn btn-secondary">Voltar</button>
       </div>
-    </div>
+    </section>
 
-    <!-- TELA 6 – Chat -->
-    <div id="chat-screen" class="screen">
+    <!-- CHAT -->
+    <section id="chat-screen" class="screen">
       <h2 style="text-align:center;">Prática com Sr. Mastrius</h2>
       <div class="chat-container">
         <div id="chat-box"></div>
         <div class="input-area">
-          <input type="text" id="user-input" placeholder="Digite sua mensagem…">
+          <input id="user-input" placeholder="Digite sua mensagem…">
           <button id="send-button" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
       </div>
-    </div>
+    </section>
+
   </div>
-
-  <!-- Scripts -->
-  <script src="/prompt.js"></script>
-  <script src="/cefr.js"></script>
-  <script src="/script.js" defer></script>
-
+  <script src="/app.js" defer></script>
 </body>
 </html>
