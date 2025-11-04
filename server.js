@@ -11,24 +11,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 
-// === CORS: libera chamadas do front ===
+// === CORS ===
 app.use(cors({
-  origin: "*", // ou substitua pelo seu domínio exato
+  origin: "*",
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// === Middlewares ===
 app.use(express.json());
 
-// 🔧 serve arquivos estáticos da pasta "main" (onde estão index.html, styles.css etc)
+// === SERVE arquivos estáticos da pasta MAIN ===
 app.use(express.static(path.join(__dirname, "main")));
 
-// === Endpoint principal da IA (Groq) ===
+// === Endpoint da IA (Groq) ===
 app.post("/api/chat", async (req, res) => {
   try {
     const { messages } = req.body;
-
     if (!messages || !Array.isArray(messages)) {
       return res.status(400).json({ error: "Invalid messages array" });
     }
@@ -40,11 +38,10 @@ app.post("/api/chat", async (req, res) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile", // modelo atual e natural
+        model: "llama-3.3-70b-versatile",
         messages,
         temperature: 0.7,
-        max_tokens: 800,
-        stream: false
+        max_tokens: 800
       })
     });
 
@@ -62,14 +59,16 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
+// === Rota principal (renderiza index.html) ===
+app.get("/", (_, res) => {
+  res.sendFile(path.join(__dirname, "main", "index.html"));
+});
+
 // === Rota fallback (SPA) ===
-// Se o usuário digitar uma rota qualquer, o index.html é retornado
 app.get("*", (_, res) => {
   res.sendFile(path.join(__dirname, "main", "index.html"));
 });
 
-// === Inicia o servidor ===
+// === Inicializa servidor ===
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Mastrius backend ativo em http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`🚀 Mastrius ativo em http://localhost:${PORT}`));
