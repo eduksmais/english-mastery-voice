@@ -1,7 +1,6 @@
 // server.js — Mastrius backend (Render + Groq + CORS)
 import express from "express";
 import path from "path";
-import fetch from "node-fetch";
 import cors from "cors";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
